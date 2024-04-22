@@ -1,13 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { useLayout } from '@/layout/composables/layout'
 
 const route = useRoute()
 
 const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout()
 
-const props = defineProps({
+const { index, item, parentItemKey, root } = defineProps({
   item: {
     type: Object,
     default: {},
@@ -22,28 +23,21 @@ const props = defineProps({
   },
   parentItemKey: {
     type: String,
-    default: null,
+    default: undefined,
   },
 })
 
 const isActiveMenu = ref(false)
-const itemKey = ref(null)
+const itemKey = ref<undefined | string>(undefined)
 
 onBeforeMount(() => {
-  itemKey.value = props.parentItemKey
-    ? props.parentItemKey + '-' + props.index
-    : String(props.index)
-
-  const activeItem = layoutState.activeMenuItem
-
-  isActiveMenu.value =
-    activeItem === itemKey.value || activeItem ? activeItem.startsWith(itemKey.value + '-') : false
+  itemKey.value = parentItemKey ? parentItemKey + '-' + index : String(index)
 })
 
 watch(
   () => layoutConfig.activeMenuItem.value,
   (newVal) => {
-    isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-')
+    isActiveMenu.value = newVal === itemKey.value || newVal?.startsWith(itemKey.value + '-')
   },
 )
 const itemClick = (event, item) => {
@@ -62,11 +56,7 @@ const itemClick = (event, item) => {
     item.command({ originalEvent: event, item: item })
   }
 
-  const foundItemKey = item.items
-    ? isActiveMenu.value
-      ? props.parentItemKey
-      : itemKey
-    : itemKey.value
+  const foundItemKey = item.items ? (isActiveMenu.value ? parentItemKey : itemKey) : itemKey.value
 
   setActiveMenuItem(foundItemKey)
 }
@@ -115,7 +105,7 @@ const checkActiveRoute = (item) => {
           :item="child"
           :parentItemKey="itemKey"
           :root="false"
-        ></app-menu-item>
+        />
       </ul>
     </Transition>
   </li>

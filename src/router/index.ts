@@ -11,7 +11,7 @@ const router = createRouter({
         {
           path: '/',
           name: 'home',
-          component: () => import('@/views/HomeView.vue'),
+          component: () => import('@/views/HomeView/HomeView.vue'),
         },
         //   конкретная новость
         {
@@ -44,7 +44,7 @@ const router = createRouter({
           component: () => import('@/views/pages/TeamView.vue'),
         },
         {
-          // просмотр тимы по айди
+          // просмотр своей тимы
           path: '/team',
           name: 'team',
           component: () => import('@/views/pages/TeamView.vue'),
@@ -54,6 +54,12 @@ const router = createRouter({
           path: '/profile',
           name: 'profile',
           component: () => import('@/views/pages/ProfileView.vue'),
+        },
+        {
+          // редактирование своего профиля
+          path: '/self',
+          name: 'self-edit',
+          component: () => import('@/views/pages/UpdateProfileView.vue'),
         },
       ],
     },

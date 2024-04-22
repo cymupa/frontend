@@ -1,10 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
+
 import { useLayout } from '@/layout/composables/layout'
+import type { Options } from './types'
 
 const { isDarkTheme } = useLayout()
 
-const lineOptions = ref(null)
+const lineOptions = ref<Options | null>(null)
 
 const applyLightTheme = () => {
   lineOptions.value = {
@@ -79,4 +81,4 @@ watch(
 )
 </script>
 
-<template>asd</template>
+<template>news all</template>

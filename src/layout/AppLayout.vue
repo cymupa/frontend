@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, watch, ref } from 'vue'
 import AppTopbar from './AppHeader.vue'
 import { useLayout } from '@/layout/composables/layout'
@@ -30,6 +30,7 @@ const containerClass = computed(() => {
     'p-ripple-disabled': layoutConfig.ripple.value === false,
   }
 })
+
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
     outsideClickListener.value = (event) => {
@@ -63,13 +64,13 @@ const isOutsideClicked = (event) => {
 
 <template>
   <div class="layout-wrapper" :class="containerClass">
-    <app-topbar></app-topbar>
+    <AppTopbar />
     <div class="layout-sidebar">
-      <app-menu></app-menu>
+      <AppMenu />
     </div>
     <div class="layout-main-container">
       <div class="layout-main">
-        <router-view></router-view>
+        <RouterView />
       </div>
     </div>
     <div class="layout-mask"></div>

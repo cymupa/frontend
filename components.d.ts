@@ -11,6 +11,7 @@ declare module 'vue' {
     Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
+    InputSwitch: typeof import('primevue/inputswitch')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainHeader: typeof import('./src/components/Header/MainHeader.vue')['default']
     Menu: typeof import('primevue/menu')['default']
