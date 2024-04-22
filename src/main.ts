@@ -1,18 +1,32 @@
-import './assets/base.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import PrimeVueStyled from 'primevue/styled'
+
+import ToastService from 'primevue/toastservice'
+import Tooltip from 'primevue/tooltip'
 
 import App from './App.vue'
 import router from './router'
-import PrimeVue from 'primevue/config'
-import PrimeOne from 'primevue/themes/primeone'
-import Aura from 'primevue/themes/primeone/aura'
+
+import '@/assets/styles.scss'
+
 const app = createApp(App)
 
-app.use(PrimeVueStyled)
+import '@/assets/styles.scss'
+import StyleClass from 'primevue/styleclass'
+import Ripple from 'primevue/ripple'
+import BadgeDirective from 'primevue/badgedirective'
+import PrimeVue from 'primevue/config'
 
-app.use(createPinia())
+// Настройка UI библиотеки PrimeVue
+app.use(PrimeVue, { ripple: true })
+app.use(ToastService)
+
+app.directive('tooltip', Tooltip)
+app.directive('badge', BadgeDirective)
+app.directive('ripple', Ripple)
+app.directive('styleclass', StyleClass)
+
+// Базовая настройка vue
 app.use(router)
+app.use(createPinia())
 app.mount('#app')
