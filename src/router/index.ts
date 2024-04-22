@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layout/AppLayout.vue'
+import NotFound from '@/views/pages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,7 +16,7 @@ const router = createRouter({
         },
         //   конкретная новость
         {
-          path: '/:id',
+          path: '/news/:id',
           name: 'news',
           component: () => import('@/views/pages/News.vue'),
         },
@@ -81,13 +82,10 @@ const router = createRouter({
           name: 'forbidden',
           component: () => import('@/views/pages/auth/Access.vue'),
         },
-        {
-          path: '/:pathMatch(.*)*',
-          name: 'notfound',
-          component: () => import('@/views/pages/NotFound.vue'),
-        },
       ],
     },
+
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
   ],
 })
 
