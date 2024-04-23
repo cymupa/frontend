@@ -125,5 +125,3 @@ const onDarkModeChange = (value: boolean) => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

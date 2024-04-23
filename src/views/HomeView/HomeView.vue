@@ -1,33 +1,30 @@
+<template>
+  <div class="card flex justify-content-center">
+    <Toast position="top-left" group="tl" />
+    <Toast position="bottom-left" group="bl" />
+    <Toast position="bottom-right" group="br" />
+
+    <div class="flex flex-wrap gap-2">
+      <Button label="Top Left" @click="showTopLeft" />
+      <Button label="Bottom Left" severity="warning" @click="showBottomLeft" />
+      <Button label="Bottom Right" severity="help" @click="showBottomRight" />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { useToast } from 'primevue/usetoast'
+const toast = useToast()
 
-import { useLayout } from '@/layout/composables/layout'
-import { darkTheme, lightTheme } from '@/config/themes'
-import type { Options } from './types'
-
-const { isDarkTheme } = useLayout()
-
-const lineOptions = ref<Options | null>(null)
-
-const applyLightTheme = () => {
-  lineOptions.value = lightTheme
+const showTopLeft = () => {
+  toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', group: 'tl', life: 3000 })
 }
 
-const applyDarkTheme = () => {
-  lineOptions.value = darkTheme
+const showBottomLeft = () => {
+  toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Message Content', group: 'bl', life: 3000 })
 }
 
-watch(
-  isDarkTheme,
-  (val) => {
-    if (val) {
-      applyDarkTheme()
-    } else {
-      applyLightTheme()
-    }
-  },
-  { immediate: true },
-)
+const showBottomRight = () => {
+  toast.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', group: 'br', life: 3000 })
+}
 </script>
-
-<template>news all</template>
