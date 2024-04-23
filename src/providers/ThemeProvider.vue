@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { onBeforeMount } from 'vue/dist/vue'
+import { onBeforeMount } from 'vue'
+import { useLayout } from '@/layout/composables/layout'
+import { usePrimeVue } from 'primevue/config'
+
+const { layoutConfig } = useLayout()
+const $primevue = usePrimeVue()
 
 onBeforeMount(() => {
   const theme = localStorage.getItem('theme')
