@@ -1,27 +1,28 @@
-import { toRefs, reactive, computed } from 'vue'
+import { reactive, computed, type ComputedRef } from 'vue'
+import type { LayoutConfig, LayoutState } from './types'
 
-const layoutConfig = reactive({
-  ripple: true,
-  darkTheme: false,
-  inputStyle: 'outlined',
-  menuMode: 'static',
-  theme: 'aura-light-green',
-  scale: 14,
-  activeMenuItem: null,
-})
+export const useLayout = () => {
+  const layoutConfig = reactive<LayoutConfig>({
+    ripple: true,
+    darkTheme: false,
+    inputStyle: 'outlined',
+    menuMode: 'static',
+    theme: 'aura-light-green',
+    scale: 14,
+    activeMenuItem: null,
+  })
 
-const layoutState = reactive({
-  staticMenuDesktopInactive: false,
-  overlayMenuActive: false,
-  profileSidebarVisible: false,
-  configSidebarVisible: false,
-  staticMenuMobileActive: false,
-  menuHoverActive: false,
-})
+  const layoutState = reactive<LayoutState>({
+    staticMenuDesktopInactive: false,
+    overlayMenuActive: false,
+    profileSidebarVisible: false,
+    configSidebarVisible: false,
+    staticMenuMobileActive: false,
+    menuHoverActive: false,
+  })
 
-export function useLayout() {
-  const setActiveMenuItem = (item) => {
-    layoutConfig.activeMenuItem = item.value || item
+  const setActiveMenuItem = (item: string | null) => {
+    layoutConfig.activeMenuItem = item
   }
 
   const onMenuToggle = () => {
@@ -36,13 +37,13 @@ export function useLayout() {
     }
   }
 
-  const isSidebarActive = computed(() => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive)
+  const isSidebarActive: ComputedRef<boolean> = computed(() => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive)
 
-  const isDarkTheme = computed(() => layoutConfig.darkTheme)
+  const isDarkTheme: ComputedRef<boolean> = computed(() => layoutConfig.darkTheme)
 
   return {
-    layoutConfig: toRefs(layoutConfig),
-    layoutState: toRefs(layoutState),
+    layoutConfig,
+    layoutState,
     onMenuToggle,
     isSidebarActive,
     isDarkTheme,

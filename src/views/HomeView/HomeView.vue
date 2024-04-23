@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 
 import { useLayout } from '@/layout/composables/layout'
+import { darkTheme, lightTheme } from '@/config/themes'
 import type { Options } from './types'
 
 const { isDarkTheme } = useLayout()
@@ -9,63 +10,11 @@ const { isDarkTheme } = useLayout()
 const lineOptions = ref<Options | null>(null)
 
 const applyLightTheme = () => {
-  lineOptions.value = {
-    plugins: {
-      legend: {
-        labels: {
-          color: '#495057',
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: '#495057',
-        },
-        grid: {
-          color: '#ebedef',
-        },
-      },
-      y: {
-        ticks: {
-          color: '#495057',
-        },
-        grid: {
-          color: '#ebedef',
-        },
-      },
-    },
-  }
+  lineOptions.value = lightTheme
 }
 
 const applyDarkTheme = () => {
-  lineOptions.value = {
-    plugins: {
-      legend: {
-        labels: {
-          color: '#ebedef',
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: '#ebedef',
-        },
-        grid: {
-          color: 'rgba(160, 167, 181, .3)',
-        },
-      },
-      y: {
-        ticks: {
-          color: '#ebedef',
-        },
-        grid: {
-          color: 'rgba(160, 167, 181, .3)',
-        },
-      },
-    },
-  }
+  lineOptions.value = darkTheme
 }
 
 watch(
