@@ -64,7 +64,12 @@ const isOutsideClicked = (event: MouseEvent) => {
 
   const target = event.target as Node
 
-  return !(sidebarEl.isSameNode(target) || sidebarEl.contains(target) || topbarEl.isSameNode(target) || topbarEl.contains(target))
+  return !(
+    sidebarEl.isSameNode(target) ||
+    sidebarEl.contains(target) ||
+    topbarEl.isSameNode(target) ||
+    topbarEl.contains(target)
+  )
 }
 
 const { layoutConfig } = useLayout()
@@ -81,7 +86,9 @@ const onChangeTheme = (theme: string, mode: boolean) => {
 
 const onDarkModeChange = (value: boolean) => {
   console.log('value', value)
-  const newThemeName = value ? layoutConfig.theme.value.replace('light', 'dark') : layoutConfig.theme.value.replace('dark', 'light')
+  const newThemeName = value
+    ? layoutConfig.theme.value.replace('light', 'dark')
+    : layoutConfig.theme.value.replace('dark', 'light')
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
 }
