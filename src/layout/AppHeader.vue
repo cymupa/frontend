@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useLayout } from '@/layout/composables/layout'
 import { useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 
 const { onMenuToggle } = useLayout()
 
-const outsideClickListener = ref(null)
-const topbarMenuActive = ref(false)
+type cb = (event: MouseEvent) => void
+
+const outsideClickListener = ref<cb | null>(null)
+const topbarMenuActive = ref<boolean>(false)
 const router = useRouter()
 
 onMounted(() => {
@@ -38,7 +40,7 @@ const bindOutsideClickListener = () => {
     return
   }
 
-  outsideClickListener.value = (event) => {
+  outsideClickListener.value = (event: MouseEvent) => {
     if (isOutsideClicked(event)) {
       topbarMenuActive.value = false
     }
@@ -49,26 +51,26 @@ const unbindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
     return
   }
-  document.removeEventListener('click', outsideClickListener)
+
+  document.removeEventListener('click', outsideClickListener.value)
   outsideClickListener.value = null
 }
-const isOutsideClicked = (event) => {
+
+const isOutsideClicked = (event: MouseEvent) => {
   if (!topbarMenuActive.value) return
 
   const sidebarEl = document.querySelector('.layout-topbar-menu')!
   const topbarEl = document.querySelector('.layout-topbar-menu-button')!
 
-  return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  )
+  const target = event.target as Node
+
+  return !(sidebarEl.isSameNode(target) || sidebarEl.contains(target) || topbarEl.isSameNode(target) || topbarEl.contains(target))
 }
+
 const { layoutConfig } = useLayout()
 const $primevue = usePrimeVue()
 
-const onChangeTheme = (theme: string, mode: string) => {
+const onChangeTheme = (theme: string, mode: boolean) => {
   localStorage.setItem('theme', theme)
 
   $primevue.changeTheme(layoutConfig.theme.value, theme, 'theme-css', () => {
@@ -78,23 +80,11 @@ const onChangeTheme = (theme: string, mode: string) => {
 }
 
 const onDarkModeChange = (value: boolean) => {
+  console.log('value', value)
   const newThemeName = value ? layoutConfig.theme.value.replace('light', 'dark') : layoutConfig.theme.value.replace('dark', 'light')
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
 }
-
-onBeforeMount(() => {
-  const theme = localStorage.getItem('theme')
-  if (!theme) {
-    return
-  }
-
-  $primevue.changeTheme(layoutConfig.theme.value, theme, 'theme-css', () => {
-    layoutConfig.theme.value = theme
-    console.log(theme)
-    layoutConfig.darkTheme.value = theme.includes('dark')
-  })
-})
 </script>
 
 <template>
