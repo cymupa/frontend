@@ -1,49 +1,49 @@
-import { reactive, type ToRefs, toRefs, type UnwrapNestedRefs, type UnwrapRef } from 'vue'
+import { type Ref, ref, type UnwrapRef } from 'vue'
 import { AxiosError, type AxiosRequestConfig } from 'axios'
-import type { ApiMethod, ApiRequest, ApiResponse, ApiResponseData, ApiRoutes } from '@/api/types'
+import type { ApiMethod, ApiRequest, ApiResponseData, ApiRoutes } from '@/api/types'
 
 import api from '../api'
 
-interface State<T extends ApiRoutes> {
-  data: ApiResponseData<T> | null
-  error: string | null
-  isLoading: boolean
+interface State<Route extends ApiRoutes> {
+  isLoading: Ref<UnwrapRef<boolean>>
+  fetchData: () => Promise<void>
+  data: Ref<UnwrapRef<ApiResponseData<Route> | null>>
+  error: Ref<UnwrapRef<string | null>>
 }
 
-export const useFetch = async <T extends ApiRoutes>(
-  url: T,
-  method: ApiMethod<T>,
-  data?: ApiRequest<T>,
-): Promise<ToRefs<UnwrapNestedRefs<State<T>>>> => {
-  const state = reactive<State<T>>({
-    data: null,
-    error: null,
-    isLoading: false,
-  })
+export const useFetch = <Route extends ApiRoutes>(
+  url: Route,
+  method: ApiMethod<Route>,
+  data?: ApiRequest<Route>,
+): State<Route> => {
+  const dataRes = ref<null | ApiResponseData<Route>>(null)
+  const error = ref<string | null>(null)
+  const isLoading = ref(true)
 
   const fetchData = async () => {
-    state.isLoading = true
+    isLoading.value = true
     try {
       const requestConfig: AxiosRequestConfig = {
         method,
         url,
         data,
       }
-      const res = await api.request<ApiResponseData<T>>(requestConfig)
+
+      const res = await api.request<ApiResponseData<Route>>(requestConfig)
 
       if (typeof res.data !== 'undefined') {
-        state.data = res.data as UnwrapRef<ApiResponseData<T>> | null
+        dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>> | null
       }
 
-      state.error = null
+      error.value = null
     } catch (err) {
       const axiosError = err as AxiosError
-      state.error = axiosError.message || 'Fetch error'
+      error.value = axiosError.message || 'Fetch error'
+      throw axiosError
     } finally {
-      state.isLoading = false
+      isLoading.value = false
     }
   }
 
-  fetchData()
-  return toRefs(state)
+  return { data: dataRes, error, isLoading, fetchData }
 }

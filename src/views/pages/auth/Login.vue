@@ -6,15 +6,16 @@ const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { data, isLoading, error } = await useFetch('authorization', 'POST', {
+  const { data, isLoading, error, fetchData } = useFetch('authorization', 'POST', {
     login: email.value,
     password: password.value,
   })
 
   try {
     console.log('isLoading', isLoading.value)
+    await fetchData()
   } catch (e) {
-    console.log('isLoading', isLoading.value)
+    console.error('isLoading', isLoading.value)
   } finally {
     console.log('isLoading', isLoading.value)
   }

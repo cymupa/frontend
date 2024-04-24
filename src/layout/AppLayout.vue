@@ -3,7 +3,6 @@ import { computed, watch, ref } from 'vue'
 import AppTopbar from './AppHeader.vue'
 import { useLayout } from '@/layout/composables/layout'
 import AppMenu from '@/layout/AppSidebar.vue'
-import Toast from 'primevue/toast'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 
@@ -85,7 +84,6 @@ const isOutsideClicked = (event: MouseEvent) => {
     </div>
     <div class="layout-mask"></div>
   </div>
-  <Toast />
 </template>
 
 <style lang="scss" scoped></style>
