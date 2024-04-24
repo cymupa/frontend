@@ -2,9 +2,10 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', () => {
-  const isLoggedIn = ref(false)
+  const t = localStorage.getItem('token')
+  const isLoggedIn = ref(Boolean(t))
   // const isAdmin = ref(false)
-  const token = ref(localStorage.getItem('token') || '')
+  const token = ref(t || '')
 
   function login(tokenValue: string) {
     token.value = tokenValue

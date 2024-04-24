@@ -1,13 +1,8 @@
 import type { ApiUser } from './user'
 
 /**
- * Ответ сервера
+ * Типы для работы с сервером
  */
-export interface ApiResponse<T> {
-  data: T | null
-  error: string | null
-  isLoading: boolean
-}
 
 export type Api = ApiUser
 

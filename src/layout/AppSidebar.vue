@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
 import AppMenuItem from './AppMenuItem.vue'
 
-const model = ref([
+interface MenuItem {
+  label: string
+  icon: string
+  to: string
+  items?: MenuItem[]
+}
+
+interface MenuGroup {
+  label: string
+  items: MenuItem[]
+}
+
+const model: MenuGroup[] = reactive([
   {
     label: 'Общее',
     items: [
-      { label: 'Лента новостей', icon: 'pi pi-fw pi-home', to: '/' },
-      { label: 'Список турниров', icon: 'pi pi-fw pi-home', to: '/tournaments' },
-      { label: 'Список команд', icon: 'pi pi-fw pi-home', to: '/teams' },
+      { label: 'Лента новостей', icon: 'pi pi-sparkles', to: '/' },
+      { label: 'Список турниров', icon: 'pi pi-trophy', to: '/tournaments' },
+      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' },
     ],
   },
   {
     label: 'Личное',
     // TODO: add team id from store
-    items: [{ label: 'Моя команда', icon: 'pi pi-fw pi-id-card', to: '/team' }],
+    items: [{ label: 'Моя команда', icon: 'pi pi-home', to: '/team' }],
   },
   {
     label: 'FOR TESTS',
@@ -28,7 +40,7 @@ const model = ref([
 </script>
 
 <template>
-  <ul class="layout-menu" v-for="(item, i) in model" :key="item">
+  <ul class="layout-menu" v-for="(item, i) in model" :key="item.label">
     <app-menu-item :item="item" :index="i" />
   </ul>
 </template>

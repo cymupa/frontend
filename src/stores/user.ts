@@ -14,15 +14,15 @@ export const useUserStore = defineStore('user', () => {
     isCaptain: false,
   })
 
-  function setUserInfo(data: User): void {
+  const setUserInfo = (data: User): void => {
     Object.assign(state, data)
   }
 
-  function setTeamId(id: number | null): void {
+  const setTeamId = (id: number | null): void => {
     state.teamId = id
   }
 
-  function setIsCaptain(status: boolean): void {
+  const setIsCaptain = (status: boolean): void => {
     state.isCaptain = status
   }
 

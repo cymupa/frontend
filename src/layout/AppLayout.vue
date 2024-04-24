@@ -84,5 +84,3 @@ const isOutsideClicked = (event: MouseEvent) => {
     <div class="layout-mask"></div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
