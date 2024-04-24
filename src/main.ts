@@ -16,10 +16,13 @@ import StyleClass from 'primevue/styleclass'
 import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
 import PrimeVue from 'primevue/config'
+import Toast from 'primevue/toast'
 
 // Настройка UI библиотеки PrimeVue
 app.use(PrimeVue, { ripple: true })
 app.use(ToastService)
+
+app.component('Toast', Toast)
 
 app.directive('tooltip', Tooltip)
 app.directive('badge', BadgeDirective)

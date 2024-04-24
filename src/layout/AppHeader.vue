@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
-import { useLayout } from '@/layout/composables/layout'
+import { ref, computed, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 
-const { onMenuToggle } = useLayout()
+import { useLayout } from '@/layout/composables/layout'
+import useClickOutside from './composables/useClickOutside'
 
-const outsideClickListener = ref(null)
-const topbarMenuActive = ref(false)
 const router = useRouter()
+const $primevue = usePrimeVue()
+const { onMenuToggle, layoutConfig } = useLayout()
 
-onMounted(() => {
-  bindOutsideClickListener()
-})
-
-onBeforeUnmount(() => {
-  unbindOutsideClickListener()
-})
+const topbarMenuActive = ref<boolean>(false)
+const menuButton = ref<HTMLElement | null>(null)
 
 const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
@@ -33,42 +28,9 @@ const topbarMenuClasses = computed(() => {
   }
 })
 
-const bindOutsideClickListener = () => {
-  if (outsideClickListener.value) {
-    return
-  }
+const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(menuButton, topbarMenuActive)
 
-  outsideClickListener.value = (event) => {
-    if (isOutsideClicked(event)) {
-      topbarMenuActive.value = false
-    }
-  }
-  document.addEventListener('click', outsideClickListener.value)
-}
-const unbindOutsideClickListener = () => {
-  if (!outsideClickListener.value) {
-    return
-  }
-  document.removeEventListener('click', outsideClickListener)
-  outsideClickListener.value = null
-}
-const isOutsideClicked = (event) => {
-  if (!topbarMenuActive.value) return
-
-  const sidebarEl = document.querySelector('.layout-topbar-menu')!
-  const topbarEl = document.querySelector('.layout-topbar-menu-button')!
-
-  return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  )
-}
-const { layoutConfig } = useLayout()
-const $primevue = usePrimeVue()
-
-const onChangeTheme = (theme: string, mode: string) => {
+const onChangeTheme = (theme: string, mode: boolean) => {
   localStorage.setItem('theme', theme)
 
   $primevue.changeTheme(layoutConfig.theme.value, theme, 'theme-css', () => {
@@ -78,23 +40,16 @@ const onChangeTheme = (theme: string, mode: string) => {
 }
 
 const onDarkModeChange = (value: boolean) => {
-  const newThemeName = value ? layoutConfig.theme.value.replace('light', 'dark') : layoutConfig.theme.value.replace('dark', 'light')
+  const newThemeName = value
+    ? layoutConfig.theme.value.replace('light', 'dark')
+    : layoutConfig.theme.value.replace('dark', 'light')
+
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
 }
 
-onBeforeMount(() => {
-  const theme = localStorage.getItem('theme')
-  if (!theme) {
-    return
-  }
-
-  $primevue.changeTheme(layoutConfig.theme.value, theme, 'theme-css', () => {
-    layoutConfig.theme.value = theme
-    console.log(theme)
-    layoutConfig.darkTheme.value = theme.includes('dark')
-  })
-})
+bindOutsideClick()
+onBeforeUnmount(unbindOutsideClick)
 </script>
 
 <template>
@@ -107,26 +62,29 @@ onBeforeMount(() => {
       <i class="pi pi-bars"></i>
     </button>
 
-    <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
+    <button
+      ref="menuButton"
+      class="p-link layout-topbar-menu-button layout-topbar-button"
+      @click="onTopBarMenuButton()"
+    >
       <i class="pi pi-ellipsis-v"></i>
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <section class="flex align-items-center gap-10">
-        <InputSwitch role="button" :modelValue="layoutConfig.darkTheme.value" @update:modelValue="onDarkModeChange" />
-      </section>
-
       <button @click="onHeaderButtonClick('profile')" class="p-link layout-topbar-button">
         <i class="pi pi-user"></i>
-        <span>Profile</span>
+        <span>Профиль</span>
       </button>
 
       <button @click="onHeaderButtonClick('self-edit')" class="p-link layout-topbar-button">
         <i class="pi pi-cog"></i>
-        <span>Settings</span>
+        <span>Настройки</span>
+      </button>
+
+      <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
+        <i :class="layoutConfig.darkTheme.value ? 'pi pi-moon' : 'pi pi-sun'"></i>
+        <span>Theme</span>
       </button>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  //   TODO: заменить
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://cloud-storage.api/api-file',
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
+  timeout: 5000,
 })
 
 export default instance
