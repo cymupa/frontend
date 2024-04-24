@@ -1,24 +1,17 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useLayout } from '@/layout/composables/layout'
+import { ref, computed, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 
-const { onMenuToggle } = useLayout()
+import { useLayout } from '@/layout/composables/layout'
+import useClickOutside from './composables/useClickOutside'
 
-type cb = (event: MouseEvent) => void
-
-const outsideClickListener = ref<cb | null>(null)
-const topbarMenuActive = ref<boolean>(false)
 const router = useRouter()
+const $primevue = usePrimeVue()
+const { onMenuToggle, layoutConfig } = useLayout()
 
-onMounted(() => {
-  bindOutsideClickListener()
-})
-
-onBeforeUnmount(() => {
-  unbindOutsideClickListener()
-})
+const topbarMenuActive = ref<boolean>(false)
+const menuButton = ref<HTMLElement | null>(null)
 
 const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
@@ -35,45 +28,7 @@ const topbarMenuClasses = computed(() => {
   }
 })
 
-const bindOutsideClickListener = () => {
-  if (outsideClickListener.value) {
-    return
-  }
-
-  outsideClickListener.value = (event: MouseEvent) => {
-    if (isOutsideClicked(event)) {
-      topbarMenuActive.value = false
-    }
-  }
-  document.addEventListener('click', outsideClickListener.value)
-}
-const unbindOutsideClickListener = () => {
-  if (!outsideClickListener.value) {
-    return
-  }
-
-  document.removeEventListener('click', outsideClickListener.value)
-  outsideClickListener.value = null
-}
-
-const isOutsideClicked = (event: MouseEvent) => {
-  if (!topbarMenuActive.value) return
-
-  const sidebarEl = document.querySelector('.layout-topbar-menu')!
-  const topbarEl = document.querySelector('.layout-topbar-menu-button')!
-
-  const target = event.target as Node
-
-  return !(
-    sidebarEl.isSameNode(target) ||
-    sidebarEl.contains(target) ||
-    topbarEl.isSameNode(target) ||
-    topbarEl.contains(target)
-  )
-}
-
-const { layoutConfig } = useLayout()
-const $primevue = usePrimeVue()
+const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(menuButton, topbarMenuActive)
 
 const onChangeTheme = (theme: string, mode: boolean) => {
   localStorage.setItem('theme', theme)
@@ -92,6 +47,9 @@ const onDarkModeChange = (value: boolean) => {
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
 }
+
+bindOutsideClick()
+onBeforeUnmount(unbindOutsideClick)
 </script>
 
 <template>
@@ -104,7 +62,11 @@ const onDarkModeChange = (value: boolean) => {
       <i class="pi pi-bars"></i>
     </button>
 
-    <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
+    <button
+      ref="menuButton"
+      class="p-link layout-topbar-menu-button layout-topbar-button"
+      @click="onTopBarMenuButton()"
+    >
       <i class="pi pi-ellipsis-v"></i>
     </button>
 

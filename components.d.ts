@@ -8,8 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AuthHeader: (typeof import('./src/components/Header/AuthHeader.vue'))['default']
-    Avatar: (typeof import('primevue/avatar'))['default']
+    Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
+    Card: typeof import('primevue/card')['default']
     Checkbox: (typeof import('primevue/checkbox'))['default']
     InputSwitch: typeof import('primevue/inputswitch')['default']
     InputText: typeof import('primevue/inputtext')['default']
@@ -19,5 +20,6 @@ declare module 'vue' {
     Password: typeof import('primevue/password')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollPanel: typeof import('primevue/scrollpanel')['default']
   }
 }
