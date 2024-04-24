@@ -89,6 +89,7 @@ const onDarkModeChange = (value: boolean) => {
   const newThemeName = value
     ? layoutConfig.theme.value.replace('light', 'dark')
     : layoutConfig.theme.value.replace('dark', 'light')
+
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
 }
@@ -109,18 +110,19 @@ const onDarkModeChange = (value: boolean) => {
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <section class="flex align-items-center gap-10">
-        <InputSwitch role="button" :modelValue="layoutConfig.darkTheme.value" @update:modelValue="onDarkModeChange" />
-      </section>
-
       <button @click="onHeaderButtonClick('profile')" class="p-link layout-topbar-button">
         <i class="pi pi-user"></i>
-        <span>Profile</span>
+        <span>Профиль</span>
       </button>
 
       <button @click="onHeaderButtonClick('self-edit')" class="p-link layout-topbar-button">
         <i class="pi pi-cog"></i>
-        <span>Settings</span>
+        <span>Настройки</span>
+      </button>
+
+      <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
+        <i :class="layoutConfig.darkTheme.value ? 'pi pi-moon' : 'pi pi-sun'"></i>
+        <span>Theme</span>
       </button>
     </div>
   </div>

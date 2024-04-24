@@ -11,7 +11,6 @@ type cb = (event: MouseEvent) => void
 const outsideClickListener = ref<cb | null>(null)
 
 watch(isSidebarActive, (newVal) => {
-  console.log('aaaaaaaa')
   if (newVal) {
     bindOutsideClickListener()
   } else {
