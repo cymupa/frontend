@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useFetch } from '@/hooks/useFetch'
+import { useFetch } from '@/hooks/useFetch/index.ts'
 
 const email = ref('')
 const password = ref('')
@@ -34,7 +34,7 @@ const handleLogin = async () => {
       >
         <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
           <div class="text-center mb-5">
-            <div class="text-900 text-3xl font-medium mb-3">Вход</div>
+            <div class="text-900 text-3xl font-medium mb-3">Регистрация</div>
           </div>
 
           <div>

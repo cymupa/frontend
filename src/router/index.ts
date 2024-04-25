@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { checkAuth } from '@/router/checkAuth'
+
 import AppLayout from '@/layout/AppLayout.vue'
 import NotFound from '@/views/pages/base/NotFound.vue'
 
@@ -89,5 +91,7 @@ const router = createRouter({
     { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
   ],
 })
+
+router.beforeEach(checkAuth)
 
 export default router
