@@ -15,7 +15,6 @@ onBeforeMount(() => {
 
   $primevue.changeTheme(layoutConfig.theme.value, theme, 'theme-css', () => {
     layoutConfig.theme.value = theme
-    console.log(theme)
     layoutConfig.darkTheme.value = theme.includes('dark')
   })
 })
