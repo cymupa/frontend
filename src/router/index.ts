@@ -78,7 +78,7 @@ const router = createRouter({
         {
           path: '/register',
           name: 'register',
-          component: () => import('@/views/pages/base/Login.vue'),
+          component: () => import('@/views/pages/base/Legister.vue'),
         },
         {
           path: '/forbidden',
