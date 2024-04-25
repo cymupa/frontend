@@ -7,17 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AuthHeader: (typeof import('./src/components/Header/AuthHeader.vue'))['default']
     Avatar: typeof import('primevue/avatar')['default']
-    Button: typeof import('primevue/button')['default']
+    Button: (typeof import('primevue/button'))['default']
     Card: typeof import('primevue/card')['default']
-    Checkbox: (typeof import('primevue/checkbox'))['default']
-    InputSwitch: typeof import('primevue/inputswitch')['default']
-    InputText: typeof import('primevue/inputtext')['default']
-    MainHeader: (typeof import('./src/components/Header/MainHeader.vue'))['default']
-    Menu: (typeof import('primevue/menu'))['default']
-    Panel: (typeof import('primevue/panel'))['default']
-    Password: typeof import('primevue/password')['default']
+    InputText: (typeof import('primevue/inputtext'))['default']
+    Password: (typeof import('primevue/password'))['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollPanel: typeof import('primevue/scrollpanel')['default']

@@ -1,6 +1,6 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import { useFetch } from '@/hooks/useFetch'
+import { useFetch } from '@hooks'
 
 const email = ref('')
 const password = ref('')
@@ -13,7 +13,7 @@ const handleLogin = async () => {
 
   try {
     console.log('isLoading', isLoading.value)
-    await fetchData()
+    await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)
   } finally {
@@ -61,11 +61,7 @@ const handleLogin = async () => {
             />
 
             <div class="flex align-items-center justify-content-between mb-5 gap-5">
-              <RouterLink
-                to="/register"
-                class="font-medium no-underline ml-2 text-right cursor-pointer"
-                style="color: var(--primary-color)"
-              >
+              <RouterLink to="/register" class="font-medium no-underline ml-2 text-right cursor-pointer">
                 Еще нет аккаунта?
               </RouterLink>
             </div>
@@ -77,14 +73,3 @@ const handleLogin = async () => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
-<!--//.pi-eye {
-//  transform: scale(1.6);
-//  margin-right: 1rem;
-//}
-//
-//.pi-eye-slash {
-//  transform: scale(1.6);
-//  margin-right: 1rem;
-//}-->

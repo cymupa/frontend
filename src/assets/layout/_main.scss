@@ -20,6 +20,11 @@ body {
 
 a {
   text-decoration: none;
+  color: var(--primary-color);
+}
+
+.router-link-exact-active {
+  color: var(--primary-color) !important;
 }
 
 .layout-wrapper {

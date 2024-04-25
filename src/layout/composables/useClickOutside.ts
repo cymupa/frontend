@@ -5,7 +5,7 @@ type OutsideClickListener = (event: MouseEvent) => void
 const useClickOutside = (
   elementRef: Ref<HTMLElement | null>,
   menuActive: Ref<boolean>,
-  onClickOutside?: () => void,
+  onClickOutside: () => void,
 ): { bind: () => void; unbind: () => void } => {
   const outsideClickListener = ref<OutsideClickListener | null>(null)
 
@@ -23,8 +23,7 @@ const useClickOutside = (
 
     outsideClickListener.value = (event: MouseEvent) => {
       if (menuActive.value && isOutsideClicked(event)) {
-        console.log('asdasd')
-        onClickOutside?.()
+        onClickOutside()
       }
     }
 

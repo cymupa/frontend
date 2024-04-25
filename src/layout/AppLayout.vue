@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+
+import { useLayout } from './composables/useLayout.ts'
 import AppTopbar from './AppHeader.vue'
-import { useLayout } from '@/layout/composables/layout'
-import AppMenu from '@/layout/AppSidebar.vue'
+import AppMenu from './AppSidebar.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 

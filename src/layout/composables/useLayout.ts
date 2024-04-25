@@ -1,4 +1,4 @@
-import { toRefs, reactive, computed, type ComputedRef } from 'vue'
+import { computed, type ComputedRef, reactive, toRefs } from 'vue'
 import type { LayoutConfig, LayoutState } from './types'
 
 const layoutConfig = reactive<LayoutConfig>({
@@ -21,7 +21,7 @@ const layoutState = reactive<LayoutState>({
 })
 
 export const useLayout = () => {
-  const setActiveMenuItem = (item: string | null) => {
+  const setActiveMenuItem = (item: string | null | undefined) => {
     layoutConfig.activeMenuItem = item
   }
 

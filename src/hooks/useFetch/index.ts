@@ -1,8 +1,7 @@
 import { type Ref, ref, type UnwrapRef } from 'vue'
 import { AxiosError, type AxiosRequestConfig } from 'axios'
-import type { ApiMethod, ApiRequest, ApiResponseData, ApiRoutes } from '@/api/types'
 
-import api from '../api'
+import api, { type ApiMethod, type ApiRequest, type ApiResponseData, type ApiRoutes } from '../../api'
 
 interface State<Route extends ApiRoutes> {
   isLoading: Ref<UnwrapRef<boolean>>
@@ -11,6 +10,11 @@ interface State<Route extends ApiRoutes> {
   error: Ref<UnwrapRef<string | null>>
 }
 
+/**
+ * Хук useFetch позволяет взаимодействовать с сервером
+ * Благодаря строгой типизации каждый роут и принимаемые параметры подсказываются,
+ * а также то, что вернет сервер в ответе
+ */
 export const useFetch = <Route extends ApiRoutes>(
   url: Route,
   method: ApiMethod<Route>,
@@ -31,9 +35,7 @@ export const useFetch = <Route extends ApiRoutes>(
 
       const res = await api.request<ApiResponseData<Route>>(requestConfig)
 
-      if (typeof res.data !== 'undefined') {
-        dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>> | null
-      }
+      dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>>
 
       error.value = null
     } catch (err) {
