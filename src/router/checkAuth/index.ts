@@ -7,8 +7,9 @@ import { useAuthStore } from '@/stores/auth'
  * Функция принимает параметры от vue и смотрит, куда передвигается юзер
 
  * В зависимости от того, авторизирован он или нет, мы либо совершаем переход, либо переводим на регистрацию
+ * При этом пользователь без токена также не сможет попасть на страницы Forbidden (403) и NotFound (404)
  */
-export const checkAuth = (to: T, _from: T, next: NavigationGuardNext) => {
+export const checkAuth = (to: T, _from: T, next: NavigationGuardNext): void => {
   const { token } = storeToRefs(useAuthStore())
 
   const isToLogin = to.name === 'login'

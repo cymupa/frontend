@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useFetch } from '@/hooks'
 
 const email = ref('')
 const password = ref('')
@@ -12,7 +13,7 @@ const handleLogin = async () => {
 
   try {
     console.log('isLoading', isLoading.value)
-    await fetchData()
+    await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)
   } finally {
