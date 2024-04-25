@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, PropType } from 'vue'
+import { ref, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useLayout } from '@/layout/composables/layout'
-import type { MenuItem } from '@/layout/types'
+import type { MenuGroup, MenuItem } from '@/layout/types'
 
 const route = useRoute()
 
 const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout()
 
 interface Props {
-  item: MenuItem
+  item: MenuGroup | MenuItem
   index: number
   root?: boolean
   parentItemKey?: string | null
@@ -53,35 +53,30 @@ const checkActiveRoute = (item: MenuItem) => route.path === item.to
     <div v-if="root" class="layout-menuitem-root-text">
       {{ item.label }}
     </div>
-    <a v-if="!item.to || item.items" @click="itemClick($event, item)" tabindex="0">
-      <i :class="item.icon" class="layout-menuitem-icon"></i>
-      <span class="layout-menuitem-text">{{ item.label }}</span>
-      <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
-    </a>
 
-    <router-link
-      v-if="item.to && !item.items"
-      @click="itemClick($event, item)"
-      :class="[{ 'active-route': checkActiveRoute(item) }]"
-      tabindex="0"
-      :to="item.to"
-    >
-      <i :class="item.icon" class="layout-menuitem-icon"></i>
-      <span class="layout-menuitem-text">{{ item.label }}</span>
-      <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
-    </router-link>
-
-    <Transition v-if="item.items" name="layout-submenu">
+    <transition name="layout-submenu" v-if="item.items">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
         <app-menu-item
           v-for="(child, i) in item.items"
-          :key="child.to"
+          :key="child.label"
           :index="i"
           :item="child"
           :parentItemKey="itemKey"
           :root="false"
         />
       </ul>
-    </Transition>
+    </transition>
+
+    <router-link
+      v-else
+      @click="itemClick($event, item as MenuItem)"
+      :class="[{ 'active-route': checkActiveRoute(item as MenuItem) }]"
+      tabindex="0"
+      :to="(item as MenuItem).to"
+    >
+      <i :class="(item as MenuItem).icon" class="layout-menuitem-icon" />
+      <span class="layout-menuitem-text">{{ item.label }}</span>
+      <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items" />
+    </router-link>
   </li>
 </template>

@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 
 import AppMenuItem from './AppMenuItem.vue'
-import type { MenuGroup } from '@/layout/types'
+import type { MenuGroup, MenuItem } from '@/layout/types'
 
 const model: MenuGroup[] = reactive([
   {
