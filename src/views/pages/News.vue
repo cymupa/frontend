@@ -1,5 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { id } = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+})
 
-<template>current news</template>
+console.log('id', id)
+</script>
+
+<template>current news id: {{ id }}</template>
 
 <style scoped></style>

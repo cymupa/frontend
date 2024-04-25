@@ -19,6 +19,7 @@ const router = createRouter({
         //   конкретная новость
         {
           path: '/news/:id',
+          props: true,
           name: 'news',
           component: () => import('../views/pages/News.vue'),
         },
@@ -37,18 +38,14 @@ const router = createRouter({
         {
           // просмотр турика по айди
           path: '/tournament/:id',
+          props: true,
           name: 'tournament',
           component: () => import('../views/pages/tournament/TournamentView.vue'),
         },
         {
           // просмотр тимы по айди
           path: '/team/:id',
-          name: 'team',
-          component: () => import('../views/pages/team/TeamView.vue'),
-        },
-        {
-          // просмотр своей тимы
-          path: '/team',
+          props: true,
           name: 'team',
           component: () => import('../views/pages/team/TeamView.vue'),
         },
