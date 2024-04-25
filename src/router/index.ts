@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { checkAuth } from './checkAuth'
 import AppLayout from '../layout/AppLayout.vue'
-import NotFound from '../views/pages/base/NotFound.vue'
+import NotFound from '../views/pages/base/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,7 +21,7 @@ const router = createRouter({
           path: '/news/:id',
           props: true,
           name: 'news',
-          component: () => import('../views/pages/News.vue'),
+          component: () => import('../views/pages/SingleNewsView.vue'),
         },
         {
           // просмотр туриков
@@ -69,17 +69,17 @@ const router = createRouter({
         {
           path: '/login',
           name: 'login',
-          component: () => import('../views/pages/base/Login.vue'),
+          component: () => import('../views/pages/base/LoginView.vue'),
         },
         {
           path: '/register',
           name: 'register',
-          component: () => import('../views/pages/base/Register.vue'),
+          component: () => import('../views/pages/base/RegisterView.vue'),
         },
         {
           path: '/forbidden',
           name: 'forbidden',
-          component: () => import('../views/pages/base/Access.vue'),
+          component: () => import('../views/pages/base/AccessView.vue'),
         },
       ],
     },
