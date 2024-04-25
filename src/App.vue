@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import ThemeProvider from './providers/ThemeProvider.vue'
+import { themeProvider } from './providers/themeProvider'
+
+themeProvider()
 </script>
 
 <template>
-  <ThemeProvider>
-    <RouterView />
-  </ThemeProvider>
+  <RouterView />
 </template>
 
 <style scoped></style>
