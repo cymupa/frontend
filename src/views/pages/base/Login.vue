@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { useFetch } from '@/hooks/useFetch'
 
 const email = ref('')
 const password = ref('')

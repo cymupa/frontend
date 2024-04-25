@@ -28,10 +28,10 @@ onBeforeMount(() => {
 })
 
 watch(
-  () => layoutConfig.activeMenuItem.value,
-  (newVal) => {
-    isActiveMenu.value = Boolean(newVal === itemKey.value || newVal?.startsWith(itemKey.value + '-'))
-  },
+    () => layoutConfig.activeMenuItem.value,
+    (newVal) => {
+      isActiveMenu.value = Boolean(newVal === itemKey.value || newVal?.startsWith(itemKey.value + '-'))
+    },
 )
 const itemClick = (_event: MouseEvent, item: MenuItem) => {
   const { overlayMenuActive, staticMenuMobileActive } = layoutState
@@ -60,11 +60,11 @@ const checkActiveRoute = (item: MenuItem) => route.path === item.to
     </a>
 
     <router-link
-      v-if="item.to && !item.items"
-      @click="itemClick($event, item)"
-      :class="[{ 'active-route': checkActiveRoute(item) }]"
-      tabindex="0"
-      :to="item.to"
+        v-if="item.to && !item.items"
+        @click="itemClick($event, item)"
+        :class="[{ 'active-route': checkActiveRoute(item) }]"
+        tabindex="0"
+        :to="item.to"
     >
       <i :class="item.icon" class="layout-menuitem-icon"></i>
       <span class="layout-menuitem-text">{{ item.label }}</span>
@@ -74,12 +74,12 @@ const checkActiveRoute = (item: MenuItem) => route.path === item.to
     <Transition v-if="item.items" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
         <app-menu-item
-          v-for="(child, i) in item.items"
-          :key="child.to"
-          :index="i"
-          :item="child"
-          :parentItemKey="itemKey"
-          :root="false"
+            v-for="(child, i) in item.items"
+            :key="child.to"
+            :index="i"
+            :item="child"
+            :parentItemKey="itemKey"
+            :root="false"
         />
       </ul>
     </Transition>

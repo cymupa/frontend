@@ -29,9 +29,9 @@ const topbarMenuClasses = computed(() => {
 })
 
 const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
-  menuButton,
-  topbarMenuActive,
-  onTopBarMenuButton,
+    menuButton,
+    topbarMenuActive,
+    onTopBarMenuButton,
 )
 
 const onChangeTheme = (theme: string, mode: boolean) => {
@@ -45,8 +45,8 @@ const onChangeTheme = (theme: string, mode: boolean) => {
 
 const onDarkModeChange = (value: boolean) => {
   const newThemeName = value
-    ? layoutConfig.theme.value.replace('light', 'dark')
-    : layoutConfig.theme.value.replace('dark', 'light')
+      ? layoutConfig.theme.value.replace('light', 'dark')
+      : layoutConfig.theme.value.replace('dark', 'light')
 
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)
@@ -67,9 +67,9 @@ onBeforeUnmount(unbindOutsideClick)
     </button>
 
     <button
-      ref="menuButton"
-      class="p-link layout-topbar-menu-button layout-topbar-button"
-      @click="onTopBarMenuButton()"
+        ref="menuButton"
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        @click="onTopBarMenuButton()"
     >
       <i class="pi pi-ellipsis-v"></i>
     </button>
@@ -87,7 +87,7 @@ onBeforeUnmount(unbindOutsideClick)
 
       <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
         <i :class="layoutConfig.darkTheme.value ? 'pi pi-moon' : 'pi pi-sun'"></i>
-        <span>Theme</span>
+        <span>Тема</span>
       </button>
     </div>
   </div>
