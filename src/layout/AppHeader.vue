@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 
 import useClickOutside from './composables/useClickOutside'
 import { useLayout } from './composables/useLayout.ts'
+import router from '@/router'
 
-const router = useRouter()
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()
 
@@ -17,9 +16,8 @@ const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
 }
 
-const onHeaderButtonClick = (name: 'self-edit' | 'profile') => {
+const onHeaderButtonClick = () => {
   topbarMenuActive.value = false
-  router.push({ name })
 }
 
 const topbarMenuClasses = computed(() => {
@@ -75,18 +73,18 @@ onBeforeUnmount(unbindOutsideClick)
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <button @click="onHeaderButtonClick('profile')" class="p-link layout-topbar-button">
+      <RouterLink to="profile" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
         <i class="pi pi-user"></i>
         <span>Профиль</span>
-      </button>
+      </RouterLink>
 
-      <button @click="onHeaderButtonClick('self-edit')" class="p-link layout-topbar-button">
+      <RouterLink to="self" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
         <i class="pi pi-cog"></i>
         <span>Настройки</span>
-      </button>
+      </RouterLink>
 
       <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
-        <i :class="layoutConfig.darkTheme.value ? 'pi pi-moon' : 'pi pi-sun'"></i>
+        <i :class="layoutConfig.darkTheme.value ? 'pi pi-sun' : 'pi pi-moon'"></i>
         <span>Тема</span>
       </button>
     </div>

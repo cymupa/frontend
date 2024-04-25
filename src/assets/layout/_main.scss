@@ -23,6 +23,10 @@ a {
   color: var(--primary-color);
 }
 
+.router-link-exact-active {
+  color: var(--primary-color) !important;
+}
+
 .layout-wrapper {
   min-height: 100vh;
 }
