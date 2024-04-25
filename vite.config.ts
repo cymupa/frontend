@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import * as path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
@@ -16,8 +16,9 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      { find: '@hooks', replacement: path.resolve(__dirname, './src/hooks') },
+    ],
   },
 })

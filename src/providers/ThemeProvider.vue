@@ -2,7 +2,7 @@
 import { onBeforeMount } from 'vue'
 import { usePrimeVue } from 'primevue/config'
 
-import { useLayout } from '@/layout/composables/layout'
+import { useLayout } from '../layout/composables/useLayout.ts'
 
 const { layoutConfig } = useLayout()
 const $primevue = usePrimeVue()

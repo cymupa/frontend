@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { API_URL } from '@/config/env'
-import { useAuthStore } from '@/stores/auth'
+
+import { API_URL } from '../config/env.ts'
+import { useAuthStore } from '../stores/auth.ts'
 
 const instance = axios.create({
   baseURL: API_URL,

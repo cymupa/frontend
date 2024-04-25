@@ -1,8 +1,7 @@
 import { type Ref, ref, type UnwrapRef } from 'vue'
 import { AxiosError, type AxiosRequestConfig } from 'axios'
 
-import api from '../../api'
-import type { ApiMethod, ApiRequest, ApiResponseData, ApiRoutes } from '@/api'
+import api, { type ApiMethod, type ApiRequest, type ApiResponseData, type ApiRoutes } from '../../api'
 
 interface State<Route extends ApiRoutes> {
   isLoading: Ref<UnwrapRef<boolean>>

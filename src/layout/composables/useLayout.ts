@@ -1,4 +1,4 @@
-import { toRefs, reactive, computed, type ComputedRef } from 'vue'
+import { computed, type ComputedRef, reactive, toRefs } from 'vue'
 import type { LayoutConfig, LayoutState } from './types'
 
 const layoutConfig = reactive<LayoutConfig>({

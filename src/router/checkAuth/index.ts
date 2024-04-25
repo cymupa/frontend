@@ -1,7 +1,7 @@
 import type { NavigationGuardNext, RouteLocationNormalized as T } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '../../stores/auth.ts'
 
 /**
  * Функция принимает параметры от vue и смотрит, куда передвигается юзер
@@ -18,9 +18,9 @@ export const checkAuth = (to: T, _from: T, next: NavigationGuardNext): void => {
   /**
    * Запрещаем ходить по сайту на авторизированным пользователяи
    */
-  if (!(isToLogin || isToRegister) && !token.value) {
-    return next({ name: 'register' })
-  }
+  // if (!(isToLogin || isToRegister) && !token.value) {
+  //   return next({ name: 'register' })
+  // }
 
   next()
 }

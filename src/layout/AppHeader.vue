@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePrimeVue } from 'primevue/config'
 
-import { useLayout } from '@/layout/composables/layout'
 import useClickOutside from './composables/useClickOutside'
+import { useLayout } from './composables/useLayout.ts'
 
 const router = useRouter()
 const $primevue = usePrimeVue()

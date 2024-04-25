@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useLayout } from '@/layout/composables/layout'
-import type { MenuGroup, MenuItem } from '@/layout/types'
+import { useLayout } from './composables/useLayout.ts'
+import type { MenuGroup, MenuItem } from './types'
 
 const route = useRoute()
 

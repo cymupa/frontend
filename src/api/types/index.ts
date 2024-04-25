@@ -1,10 +1,10 @@
-import type { ApiUser } from './user'
+import { AuthController } from './auth'
 
 /**
  * Типы для работы с сервером
  */
 
-export type Api = ApiUser
+export type Api = AuthController
 
 // Какие роуты есть на сервере
 export type ApiRoutes = keyof Api

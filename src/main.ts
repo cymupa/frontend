@@ -3,6 +3,11 @@ import { createPinia } from 'pinia'
 
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
+import StyleClass from 'primevue/styleclass'
+import Ripple from 'primevue/ripple'
+import BadgeDirective from 'primevue/badgedirective'
+import PrimeVue from 'primevue/config'
+import Toast from 'primevue/toast'
 
 import App from './App.vue'
 import router from './router'
@@ -10,13 +15,6 @@ import router from './router'
 import '@/assets/styles.scss'
 
 const app = createApp(App)
-
-import '@/assets/styles.scss'
-import StyleClass from 'primevue/styleclass'
-import Ripple from 'primevue/ripple'
-import BadgeDirective from 'primevue/badgedirective'
-import PrimeVue from 'primevue/config'
-import Toast from 'primevue/toast'
 
 // Настройка UI библиотеки PrimeVue
 app.use(PrimeVue, { ripple: true })
