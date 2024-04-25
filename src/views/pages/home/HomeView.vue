@@ -16,7 +16,7 @@
               <Avatar
                 image="https://randomwordgenerator.com/img/picture-generator/5ee4d14b4d51b10ff3d8992cc12c30771037dbf8525478487c2f7dd69244_640.jpg"
                 shape="circle"
-                size="large"
+                size="xlarge"
               />
               <span class="p-ml-2 title w-10">{{ news.title }}</span>
             </div>
