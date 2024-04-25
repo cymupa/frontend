@@ -11,6 +11,11 @@ interface State<Route extends ApiRoutes> {
   error: Ref<UnwrapRef<string | null>>
 }
 
+/**
+ * Хук useFetch позволяет взаимодействовать с сервером
+ * Благодаря строгой типизации каждый роут и принимаемые параметры подсказываются,
+ * а также то, что вернет сервер в ответе
+ */
 export const useFetch = <Route extends ApiRoutes>(
   url: Route,
   method: ApiMethod<Route>,
@@ -31,9 +36,7 @@ export const useFetch = <Route extends ApiRoutes>(
 
       const res = await api.request<ApiResponseData<Route>>(requestConfig)
 
-      if (typeof res.data !== 'undefined') {
-        dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>> | null
-      }
+      dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>>
 
       error.value = null
     } catch (err) {

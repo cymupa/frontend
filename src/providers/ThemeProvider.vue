@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
-import { useLayout } from '@/layout/composables/layout'
 import { usePrimeVue } from 'primevue/config'
+
+import { useLayout } from '@/layout/composables/layout'
 
 const { layoutConfig } = useLayout()
 const $primevue = usePrimeVue()
@@ -23,5 +24,3 @@ onBeforeMount(() => {
 <template>
   <slot />
 </template>
-
-<style scoped></style>

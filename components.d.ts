@@ -12,7 +12,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Checkbox: (typeof import('primevue/checkbox'))['default']
-    InputSwitch: typeof import('primevue/inputswitch')['default']
+    InputSwitch: (typeof import('primevue/inputswitch'))['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainHeader: (typeof import('./src/components/Header/MainHeader.vue'))['default']
     Menu: (typeof import('primevue/menu'))['default']

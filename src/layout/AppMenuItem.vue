@@ -1,34 +1,27 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from 'vue'
+import { ref, onBeforeMount, watch, PropType } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useLayout } from '@/layout/composables/layout'
+import type { MenuItem } from '@/layout/types'
 
 const route = useRoute()
 
 const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout()
 
-const { index, item, parentItemKey, root } = defineProps({
-  item: {
-    type: Object,
-    default: {},
-  },
-  index: {
-    type: Number,
-    default: 0,
-  },
-  root: {
-    type: Boolean,
-    default: true,
-  },
-  parentItemKey: {
-    type: String,
-    default: undefined,
-  },
+interface Props {
+  item: MenuItem
+  index: number
+  root?: boolean
+  parentItemKey?: string | null
+}
+
+const { item, parentItemKey, root, index } = withDefaults(defineProps<Props>(), {
+  root: true,
 })
 
 const isActiveMenu = ref(false)
-const itemKey = ref<undefined | string>(undefined)
+const itemKey = ref<null | string>(null)
 
 onBeforeMount(() => {
   itemKey.value = parentItemKey ? parentItemKey + '-' + index : String(index)
@@ -37,57 +30,39 @@ onBeforeMount(() => {
 watch(
   () => layoutConfig.activeMenuItem.value,
   (newVal) => {
-    isActiveMenu.value = newVal === itemKey.value || newVal?.startsWith(itemKey.value + '-')
+    isActiveMenu.value = Boolean(newVal === itemKey.value || newVal?.startsWith(itemKey.value + '-'))
   },
 )
-const itemClick = (event, item) => {
-  if (item.disabled) {
-    event.preventDefault()
-    return
-  }
-
+const itemClick = (_event: MouseEvent, item: MenuItem) => {
   const { overlayMenuActive, staticMenuMobileActive } = layoutState
 
-  if ((item.to || item.url) && (staticMenuMobileActive.value || overlayMenuActive.value)) {
+  if (item.to && (staticMenuMobileActive.value || overlayMenuActive.value)) {
     onMenuToggle()
   }
 
-  if (item.command) {
-    item.command({ originalEvent: event, item: item })
-  }
-
-  const foundItemKey = item.items ? (isActiveMenu.value ? parentItemKey : itemKey) : itemKey.value
+  const foundItemKey = item.items ? (isActiveMenu.value ? parentItemKey : itemKey.value) : itemKey.value
 
   setActiveMenuItem(foundItemKey)
 }
 
-const checkActiveRoute = (item) => {
-  return route.path === item.to
-}
+const checkActiveRoute = (item: MenuItem) => route.path === item.to
 </script>
 
 <template>
   <li :class="{ 'layout-root-menuitem': root, 'active-menuitem': isActiveMenu }">
-    <div v-if="root && item.visible !== false" class="layout-menuitem-root-text">
+    <div v-if="root" class="layout-menuitem-root-text">
       {{ item.label }}
     </div>
-    <a
-      v-if="(!item.to || item.items) && item.visible !== false"
-      :href="item.url"
-      @click="itemClick($event, item, index)"
-      :class="item.class"
-      :target="item.target"
-      tabindex="0"
-    >
+    <a v-if="!item.to || item.items" @click="itemClick($event, item)" tabindex="0">
       <i :class="item.icon" class="layout-menuitem-icon"></i>
       <span class="layout-menuitem-text">{{ item.label }}</span>
       <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
     </a>
 
     <router-link
-      v-if="item.to && !item.items && item.visible !== false"
-      @click="itemClick($event, item, index)"
-      :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
+      v-if="item.to && !item.items"
+      @click="itemClick($event, item)"
+      :class="[{ 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
       :to="item.to"
     >
@@ -96,11 +71,11 @@ const checkActiveRoute = (item) => {
       <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
     </router-link>
 
-    <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
+    <Transition v-if="item.items" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
         <app-menu-item
           v-for="(child, i) in item.items"
-          :key="child"
+          :key="child.to"
           :index="i"
           :item="child"
           :parentItemKey="itemKey"
@@ -110,5 +85,3 @@ const checkActiveRoute = (item) => {
     </Transition>
   </li>
 </template>
-
-<style lang="scss" scoped></style>

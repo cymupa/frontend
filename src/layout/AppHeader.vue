@@ -28,7 +28,11 @@ const topbarMenuClasses = computed(() => {
   }
 })
 
-const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(menuButton, topbarMenuActive)
+const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
+  menuButton,
+  topbarMenuActive,
+  onTopBarMenuButton,
+)
 
 const onChangeTheme = (theme: string, mode: boolean) => {
   localStorage.setItem('theme', theme)

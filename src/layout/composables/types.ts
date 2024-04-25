@@ -5,7 +5,7 @@ export interface LayoutConfig {
   menuMode: string
   theme: string
   scale: number
-  activeMenuItem: string | null
+  activeMenuItem: string | null | undefined
 }
 
 export interface LayoutState {

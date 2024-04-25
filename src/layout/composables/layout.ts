@@ -21,7 +21,7 @@ const layoutState = reactive<LayoutState>({
 })
 
 export const useLayout = () => {
-  const setActiveMenuItem = (item: string | null) => {
+  const setActiveMenuItem = (item: string | null | undefined) => {
     layoutConfig.activeMenuItem = item
   }
 
