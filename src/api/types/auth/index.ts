@@ -1,5 +1,5 @@
-import { ApiRequest } from '../index.ts'
-import { State } from '../../../hooks'
+import { ApiRequest } from '@/api'
+import { State } from '@/hooks'
 
 /**
  * Типизация роутов для работы с авторизацией / регистрацией

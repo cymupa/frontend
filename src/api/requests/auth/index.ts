@@ -1,5 +1,5 @@
-import { State, useFetch } from '../../../hooks'
-import { ApiRequest } from '../../types'
+import { State, useFetch } from '@/hooks'
+import { ApiRequest } from '@/api'
 import { AuthRequests } from '../../types/auth'
 
 // export class AuthAPI implements AuthRequests {
