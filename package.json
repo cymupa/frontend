@@ -11,7 +11,7 @@
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build --force",
     "format-unsafe": "biome check . --apply-unsafe",
-    "format": "prettier --write src"
+    "format": "prettier --write \"src/**/*.vue\""
   },
   "dependencies": {
     "axios": "^1.6.8",
