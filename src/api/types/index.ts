@@ -1,5 +1,5 @@
-import { AuthController } from './auth'
-import { UserController } from './user'
+import type { AuthController } from './auth'
+import type { UserController } from './user'
 
 /**
  * Типы для работы с сервером

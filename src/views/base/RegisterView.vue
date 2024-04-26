@@ -1,14 +1,14 @@
 <script lang="ts" setup>
+import { useFetch } from '@/hooks'
 import { ref } from 'vue'
-import { useFetch } from '@/hooks/useFetch/index.ts'
 
 const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { data, isLoading, error, fetchData } = useFetch('authorization', 'POST', {
+  const { isLoading, fetchData } = useFetch('authorization', 'POST', {
     login: email.value,
-    password: password.value,
+    password: password.value
   })
 
   try {

@@ -1,9 +1,15 @@
-import { type Ref, ref, type UnwrapRef } from 'vue'
-import { AxiosError, type AxiosRequestConfig } from 'axios'
+import type { AxiosError, AxiosRequestConfig } from 'axios'
+import { type Ref, type UnwrapRef, ref } from 'vue'
 
-import api, { type ApiMethod, type ApiRequest, type ApiResponseData, type ApiRoutes } from '../../api'
+import { sleep } from '@/utils'
+import api, {
+  type ApiMethod,
+  type ApiRequest,
+  type ApiResponseData,
+  type ApiRoutes
+} from '../../api'
 
-interface State<Route extends ApiRoutes> {
+export interface State<Route extends ApiRoutes> {
   isLoading: Ref<UnwrapRef<boolean>>
   fetchData: () => Promise<void>
   data: Ref<UnwrapRef<ApiResponseData<Route> | null>>
@@ -18,11 +24,11 @@ interface State<Route extends ApiRoutes> {
 export const useFetch = <Route extends ApiRoutes>(
   url: Route,
   method: ApiMethod<Route>,
-  data?: ApiRequest<Route>,
+  data?: ApiRequest<Route>
 ): State<Route> => {
   const dataRes = ref<null | ApiResponseData<Route>>(null)
   const error = ref<string | null>(null)
-  const isLoading = ref(true)
+  const isLoading = ref(false)
 
   const fetchData = async () => {
     isLoading.value = true
@@ -30,9 +36,10 @@ export const useFetch = <Route extends ApiRoutes>(
       const requestConfig: AxiosRequestConfig = {
         method,
         url,
-        data,
+        data
       }
 
+      await sleep(1000)
       const res = await api.request<ApiResponseData<Route>>(requestConfig)
 
       dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>>

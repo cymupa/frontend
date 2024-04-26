@@ -2,13 +2,11 @@
 const { id } = defineProps({
   id: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 console.log('id', id)
 </script>
 
-<template>current news id: {{ id }}</template>
-
-<style scoped></style>
+<template>single team</template>

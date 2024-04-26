@@ -1,5 +1,5 @@
-import { reactive } from 'vue'
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 
 interface User {
   fullName: string
@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user', () => {
   const state: User = reactive({
     fullName: '',
     teamId: null,
-    isCaptain: false,
+    isCaptain: false
   })
 
   const setUserInfo = (data: User): void => {
@@ -30,6 +30,6 @@ export const useUserStore = defineStore('user', () => {
     ...state,
     setUserInfo,
     setTeamId,
-    setIsCaptain,
+    setIsCaptain
   }
 })

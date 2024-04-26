@@ -1,11 +1,11 @@
-import { ref, type Ref, onMounted, onBeforeUnmount } from 'vue'
+import { type Ref, onBeforeUnmount, onMounted, ref } from 'vue'
 
 type OutsideClickListener = (event: MouseEvent) => void
 
 const useClickOutside = (
   elementRef: Ref<HTMLElement | null>,
   menuActive: Ref<boolean>,
-  onClickOutside: () => void,
+  onClickOutside: () => void
 ): { bind: () => void; unbind: () => void } => {
   const outsideClickListener = ref<OutsideClickListener | null>(null)
 

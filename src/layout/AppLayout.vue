@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
-import { useLayout } from './composables/useLayout.ts'
+import { useLayout } from './composables/useLayout'
+
 import AppTopbar from './AppHeader.vue'
 import AppMenu from './AppSidebar.vue'
 
@@ -25,10 +26,12 @@ const containerClass = computed(() => {
     'layout-theme-dark': layoutConfig.darkTheme.value,
     'layout-overlay': layoutConfig.menuMode.value === 'overlay',
     'layout-static': layoutConfig.menuMode.value === 'static',
-    'layout-static-inactive': layoutState.staticMenuDesktopInactive.value && layoutConfig.menuMode.value === 'static',
+    'layout-static-inactive':
+      layoutState.staticMenuDesktopInactive.value &&
+      layoutConfig.menuMode.value === 'static',
     'layout-overlay-active': layoutState.overlayMenuActive.value,
     'layout-mobile-active': layoutState.staticMenuMobileActive.value,
-    'p-ripple-disabled': !layoutConfig.ripple.value,
+    'p-ripple-disabled': !layoutConfig.ripple.value
   }
 })
 
@@ -79,9 +82,47 @@ const isOutsideClicked = (event: MouseEvent) => {
     </div>
     <div class="layout-main-container">
       <div class="layout-main">
-        <RouterView />
+        <router-view v-slot="{ Component, route }">
+          <transition name="nested">
+            <div :key="route.path">
+              <component :is="Component" />
+            </div>
+          </transition>
+        </router-view>
       </div>
     </div>
     <div class="layout-mask"></div>
   </div>
 </template>
+
+<style scoped>
+.nested-enter-active,
+.nested-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.nested-leave-active {
+  transition-delay: 0s;
+}
+
+.nested-enter-from,
+.nested-leave-to {
+  transform: translateY(30px);
+  opacity: 0;
+  position: absolute;
+}
+
+.nested-enter-active .inner,
+.nested-leave-active .inner {
+  transition: all 0.3s ease-in-out;
+}
+
+.nested-enter-active .inner {
+  transition-delay: 0.25s;
+}
+
+.nested-enter-from .inner,
+.nested-leave-to .inner {
+  transform: translateX(30px);
+}
+</style>

@@ -1,5 +1,5 @@
-import { onBeforeMount } from 'vue'
 import { usePrimeVue } from 'primevue/config'
+import { onBeforeMount } from 'vue'
 
 import { useLayout } from '../layout/composables/useLayout.ts'
 

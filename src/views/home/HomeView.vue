@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import { newsListData } from '@/data'
+
+const newsList = ref(newsListData)
+</script>
+
 <template>
   <ScrollPanel
     class="scroll-wrapper"
@@ -9,19 +17,23 @@
     }"
   >
     <div class="news-container">
-      <Card v-for="(news, index) in newsList" :key="index">
+      <Card style="overflow: hidden" v-for="(news, index) in newsList" :key="index">
+        <template #header>
+          <img
+            alt="user header"
+            height="400"
+            class="w-full"
+            style="object-fit: cover"
+            src="https://randomwordgenerator.com/img/picture-generator/5ee4d14b4d51b10ff3d8992cc12c30771037dbf8525478487c2f7dd69244_640.jpg"
+          />
+        </template>
+
         <template #title>
           <RouterLink :to="`news/${news.id}`">
-            <div class="flex gap-3 align-items-center">
-              <Avatar
-                image="https://randomwordgenerator.com/img/picture-generator/5ee4d14b4d51b10ff3d8992cc12c30771037dbf8525478487c2f7dd69244_640.jpg"
-                shape="circle"
-                size="xlarge"
-              />
-              <span class="p-ml-2 title w-10">{{ news.title }}</span>
-            </div>
+            <span class="p-ml-2 title w-full block">{{ news.title }}</span>
           </RouterLink>
         </template>
+
         <template #content>
           <p class="overflow-hidden text">
             {{ news.description }}
@@ -32,13 +44,6 @@
   </ScrollPanel>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { newsListData } from '@/data'
-
-const newsList = ref(newsListData)
-</script>
-
 <style scoped>
 .scroll-wrapper {
   width: 100%;
@@ -47,7 +52,7 @@ const newsList = ref(newsListData)
 
 .news-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   grid-gap: 1rem;
 
   padding-bottom: 10px;
@@ -60,8 +65,9 @@ const newsList = ref(newsListData)
 }
 
 .text {
-  word-break: break-all;
+  word-break: break-word;
   max-height: 4rem;
+  text-overflow: ellipsis;
   line-height: 2rem;
 }
 

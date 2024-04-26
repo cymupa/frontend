@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from 'vue'
 import { usePrimeVue } from 'primevue/config'
+import { computed, onBeforeUnmount, ref } from 'vue'
 
 import useClickOutside from './composables/useClickOutside'
 import { useLayout } from './composables/useLayout.ts'
-import router from '@/router'
 
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()
@@ -22,14 +21,14 @@ const onHeaderButtonClick = () => {
 
 const topbarMenuClasses = computed(() => {
   return {
-    'layout-topbar-menu-mobile-active': topbarMenuActive.value,
+    'layout-topbar-menu-mobile-active': topbarMenuActive.value
   }
 })
 
 const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
   menuButton,
   topbarMenuActive,
-  onTopBarMenuButton,
+  onTopBarMenuButton
 )
 
 const onChangeTheme = (theme: string, mode: boolean) => {

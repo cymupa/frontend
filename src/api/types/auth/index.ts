@@ -1,3 +1,6 @@
+import type { ApiRequest } from '@/api'
+import type { State } from '@/hooks'
+
 /**
  * Типизация роутов для работы с авторизацией / регистрацией
  *
@@ -20,4 +23,9 @@ export interface AuthController {
 
 interface AuthResponse {
   data: { token: string }
+}
+
+export interface AuthRequests {
+  authorize(req: ApiRequest<'authorization'>): State<'authorization'>
+  register(req: ApiRequest<'registration'>): State<'registration'>
 }

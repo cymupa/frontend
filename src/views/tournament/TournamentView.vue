@@ -2,13 +2,11 @@
 const { id } = defineProps({
   id: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 console.log('id', id)
 </script>
 
 <template>tournament</template>
-
-<style scoped></style>

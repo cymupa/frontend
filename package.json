@@ -10,6 +10,7 @@
     "test:unit": "vitest",
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build --force",
+    "format-unsafe": "biome check . --apply-unsafe",
     "format": "prettier --write src"
   },
   "dependencies": {
@@ -38,6 +39,8 @@
     "vite": "^5.2.10",
     "vite-plugin-vue-devtools": "^7.1.2",
     "vitest": "^1.5.2",
-    "vue-tsc": "^2.0.14"
+    "@biomejs/biome": "^1.6.4",
+    "vue-tsc": "^2.0.14",
+    "@types/bun": "latest"
   }
 }
