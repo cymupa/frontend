@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import { authAPI } from '@/api'
+import { sleep } from '@/utils'
 
 const email = ref('')
 const password = ref('')
@@ -13,8 +14,7 @@ const handleLogin = async () => {
   })
 
   try {
-    console.log('isLoading', isLoading.value)
-    await Bun.sleep(5000)
+    await sleep(5000)
     await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)
