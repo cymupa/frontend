@@ -9,7 +9,7 @@ const password = ref('')
 const handleLogin = async () => {
   const { isLoading, fetchData } = authAPI.authorize({
     login: email.value,
-    password: password.value,
+    password: password.value
   })
 
   try {

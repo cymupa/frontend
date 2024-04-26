@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 
-import ToastService from 'primevue/toastservice'
-import Tooltip from 'primevue/tooltip'
-import StyleClass from 'primevue/styleclass'
-import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
 import PrimeVue from 'primevue/config'
+import Ripple from 'primevue/ripple'
+import StyleClass from 'primevue/styleclass'
 import Toast from 'primevue/toast'
+import ToastService from 'primevue/toastservice'
+import Tooltip from 'primevue/tooltip'
 
 import App from './App.vue'
 import router from './router'

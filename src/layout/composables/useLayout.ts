@@ -1,4 +1,4 @@
-import { computed, type ComputedRef, reactive, toRefs } from 'vue'
+import { type ComputedRef, computed, reactive, toRefs } from 'vue'
 import type { LayoutConfig, LayoutState } from './types'
 
 const layoutConfig = reactive<LayoutConfig>({
@@ -8,7 +8,7 @@ const layoutConfig = reactive<LayoutConfig>({
   menuMode: 'static',
   theme: 'aura-light-green',
   scale: 14,
-  activeMenuItem: null,
+  activeMenuItem: null
 })
 
 const layoutState = reactive<LayoutState>({
@@ -17,7 +17,7 @@ const layoutState = reactive<LayoutState>({
   profileSidebarVisible: false,
   configSidebarVisible: false,
   staticMenuMobileActive: false,
-  menuHoverActive: false,
+  menuHoverActive: false
 })
 
 export const useLayout = () => {
@@ -31,17 +31,20 @@ export const useLayout = () => {
     }
 
     if (window.innerWidth > 991) {
-      layoutState.staticMenuDesktopInactive = !layoutState.staticMenuDesktopInactive
+      layoutState.staticMenuDesktopInactive =
+        !layoutState.staticMenuDesktopInactive
     } else {
       layoutState.staticMenuMobileActive = !layoutState.staticMenuMobileActive
     }
   }
 
   const isSidebarActive: ComputedRef<boolean> = computed(
-    () => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive,
+    () => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive
   )
 
-  const isDarkTheme: ComputedRef<boolean> = computed(() => layoutConfig.darkTheme)
+  const isDarkTheme: ComputedRef<boolean> = computed(
+    () => layoutConfig.darkTheme
+  )
 
   return {
     layoutConfig: toRefs(layoutConfig),
@@ -49,6 +52,6 @@ export const useLayout = () => {
     onMenuToggle,
     isSidebarActive,
     isDarkTheme,
-    setActiveMenuItem,
+    setActiveMenuItem
   }
 }

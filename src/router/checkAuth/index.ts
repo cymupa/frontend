@@ -1,5 +1,8 @@
-import type { NavigationGuardNext, RouteLocationNormalized as T } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import type {
+  NavigationGuardNext,
+  RouteLocationNormalized as T
+} from 'vue-router'
 
 import { useAuthStore } from '../../stores/auth.ts'
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
-import { useLayout } from './composables/useLayout.ts'
 import AppTopbar from './AppHeader.vue'
 import AppMenu from './AppSidebar.vue'
+import { useLayout } from './composables/useLayout.ts'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 
@@ -25,10 +25,12 @@ const containerClass = computed(() => {
     'layout-theme-dark': layoutConfig.darkTheme.value,
     'layout-overlay': layoutConfig.menuMode.value === 'overlay',
     'layout-static': layoutConfig.menuMode.value === 'static',
-    'layout-static-inactive': layoutState.staticMenuDesktopInactive.value && layoutConfig.menuMode.value === 'static',
+    'layout-static-inactive':
+      layoutState.staticMenuDesktopInactive.value &&
+      layoutConfig.menuMode.value === 'static',
     'layout-overlay-active': layoutState.overlayMenuActive.value,
     'layout-mobile-active': layoutState.staticMenuMobileActive.value,
-    'p-ripple-disabled': !layoutConfig.ripple.value,
+    'p-ripple-disabled': !layoutConfig.ripple.value
   }
 })
 

@@ -8,9 +8,9 @@ const instance = axios.create({
   headers: {
     'Access-Control-Allow-Origin': '*',
     // TODO: надо проверить работает ли обновление токена
-    Authorization: useAuthStore().token,
+    Authorization: useAuthStore().token
   },
-  timeout: 5000,
+  timeout: 5000
 })
 
 export default instance
