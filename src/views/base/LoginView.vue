@@ -1,21 +1,40 @@
 <script lang="ts" setup>
+import { useToast } from 'primevue/usetoast'
 import { ref } from 'vue'
 
 import { authAPI } from '@/api'
+import router from '@/router'
+import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
+import { storeToRefs } from 'pinia'
+
+const toast = useToast()
 
 const email = ref('')
 const password = ref('')
 
-const handleLogin = async () => {
-  const { isLoading, fetchData } = authAPI.authorize({
-    login: email.value,
-    password: password.value
-  })
+const { isLoading, fetchData } = authAPI.authorize({
+  login: email.value,
+  password: password.value
+})
 
+const { login } = useAuthStore()
+
+const handleLogin = async () => {
   try {
-    await sleep(5000)
-    await fetchData?.()
+    toast.add({
+      closable: false,
+      severity: 'info',
+      summary: 'Выполняется вход',
+      detail: 'Пожалуйста, подождите',
+      life: 1000
+    })
+
+    await sleep(1500)
+
+    login('asd')
+    await router.replace('/')
+    // await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)
   } finally {
@@ -25,6 +44,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
+  <Toast />
   <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
     <div class="flex flex-column align-items-center justify-content-center">
       <div
@@ -42,6 +62,7 @@ const handleLogin = async () => {
           <div>
             <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
             <InputText
+                :disabled="isLoading"
               id="email1"
               type="text"
               placeholder="Email address"
@@ -53,6 +74,8 @@ const handleLogin = async () => {
             <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
 
             <Password
+                :disabled="isLoading"
+
               id="password1"
               v-model="password"
               placeholder="Password"
@@ -68,7 +91,7 @@ const handleLogin = async () => {
               </RouterLink>
             </div>
 
-            <Button label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
+            <Button :disabled="isLoading" label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
           </div>
         </div>
       </div>

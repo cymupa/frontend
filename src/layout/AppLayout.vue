@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
+import { useLayout } from './composables/useLayout'
+
 import AppTopbar from './AppHeader.vue'
 import AppMenu from './AppSidebar.vue'
-import { useLayout } from './composables/useLayout.ts'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 
@@ -75,15 +76,50 @@ const isOutsideClicked = (event: MouseEvent) => {
 
 <template>
   <div class="layout-wrapper" :class="containerClass">
-    <AppTopbar />
-    <div class="layout-sidebar">
-      <AppMenu />
-    </div>
-    <div class="layout-main-container">
-      <div class="layout-main">
-        <RouterView />
+      <AppTopbar />
+      <div class="layout-sidebar">
+        <AppMenu />
       </div>
-    </div>
-    <div class="layout-mask"></div>
+      <div class="layout-main-container">
+        <div class="layout-main">
+          <router-view v-slot="{ Component, route }">
+            <transition name="nested">
+              <div :key="route.path">
+               <component :is="Component"  />
+              </div>
+            </transition>
+          </router-view>
+        </div>
+      </div>
+      <div class="layout-mask"></div>
   </div>
 </template>
+<style scoped>
+.nested-enter-active, .nested-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+.nested-leave-active {
+  transition-delay: 0.1s;
+}
+
+.nested-enter-from,
+.nested-leave-to {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+.nested-enter-active .inner,
+.nested-leave-active .inner {
+  transition: all 0.3s ease-in-out;
+}
+
+.nested-enter-active .inner {
+  transition-delay: 0.25s;
+}
+
+.nested-enter-from .inner,
+.nested-leave-to .inner {
+  transform: translateX(30px);
+  opacity: 0.001;
+}
+</style>

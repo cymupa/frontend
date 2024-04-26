@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios'
 import { type Ref, type UnwrapRef, ref } from 'vue'
 
+import { sleep } from '@/utils'
 import api, {
   type ApiMethod,
   type ApiRequest,
@@ -27,7 +28,7 @@ export const useFetch = <Route extends ApiRoutes>(
 ): State<Route> => {
   const dataRes = ref<null | ApiResponseData<Route>>(null)
   const error = ref<string | null>(null)
-  const isLoading = ref(true)
+  const isLoading = ref(false)
 
   const fetchData = async () => {
     isLoading.value = true
@@ -38,6 +39,7 @@ export const useFetch = <Route extends ApiRoutes>(
         data
       }
 
+      await sleep(1000)
       const res = await api.request<ApiResponseData<Route>>(requestConfig)
 
       dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>>

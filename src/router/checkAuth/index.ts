@@ -4,7 +4,7 @@ import type {
   RouteLocationNormalized as T
 } from 'vue-router'
 
-import { useAuthStore } from '../../stores/auth.ts'
+import { useAuthStore } from '@/stores/auth'
 
 /**
  * Функция принимает параметры от vue и смотрит, куда передвигается юзер

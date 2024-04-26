@@ -27,5 +27,26 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    rollupOptions: {
+      // @see https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          'group-news': [
+            './src/views/home/HomeView.vue',
+            './src/views/home/SingleNewsView.vue'
+          ],
+          'group-teams': [
+            './src/views/team/TeamsView.vue',
+            './src/views/team/TeamView.vue'
+          ],
+          'group-tournaments': [
+            './src/views/tournament/TournamentsView.vue',
+            './src/views/tournament/TournamentView.vue'
+          ]
+        }
+      }
+    }
   }
 })
