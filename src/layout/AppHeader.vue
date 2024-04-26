@@ -4,7 +4,6 @@ import { usePrimeVue } from 'primevue/config'
 
 import useClickOutside from './composables/useClickOutside'
 import { useLayout } from './composables/useLayout.ts'
-import router from '@/router'
 
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()

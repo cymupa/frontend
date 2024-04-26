@@ -1,18 +1,20 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+// import { sleep } from 'bun';
 import { authAPI } from '@/api'
 
 const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { data, isLoading, error, fetchData } =authAPI.authorize({
+  const { isLoading, fetchData } = authAPI.authorize({
     login: email.value,
     password: password.value,
   })
 
   try {
     console.log('isLoading', isLoading.value)
+    // await sleep(5000)
     await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)

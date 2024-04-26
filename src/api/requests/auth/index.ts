@@ -13,11 +13,11 @@ import { AuthRequests } from '../../types/auth'
 // }
 
 export const authAPI: AuthRequests = {
-  authorize(req: ApiRequest<'authorization'>): State<"authorization"> {
+  authorize(req: ApiRequest<'authorization'>): State<'authorization'> {
     return useFetch('authorization', 'POST', req)
   },
 
-  register(req: ApiRequest<'registration'>): State<"registration"> {
+  register(req: ApiRequest<'registration'>): State<'registration'> {
     return useFetch('registration', 'POST', req)
-  }
+  },
 }

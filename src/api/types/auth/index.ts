@@ -26,6 +26,6 @@ interface AuthResponse {
 }
 
 export interface AuthRequests {
-  authorize(req: ApiRequest<'authorization'>): State<"authorization">
-  register(req: ApiRequest<'registration'>): State<"registration">
+  authorize(req: ApiRequest<'authorization'>): State<'authorization'>
+  register(req: ApiRequest<'registration'>): State<'registration'>
 }
