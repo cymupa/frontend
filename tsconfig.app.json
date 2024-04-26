@@ -19,8 +19,8 @@
     "noFallthroughCasesInSwitch": true
   },
   "paths": {
-    "@/*": ["./src/*"],
-    "@hooks": "./src/hooks"
+    "@hooks": "./src/hooks",
+    "@/*": ["./src/*"]
   },
   "exclude": ["node_modules", "src/**/*.spec.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]

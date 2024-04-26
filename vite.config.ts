@@ -9,6 +9,7 @@ import pluginPurgeCss from '@mojojoejo/vite-plugin-purgecss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [
     vue(),
     VueDevTools(),
@@ -21,8 +22,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
       { find: '@hooks', replacement: path.resolve(__dirname, './src/hooks') },
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
     ],
   },
 })

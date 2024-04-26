@@ -3,7 +3,7 @@ import { AxiosError, type AxiosRequestConfig } from 'axios'
 
 import api, { type ApiMethod, type ApiRequest, type ApiResponseData, type ApiRoutes } from '../../api'
 
-interface State<Route extends ApiRoutes> {
+export interface State<Route extends ApiRoutes> {
   isLoading: Ref<UnwrapRef<boolean>>
   fetchData: () => Promise<void>
   data: Ref<UnwrapRef<ApiResponseData<Route> | null>>

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useFetch } from '@hooks'
+import { authAPI } from '@/api'
 
 const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { data, isLoading, error, fetchData } = useFetch('authorization', 'POST', {
+  const { data, isLoading, error, fetchData } =authAPI.authorize({
     login: email.value,
     password: password.value,
   })
