@@ -94,3 +94,96 @@ export const newsListData = [
     description: 'Краткое описание новости 2'
   }
 ]
+
+export const tournamentsData = [
+  {
+    id: 1,
+    avatar: '',
+    title: 'Томский Турнир по CS:GO GO GO GO MAN!',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 2,
+    avatar: '',
+    title: 'Турнир 2',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 3,
+    avatar: '',
+    title: 'Турнир 3',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 4,
+    avatar: '',
+    title: 'Турнир 4',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 5,
+    avatar: '',
+    title: 'Турнир 5',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 6,
+    avatar: '',
+    title: 'Турнир 6',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 7,
+    avatar: '',
+    title: 'Турнир 7',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 8,
+    avatar: '',
+    title: 'Турнир 8',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 9,
+    avatar: '',
+    title: 'Турнир 9',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  },
+  {
+    id: 10,
+    avatar: '',
+    title: 'Турнир 10',
+    dates: '10.12.2024 - 20.12.2024',
+    teamsCount: 10,
+    totalPrize: 10000,
+    game: 'Dota 2'
+  }
+]
