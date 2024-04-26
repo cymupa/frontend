@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-// import { sleep } from 'bun';
+
 import { authAPI } from '@/api'
 
 const email = ref('')
@@ -14,7 +14,7 @@ const handleLogin = async () => {
 
   try {
     console.log('isLoading', isLoading.value)
-    // await sleep(5000)
+    await Bun.sleep(5000)
     await fetchData?.()
   } catch (e) {
     console.error('isLoading', isLoading.value)
