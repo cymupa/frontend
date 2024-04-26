@@ -10,5 +10,3 @@ console.log('id', id)
 </script>
 
 <template>current news id: {{ id }}</template>
-
-<style scoped></style>

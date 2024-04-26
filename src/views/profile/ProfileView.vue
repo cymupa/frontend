@@ -1,5 +1,3 @@
 <script setup lang="ts"></script>
 
 <template>profile user</template>
-
-<style scoped></style>

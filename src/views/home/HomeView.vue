@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import { newsListData } from '@/data'
+
+const newsList = ref(newsListData)
+</script>
+
 <template>
   <ScrollPanel
     class="scroll-wrapper"
@@ -31,13 +39,6 @@
     </div>
   </ScrollPanel>
 </template>
-
-<script setup lang="ts">
-import { newsListData } from '@/data'
-import { ref } from 'vue'
-
-const newsList = ref(newsListData)
-</script>
 
 <style scoped>
 .scroll-wrapper {

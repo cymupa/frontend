@@ -10,5 +10,3 @@ console.log('id', id)
 </script>
 
 <template>single team</template>
-
-<style scoped></style>

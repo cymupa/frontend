@@ -10,5 +10,3 @@ console.log('id', id)
 </script>
 
 <template>tournament</template>
-
-<style scoped></style>
