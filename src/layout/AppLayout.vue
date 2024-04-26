@@ -76,27 +76,28 @@ const isOutsideClicked = (event: MouseEvent) => {
 
 <template>
   <div class="layout-wrapper" :class="containerClass">
-      <AppTopbar />
-      <div class="layout-sidebar">
-        <AppMenu />
+    <AppTopbar />
+    <div class="layout-sidebar">
+      <AppMenu />
+    </div>
+    <div class="layout-main-container">
+      <div class="layout-main">
+        <router-view v-slot="{ Component, route }">
+          <transition name="nested">
+            <div :key="route.path">
+              <component :is="Component" />
+            </div>
+          </transition>
+        </router-view>
       </div>
-      <div class="layout-main-container">
-        <div class="layout-main">
-          <router-view v-slot="{ Component, route }">
-            <transition name="nested">
-              <div :key="route.path">
-               <component :is="Component"  />
-              </div>
-            </transition>
-          </router-view>
-        </div>
-      </div>
-      <div class="layout-mask"></div>
+    </div>
+    <div class="layout-mask"></div>
   </div>
 </template>
 
 <style scoped>
-.nested-enter-active, .nested-leave-active {
+.nested-enter-active,
+.nested-leave-active {
   transition: all 0.3s ease-in-out;
 }
 
@@ -117,7 +118,7 @@ const isOutsideClicked = (event: MouseEvent) => {
 }
 
 .nested-enter-active .inner {
-  transition-delay: .25s;
+  transition-delay: 0.25s;
 }
 
 .nested-enter-from .inner,

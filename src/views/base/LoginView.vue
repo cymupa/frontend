@@ -62,7 +62,7 @@ const handleLogin = async () => {
           <div>
             <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
             <InputText
-                :disabled="isLoading"
+              :disabled="isLoading"
               id="email1"
               type="text"
               placeholder="Email address"
@@ -74,8 +74,7 @@ const handleLogin = async () => {
             <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
 
             <Password
-                :disabled="isLoading"
-
+              :disabled="isLoading"
               id="password1"
               v-model="password"
               placeholder="Password"
