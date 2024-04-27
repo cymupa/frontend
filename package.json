@@ -11,7 +11,7 @@
     "type-check": "vue-tsc --build --force",
     "format-unsafe": "biome check . --apply-unsafe",
     "format": "prettier --write \"src/**/*.vue\"",
-    "test:ui": "vitest -t spec",
+    "test:ui": "vitest spec",
     "test:unit": "bun test -t test"
   },
   "dependencies": {

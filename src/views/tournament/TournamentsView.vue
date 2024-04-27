@@ -28,6 +28,7 @@ const tournaments = reactive(tournamentsData)
                     <Tag :value="item.game" />
                   </div>
                 </div>
+
                 <div class="flex flex-column md:align-items-end gap-5">
                   <div class="flex flex-column gap-2">
                     <SmallText>Кол-во команд:</SmallText>
