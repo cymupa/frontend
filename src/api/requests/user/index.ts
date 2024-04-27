@@ -1,13 +1,12 @@
-// import { State, useFetch } from '../../../hooks'
-// import { ApiRequest } from '../../types'
-// import { AuthRequests } from '../../types/auth'
-//
-// export class UserAPI implements AuthRequests {
-//   async authorize(req: ApiRequest<'authorization'>): Promise<State<'authorization'>> {
-//     return useFetch('authorization', 'POST', req)
-//   }
-//
-//   async register(req: ApiRequest<'registration'>): Promise<State<'registration'>> {
-//     return useFetch('registration', 'POST', req)
-//   },
-// }
+import type { ApiRequest } from '@/api/core'
+import { type State, useFetch } from '@/hooks'
+
+interface UserRequests {
+  getById(req: ApiRequest<'users', 'GET'>): State<'users', 'GET'>
+  getAll(req: ApiRequest<'users', 'POST'>): State<'users', 'POST'>
+}
+
+export const userApi: UserRequests = {
+  getAll: (req) => useFetch('users', 'POST', req),
+  getById: (req) => useFetch('users', 'GET', req)
+}

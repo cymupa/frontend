@@ -2,7 +2,7 @@
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useLayout } from './composables/useLayout.ts'
+import { useLayout } from './composables/useLayout'
 import type { MenuGroup, MenuItem } from './types'
 
 const route = useRoute()
@@ -39,6 +39,7 @@ watch(
     )
   }
 )
+
 const itemClick = (_event: MouseEvent, item: MenuItem) => {
   const { overlayMenuActive, staticMenuMobileActive } = layoutState
 

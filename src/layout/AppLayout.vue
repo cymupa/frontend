@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
+import { useLoadStore } from '@/stores/load'
 import { useLayout } from './composables/useLayout'
 
+import { storeToRefs } from 'pinia'
 import AppTopbar from './AppHeader.vue'
 import AppMenu from './AppSidebar.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
+const isLoading = useLoadStore()
 
 type cb = (event: MouseEvent) => void
 
@@ -82,7 +85,10 @@ const isOutsideClicked = (event: MouseEvent) => {
     </div>
     <div class="layout-main-container">
       <div class="layout-main">
-        <router-view v-slot="{ Component, route }">
+        <div v-if="isLoading.state" class="card flex justify-content-center">
+          <ProgressSpinner />
+        </div>
+        <router-view v-else v-slot="{ Component, route }">
           <transition name="nested">
             <div :key="route.path">
               <component :is="Component" />
@@ -95,18 +101,26 @@ const isOutsideClicked = (event: MouseEvent) => {
   </div>
 </template>
 
-<style scoped>
+<style>
+html {
+  overflow: hidden;
+}
+
 .nested-enter-active,
 .nested-leave-active {
   transition: all 0.3s ease-in-out;
 }
 
 .nested-leave-active {
+  overflow: hidden;
   transition-delay: 0s;
 }
 
 .nested-enter-from,
 .nested-leave-to {
+  html {
+    overflow: hidden;
+  }
   transform: translateY(30px);
   opacity: 0;
   position: absolute;
@@ -119,10 +133,5 @@ const isOutsideClicked = (event: MouseEvent) => {
 
 .nested-enter-active .inner {
   transition-delay: 0.25s;
-}
-
-.nested-enter-from .inner,
-.nested-leave-to .inner {
-  transform: translateX(30px);
 }
 </style>

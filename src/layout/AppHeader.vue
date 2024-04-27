@@ -3,7 +3,7 @@ import { usePrimeVue } from 'primevue/config'
 import { computed, onBeforeUnmount, ref } from 'vue'
 
 import useClickOutside from './composables/useClickOutside'
-import { useLayout } from './composables/useLayout.ts'
+import { useLayout } from './composables/useLayout'
 
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()
@@ -72,19 +72,14 @@ onBeforeUnmount(unbindOutsideClick)
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <RouterLink to="profile" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
-        <i class="pi pi-user"></i>
-        <span>Профиль</span>
-      </RouterLink>
-
-      <RouterLink to="self" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
-        <i class="pi pi-cog"></i>
-        <span>Настройки</span>
-      </RouterLink>
-
       <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
         <i :class="layoutConfig.darkTheme.value ? 'pi pi-sun' : 'pi pi-moon'"></i>
         <span>Тема</span>
+      </button>
+
+      <button class="p-link layout-menu-button layout-topbar-button">
+        <i class="pi pi-bell"></i>
+        <span>Уведомления</span>
       </button>
     </div>
   </div>

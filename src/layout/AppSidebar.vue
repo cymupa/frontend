@@ -16,7 +16,11 @@ const model: MenuGroup[] = reactive([
   {
     label: 'Личное',
     // TODO: add team id from store
-    items: [{ label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' }]
+    items: [
+      { label: 'Мой профиль', icon: 'pi pi-user', to: '/profile' },
+      { label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' },
+      { label: 'Настройки', icon: 'pi pi-cog', to: '/self' }
+    ]
   },
   {
     label: 'FOR TESTS',

@@ -14,6 +14,3 @@ const instance = axios.create({
 })
 
 export default instance
-
-export * from './types'
-export * from './requests'

@@ -1,13 +1,16 @@
+import type { ApiRequest } from '@/api/core'
+import type { State } from '@/hooks'
+
 export interface UserController {
-  'user.show': {
-    method: 'POST'
-    req: { id: number }
-    res: GetUserResponse
-  }
-  'user.get': {
-    method: 'GET'
-    req: {}
-    res: GetUserResponse
+  users: {
+    GET: {
+      req: { id: number }
+      res: GetUserResponse
+    }
+    POST: {
+      req: {}
+      res: GetUserResponse
+    }
   }
 }
 
@@ -18,4 +21,9 @@ interface GetUserResponse {
     patronymic?: string
     age: Date
   }
+}
+
+export interface UserRequests {
+  getById(req: ApiRequest<'users', 'POST'>): State<'users', 'POST'>
+  getAll(req: ApiRequest<'users', 'GET'>): State<'users', 'GET'>
 }

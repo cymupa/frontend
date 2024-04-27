@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { authApi } from '@/api/requests'
 import { useFetch } from '@/hooks'
 import { ref } from 'vue'
 
@@ -6,9 +7,10 @@ const email = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const { isLoading, fetchData } = useFetch('authorization', 'POST', {
+  const { isLoading, fetchData } = authApi.register({
     login: email.value,
-    password: password.value
+    password: password.value,
+    name: 'asd'
   })
 
   try {

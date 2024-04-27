@@ -7,18 +7,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
-    Column: typeof import('primevue/column')['default']
-    DataTable: typeof import('primevue/datatable')['default']
-    Image: typeof import('primevue/image')['default']
+    DataView: typeof import('primevue/dataview')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
     Password: typeof import('primevue/password')['default']
-    Rating: typeof import('primevue/rating')['default']
+    ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollPanel: typeof import('primevue/scrollpanel')['default']
+    ScrollWrapper: typeof import('./src/components/ScrollWrapper/ScrollWrapper.vue')['default']
+    SmallText: typeof import('./src/components/SmallText/SmallText.vue')['default']
+    SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
     Tag: typeof import('primevue/tag')['default']
   }
 }

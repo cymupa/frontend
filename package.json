@@ -7,11 +7,13 @@
     "dev": "bunx --bun vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "bunx --bun vite preview",
-    "test:unit": "vitest",
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build --force",
     "format-unsafe": "biome check . --apply-unsafe",
-    "format": "prettier --write src"
+    "format": "prettier --write \"src/**/*.vue\"",
+    "test:ui": "vitest spec",
+    "test:unit": "bun test -t test",
+    "coverage": "bun run test:unit --coverage"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -23,11 +25,14 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.6.4",
     "@mojojoejo/vite-plugin-purgecss": "^1.1.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/bun": "latest",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "^1.5.2",
     "@vue/test-utils": "^2.4.5",
     "@vue/tsconfig": "^0.5.1",
     "jsdom": "^24.0.0",
@@ -39,8 +44,6 @@
     "vite": "^5.2.10",
     "vite-plugin-vue-devtools": "^7.1.2",
     "vitest": "^1.5.2",
-    "@biomejs/biome": "^1.6.4",
-    "vue-tsc": "^2.0.14",
-    "@types/bun": "latest"
+    "vue-tsc": "^2.0.14"
   }
 }
