@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@/api'
 import type { State } from '@/hooks'
+import type { ApiRequest } from '../../core'
 
 /**
  * Типизация роутов для работы с авторизацией / регистрацией
@@ -10,22 +10,19 @@ import type { State } from '@/hooks'
  */
 export interface AuthController {
   authorization: {
-    method: 'POST'
-    req: { login: string; password: string }
-    res: AuthResponse
+    POST: {
+      req: { login: string; password: string }
+      res: AuthResponse
+    }
   }
   registration: {
-    method: 'POST'
-    req: { login: string; password: string }
-    res: AuthResponse
+    POST: {
+      req: { login: string; password: string; name: string }
+      res: AuthResponse
+    }
   }
 }
 
 interface AuthResponse {
   data: { token: string }
-}
-
-export interface AuthRequests {
-  authorize(req: ApiRequest<'authorization'>): State<'authorization'>
-  register(req: ApiRequest<'registration'>): State<'registration'>
 }

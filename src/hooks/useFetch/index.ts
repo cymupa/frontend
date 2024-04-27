@@ -1,18 +1,21 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios'
 import { type Ref, type UnwrapRef, ref } from 'vue'
 
-import { sleep } from '@/utils'
-import api, {
-  type ApiMethod,
-  type ApiRequest,
-  type ApiResponseData,
-  type ApiRoutes
-} from '../../api'
+import type {
+  ApiRequest,
+  ApiResponseData,
+  ApiRoutes,
+  HttpMethod
+} from '@/api/core'
 
-export interface State<Route extends ApiRoutes> {
+import { sleep } from '@/utils'
+
+import api from '../../api'
+
+export interface State<R extends ApiRoutes, M extends HttpMethod> {
   isLoading: Ref<UnwrapRef<boolean>>
   fetchData: () => Promise<void>
-  data: Ref<UnwrapRef<ApiResponseData<Route> | null>>
+  data: Ref<UnwrapRef<ApiResponseData<R, M> | null>>
   error: Ref<UnwrapRef<string | null>>
 }
 
@@ -21,12 +24,12 @@ export interface State<Route extends ApiRoutes> {
  * Благодаря строгой типизации каждый роут и принимаемые параметры подсказываются,
  * а также то, что вернет сервер в ответе
  */
-export const useFetch = <Route extends ApiRoutes>(
-  url: Route,
-  method: ApiMethod<Route>,
-  data?: ApiRequest<Route>
-): State<Route> => {
-  const dataRes = ref<null | ApiResponseData<Route>>(null)
+export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
+  url: R,
+  method: M,
+  data: ApiRequest<R, M>
+): State<R, M> => {
+  const dataRes = ref<null | ApiResponseData<R, M>>(null)
   const error = ref<string | null>(null)
   const isLoading = ref(false)
 
@@ -40,9 +43,9 @@ export const useFetch = <Route extends ApiRoutes>(
       }
 
       await sleep(1000)
-      const res = await api.request<ApiResponseData<Route>>(requestConfig)
+      const res = await api.request<ApiResponseData<R, M>>(requestConfig)
 
-      dataRes.value = res.data as UnwrapRef<ApiResponseData<Route>>
+      dataRes.value = res.data as UnwrapRef<ApiResponseData<R, M>>
 
       error.value = null
     } catch (err) {
