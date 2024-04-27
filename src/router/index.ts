@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import NotFound from '@/views/base/NotFoundView.vue'
 import AppLayout from '../layout/AppLayout.vue'
+
+import { disableLoader } from '@/router/loader/disableLoader'
+import { setLoader } from '@/router/loader/setLoader'
+import { useLoadStore } from '@/stores/load'
 import { checkAuth } from './checkAuth'
 
 const router = createRouter({
@@ -89,5 +93,9 @@ const router = createRouter({
 })
 
 router.beforeEach(checkAuth)
+
+router.beforeEach(setLoader)
+
+router.afterEach(disableLoader)
 
 export default router

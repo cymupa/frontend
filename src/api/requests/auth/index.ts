@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@/api/core'
 import { type State, useFetch } from '@/hooks'
 
-export interface AuthRequests {
+interface AuthRequests {
   authorize(
     req: ApiRequest<'authorization', 'POST'>
   ): State<'authorization', 'POST'>

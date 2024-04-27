@@ -2,18 +2,17 @@
 import { useToast } from 'primevue/usetoast'
 import { ref } from 'vue'
 
-import { authAPI } from '@/api'
+import { authApi } from '@/api/requests'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
-import { storeToRefs } from 'pinia'
 
 const toast = useToast()
 
 const email = ref('')
 const password = ref('')
 
-const { isLoading, fetchData } = authAPI.authorize({
+const { isLoading, fetchData } = authApi.authorize({
   login: email.value,
   password: password.value
 })

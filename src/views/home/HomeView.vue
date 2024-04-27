@@ -31,9 +31,13 @@ const newsList = ref(newsListData)
             {{ news.description }}
           </p>
 
-          <Button icon="pi pi-arrow-circle-right" icon-pos="right" @click="router.push(`news/${news.id}`)" label="Подробнее" />
+          <Button
+            icon="pi pi-arrow-circle-right"
+            icon-pos="right"
+            @click="router.push(`news/${news.id}`)"
+            label="Подробнее"
+          />
         </template>
-
       </Card>
     </div>
   </ScrollWrapper>
