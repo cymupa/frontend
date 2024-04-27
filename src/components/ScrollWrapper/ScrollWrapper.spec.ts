@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-import MainTitle from './MainTitle.vue'
+import ScrollWrapper from './ScrollWrapper.vue'
 
-describe('MainTitle', () => {
+describe('ScrollWrapper', () => {
   it('renders properly', () => {
-    const wrapper = mount(MainTitle, {
+    const wrapper = mount(ScrollWrapper, {
       slots: {
         default: 'Hello'
       }

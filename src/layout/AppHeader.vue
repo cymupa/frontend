@@ -21,14 +21,14 @@ const onHeaderButtonClick = () => {
 
 const topbarMenuClasses = computed(() => {
   return {
-    'layout-topbar-menu-mobile-active': topbarMenuActive.value,
+    'layout-topbar-menu-mobile-active': topbarMenuActive.value
   }
 })
 
 const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
   menuButton,
   topbarMenuActive,
-  onTopBarMenuButton,
+  onTopBarMenuButton
 )
 
 const onChangeTheme = (theme: string, mode: boolean) => {

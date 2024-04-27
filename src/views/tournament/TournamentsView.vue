@@ -1,14 +1,17 @@
 <script setup>
-import MainTitle from '@/components/MainTitle/MainTitle.vue'
-import SmallText from '@/components/SmallText/SmallText.vue'
-import { tournamentsData } from '@/data'
 import { reactive } from 'vue'
+
+import { tournamentsData } from '@/data'
+
+import MainTitle from '@/components/MainTitle/MainTitle.vue'
+import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
+import SmallText from '@/components/SmallText/SmallText.vue'
 
 const tournaments = reactive(tournamentsData)
 </script>
 
 <template>
-  <div class="card">
+  <ScrollWrapper>
     <DataView :value="tournaments">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
@@ -45,5 +48,7 @@ const tournaments = reactive(tournamentsData)
         </div>
       </template>
     </DataView>
-  </div>
+  </ScrollWrapper>
 </template>
+
+<style scoped></style>

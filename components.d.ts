@@ -16,6 +16,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollPanel: typeof import('primevue/scrollpanel')['default']
+    ScrollWrapper: typeof import('./src/components/ScrollWrapper/ScrollWrapper.vue')['default']
     SmallText: typeof import('./src/components/SmallText/SmallText.vue')['default']
     Tag: typeof import('primevue/tag')['default']
     Title: typeof import('./src/components/Title/Title.vue')['default']

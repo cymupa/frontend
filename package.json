@@ -11,8 +11,8 @@
     "type-check": "vue-tsc --build --force",
     "format-unsafe": "biome check . --apply-unsafe",
     "format": "prettier --write \"src/**/*.vue\"",
-    "test:ui": "bunx --bun vitest -t spec",
-    "test": "bun test -t test"
+    "test:ui": "vitest -t spec",
+    "test:unit": "bun test -t test"
   },
   "dependencies": {
     "axios": "^1.6.8",

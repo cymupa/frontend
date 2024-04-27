@@ -7,15 +7,7 @@ const newsList = ref(newsListData)
 </script>
 
 <template>
-  <ScrollPanel
-    class="scroll-wrapper"
-    :pt="{
-      wrapper: {
-        style: { 'border-right': '10px solid var(--surface-ground)' },
-      },
-      bary: 'hover:bg-primary-400 bg-primary-300 opacity-100',
-    }"
-  >
+  <ScrollWrapper>
     <div class="news-container">
       <Card style="overflow: hidden" v-for="(news, index) in newsList" :key="index">
         <template #header>
@@ -41,15 +33,10 @@ const newsList = ref(newsListData)
         </template>
       </Card>
     </div>
-  </ScrollPanel>
+  </ScrollWrapper>
 </template>
 
 <style scoped>
-.scroll-wrapper {
-  width: 100%;
-  height: 80vh;
-}
-
 .news-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));

@@ -10,21 +10,21 @@ const model: MenuGroup[] = reactive([
     items: [
       { label: 'Лента новостей', icon: 'pi pi-sparkles', to: '/' },
       { label: 'Список турниров', icon: 'pi pi-trophy', to: '/tournaments' },
-      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' },
-    ],
+      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' }
+    ]
   },
   {
     label: 'Личное',
     // TODO: add team id from store
-    items: [{ label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' }],
+    items: [{ label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' }]
   },
   {
     label: 'FOR TESTS',
     items: [
       { label: 'login', icon: 'pi pi-fw pi-id-card', to: '/login' },
-      { label: 'register', icon: 'pi pi-fw pi-id-card', to: '/register' },
-    ],
-  },
+      { label: 'register', icon: 'pi pi-fw pi-id-card', to: '/register' }
+    ]
+  }
 ])
 </script>
 
