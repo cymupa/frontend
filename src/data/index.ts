@@ -3,9 +3,9 @@ export const newsListData = [
     id: 1,
     avatar: 'url_to_avatar_1',
     title:
-      'Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1',
+      'Перспективы развития детского киберспорта в России в мнениях родителей',
     description:
-      'Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1Новостщпщвпазщвапвапвзщплзщплвазщплвазщплваплщвпалвапзщлвпалзщвпалвзщпалпвпвзь 1'
+      'Уважаемые читатели VС! Я приглашаю Вас принять участие в исследовании "Перспективы развития детского киберспорта в России в мнениях родителей".'
   },
   {
     id: 1,
@@ -98,92 +98,82 @@ export const newsListData = [
 export const tournamentsData = [
   {
     id: 1,
-    avatar: '',
-    title: 'Томский Турнир по CS:GO GO GO GO MAN!',
+    title: 'Томский Турнир по Dota 2 GO GO GO MAN!',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
+    teamsCount: 14,
+    totalPrize: 1000,
     game: 'Dota 2'
   },
   {
     id: 2,
-    avatar: '',
-    title: 'Турнир 2',
+    title: 'CS:GO 2 Major #2',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    teamsCount: 16,
+    totalPrize: 1500,
+    game: 'CS2'
   },
   {
     id: 3,
-    avatar: '',
-    title: 'Турнир 3',
+    title: 'World CUP LoL EU',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    teamsCount: 14,
+    totalPrize: 1500,
+    game: 'LoL'
   },
   {
     id: 4,
-    avatar: '',
     title: 'Турнир 4',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    teamsCount: 18,
+    totalPrize: 2000,
+    game: 'LoL'
   },
   {
     id: 5,
-    avatar: '',
-    title: 'Турнир 5',
+    title: 'Mobile Legends world tournament #5',
     dates: '10.12.2024 - 20.12.2024',
     teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    totalPrize: 1000,
+    game: 'Mobile'
   },
   {
     id: 6,
-    avatar: '',
-    title: 'Турнир 6',
+    title: 'Dota 2 World Major stage #2',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
+    teamsCount: 6,
+    totalPrize: 800,
     game: 'Dota 2'
   },
   {
     id: 7,
-    avatar: '',
-    title: 'Турнир 7',
+    title: 'Dota 2 RU Tournament',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
+    teamsCount: 8,
     totalPrize: 10000,
     game: 'Dota 2'
   },
   {
     id: 8,
-    avatar: '',
-    title: 'Турнир 8',
+    title: 'Mobile Legends terminators',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    teamsCount: 20,
+    totalPrize: 20000,
+    game: 'Mobile'
   },
   {
     id: 9,
-    avatar: '',
-    title: 'Турнир 9',
+    title: 'Mobile Legends legendary cup #2',
     dates: '10.12.2024 - 20.12.2024',
-    teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    teamsCount: 24,
+    totalPrize: 23000,
+    game: 'Mobile'
   },
   {
     id: 10,
-    avatar: '',
-    title: 'Турнир 10',
+    title: 'Mobile Legends legendary cup',
     dates: '10.12.2024 - 20.12.2024',
     teamsCount: 10,
-    totalPrize: 10000,
-    game: 'Dota 2'
+    totalPrize: 1000,
+    game: 'Mobile'
   }
 ]

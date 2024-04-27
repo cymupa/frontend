@@ -95,18 +95,26 @@ const isOutsideClicked = (event: MouseEvent) => {
   </div>
 </template>
 
-<style scoped>
+<style>
+html {
+  overflow: hidden;
+}
+
 .nested-enter-active,
 .nested-leave-active {
   transition: all 0.3s ease-in-out;
 }
 
 .nested-leave-active {
+  overflow: hidden;
   transition-delay: 0s;
 }
 
 .nested-enter-from,
 .nested-leave-to {
+  html {
+    overflow: hidden;
+  }
   transform: translateY(30px);
   opacity: 0;
   position: absolute;
@@ -121,8 +129,4 @@ const isOutsideClicked = (event: MouseEvent) => {
   transition-delay: 0.25s;
 }
 
-.nested-enter-from .inner,
-.nested-leave-to .inner {
-  transform: translateX(30px);
-}
 </style>

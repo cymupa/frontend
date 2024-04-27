@@ -21,21 +21,18 @@ const router = createRouter({
           path: '/news/:id',
           props: true,
           name: 'news',
-          meta: { transition: 'slide-left' },
           component: () => import('../views/home/SingleNewsView.vue')
         },
         {
           // просмотр туриков
           path: '/tournaments',
           name: 'tournaments',
-          meta: { transition: 'slide-left' },
           component: () => import('@/views/tournament/TournamentsView.vue')
         },
         {
           // просмотр команд
           path: '/teams',
           name: 'teams',
-          meta: { transition: 'slide-left' },
           component: () => import('@/views/team/TeamsView.vue')
         },
         {
@@ -43,7 +40,6 @@ const router = createRouter({
           path: '/tournament/:id',
           props: true,
           name: 'tournament',
-          meta: { transition: 'slide-left' },
           component: () => import('@/views/tournament/TournamentView.vue')
         },
         {
@@ -51,14 +47,12 @@ const router = createRouter({
           path: '/team/:id',
           props: true,
           name: 'team',
-          meta: { transition: 'slide-left' },
           component: () => import('@/views/team/TeamView.vue')
         },
         {
           // просмотр своего профиля
           path: '/profile',
           name: 'profile',
-          meta: { transition: 'slide-left' },
           component: () => import('@/views/profile/ProfileView.vue')
         },
         {
@@ -95,9 +89,5 @@ const router = createRouter({
 })
 
 router.beforeEach(checkAuth)
-router.afterEach((to, from) => {
-  const toDepth = to.path.split('/').length
-  const fromDepth = from.path.split('/').length
-  to.meta.transition = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-})
+
 export default router
