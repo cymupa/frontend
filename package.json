@@ -7,11 +7,12 @@
     "dev": "bunx --bun vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "bunx --bun vite preview",
-    "test:unit": "vitest",
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build --force",
     "format-unsafe": "biome check . --apply-unsafe",
-    "format": "prettier --write \"src/**/*.vue\""
+    "format": "prettier --write \"src/**/*.vue\"",
+    "test:ui": "bunx --bun vitest -t spec",
+    "test": "bun test -t test"
   },
   "dependencies": {
     "axios": "^1.6.8",

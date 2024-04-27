@@ -7,8 +7,7 @@ import type { MenuGroup, MenuItem } from './types'
 
 const route = useRoute()
 
-const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } =
-  useLayout()
+const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout()
 
 interface Props {
   item: MenuGroup | MenuItem
@@ -17,12 +16,9 @@ interface Props {
   parentItemKey?: string | null
 }
 
-const { item, parentItemKey, root, index } = withDefaults(
-  defineProps<Props>(),
-  {
-    root: true
-  }
-)
+const { item, parentItemKey, root, index } = withDefaults(defineProps<Props>(), {
+  root: true,
+})
 
 const isActiveMenu = ref(false)
 const itemKey = ref<null | string>(null)
@@ -34,10 +30,8 @@ onBeforeMount(() => {
 watch(
   () => layoutConfig.activeMenuItem.value,
   (newVal) => {
-    isActiveMenu.value = Boolean(
-      newVal === itemKey.value || newVal?.startsWith(`${itemKey.value}-`)
-    )
-  }
+    isActiveMenu.value = Boolean(newVal === itemKey.value || newVal?.startsWith(`${itemKey.value}-`))
+  },
 )
 const itemClick = (_event: MouseEvent, item: MenuItem) => {
   const { overlayMenuActive, staticMenuMobileActive } = layoutState
@@ -46,11 +40,7 @@ const itemClick = (_event: MouseEvent, item: MenuItem) => {
     onMenuToggle()
   }
 
-  const foundItemKey = item.items
-    ? isActiveMenu.value
-      ? parentItemKey
-      : itemKey.value
-    : itemKey.value
+  const foundItemKey = item.items ? (isActiveMenu.value ? parentItemKey : itemKey.value) : itemKey.value
 
   setActiveMenuItem(foundItemKey)
 }
