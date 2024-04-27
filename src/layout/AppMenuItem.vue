@@ -39,6 +39,7 @@ watch(
     )
   }
 )
+
 const itemClick = (_event: MouseEvent, item: MenuItem) => {
   const { overlayMenuActive, staticMenuMobileActive } = layoutState
 

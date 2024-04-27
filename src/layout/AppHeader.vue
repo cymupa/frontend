@@ -72,11 +72,6 @@ onBeforeUnmount(unbindOutsideClick)
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <RouterLink to="profile" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
-        <i class="pi pi-user"></i>
-        <span>Профиль</span>
-      </RouterLink>
-
       <RouterLink to="self" @click="onHeaderButtonClick()" class="p-link layout-topbar-button">
         <i class="pi pi-cog"></i>
         <span>Настройки</span>
