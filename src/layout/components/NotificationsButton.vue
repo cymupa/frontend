@@ -30,15 +30,16 @@ const toggle = (event: MouseEvent) => {
     </button>
 
     <OverlayPanel ref="isVisible">
-      <div class="flex flex-column gap-3 w-25rem">
+      <div class="flex flex-column gap-3 w-20rem">
         <div>
           <span class="font-medium text-900 block mb-2">Приглашения в команду</span>
           <ul class="list-none p-0 m-0 flex flex-column gap-3">
             <li v-for="member in members" :key="member.name" class="flex align-items-center gap-2">
-              <div>
-                <span class="font-medium">{{ member.name }} приглашает вас в</span>
-                <div class="text-sm text-color-secondary">{{ member.team_name }}</div>
-              </div>
+              <!--              TODO: разобраться с line-height -->
+              <span class="font-medium line-height-2"
+                ><Tag severity="info" class="ine-height-2">{{ member.name }}</Tag> приглашает вас в команду
+                <Tag class="ine-height-2">{{ member.team_name }}</Tag></span
+              >
 
               <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
                 <Button icon="pi pi-check" aria-label="Filter" />
