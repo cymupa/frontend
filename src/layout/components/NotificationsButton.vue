@@ -5,16 +5,16 @@ const isVisible = ref()
 const members = ref([
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp',
+    team_name: 'GeForce Exp'
   },
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp',
+    team_name: 'GeForce Exp'
   },
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp',
-  },
+    team_name: 'GeForce Exp'
+  }
 ])
 
 const toggle = (event: MouseEvent) => {
