@@ -2,6 +2,7 @@
 import { usePrimeVue } from 'primevue/config'
 import { computed, onBeforeUnmount, ref } from 'vue'
 
+import NotificationsButton from '@/layout/components/NotificationsButton.vue'
 import useClickOutside from './composables/useClickOutside'
 import { useLayout } from './composables/useLayout'
 
@@ -15,15 +16,11 @@ const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
 }
 
-const onHeaderButtonClick = () => {
-  topbarMenuActive.value = false
-}
-
-const topbarMenuClasses = computed(() => {
-  return {
-    'layout-topbar-menu-mobile-active': topbarMenuActive.value
-  }
-})
+// const topbarMenuClasses = computed(() => {
+//   return {
+//     'layout-topbar-menu-mobile-active': topbarMenuActive.value
+//   }
+// })
 
 const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
   menuButton,
@@ -63,24 +60,21 @@ onBeforeUnmount(unbindOutsideClick)
       <i class="pi pi-bars"></i>
     </button>
 
-    <button
-      ref="menuButton"
-      class="p-link layout-topbar-menu-button layout-topbar-button"
-      @click="onTopBarMenuButton()"
-    >
-      <i class="pi pi-ellipsis-v"></i>
-    </button>
+<!--    <button-->
+<!--      ref="menuButton"-->
+<!--      class="p-link layout-topbar-menu-button layout-topbar-button"-->
+<!--      @click="onTopBarMenuButton()"-->
+<!--    >-->
+<!--      <i class="pi pi-ellipsis-v"></i>-->
+<!--    </button>-->
 
-    <div class="layout-topbar-menu" :class="topbarMenuClasses">
+    <div class="layout-topbar-menu">
       <button @click="onDarkModeChange(!layoutConfig.darkTheme.value)" class="p-link layout-topbar-button">
         <i :class="layoutConfig.darkTheme.value ? 'pi pi-sun' : 'pi pi-moon'"></i>
         <span>Тема</span>
       </button>
 
-      <button class="p-link layout-menu-button layout-topbar-button">
-        <i class="pi pi-bell"></i>
-        <span>Уведомления</span>
-      </button>
+      <NotificationsButton />
     </div>
   </div>
 </template>
