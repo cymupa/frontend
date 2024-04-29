@@ -1,6 +1,3 @@
-import type { State } from '@/hooks'
-import type { ApiRequest } from '../../core'
-
 /**
  * Типизация роутов для работы с авторизацией / регистрацией
  *

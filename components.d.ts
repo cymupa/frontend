@@ -20,11 +20,9 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ScrollPanel: typeof import('primevue/scrollpanel')['default']
     ScrollWrapper: typeof import('./src/components/ScrollWrapper/ScrollWrapper.vue')['default']
-    SelectButton: typeof import('primevue/selectbutton')['default']
     SmallText: typeof import('./src/components/SmallText/SmallText.vue')['default']
     SplitButton: typeof import('primevue/splitbutton')['default']
     SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
-    TabMenu: typeof import('primevue/tabmenu')['default']
     Tag: typeof import('primevue/tag')['default']
   }
 }

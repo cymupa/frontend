@@ -7,9 +7,6 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
 
 const newsList = ref(newsListData)
-// Его можно динамически подргужать по сути и сделать top await
-// @see https://ru.vuejs.org/guide/built-ins/suspense.html#async-setup
-// @see https://ru.vuejs.org/guide/components/async#basic-usage
 </script>
 
 <template>
