@@ -16,8 +16,8 @@ const { member } = defineProps<Props>()
     <div class="flex align-items-center">
       <div class="flex flex-column line-height gap-2">
         <span
-          >От <Tag severity="info">{{ member.name }}</Tag>
-        </span>
+          >От <Tag severity="info">{{ member.name }}</Tag></span
+        >
         <span
           >В <Tag>{{ member.team_name }}</Tag></span
         >

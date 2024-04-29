@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+
+import { newsListData } from '@/data'
 
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import { newsListData } from '@/data'
 import NewsItem from '@/views/home/HomeView/NewsItem/NewsItem.vue'
 
-const router = useRouter()
 const newsList = ref(newsListData)
 // Его можно динамически подргужать по сути и сделать top await
 // @see https://ru.vuejs.org/guide/built-ins/suspense.html#async-setup
@@ -15,6 +14,7 @@ const newsList = ref(newsListData)
 
 <template>
   <ScrollWrapper>
+    <h3 class="font-bold white-space-nowrap mb-3">Новости</h3>
     <div class="news-container">
       <NewsItem style="overflow: hidden" v-for="(news, index) in newsList" :news="news" :index="index" :key="index" />
     </div>
