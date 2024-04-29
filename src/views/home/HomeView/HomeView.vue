@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { newsListData } from '@/data'
 
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import NewsItem from '@/views/home/HomeView/NewsItem/NewsItem.vue'
+import NewsItem from './NewsItem/NewsItem.vue'
 
 const newsList = ref(newsListData)
 // Его можно динамически подргужать по сути и сделать top await
@@ -28,14 +28,6 @@ const newsList = ref(newsListData)
   grid-gap: 1rem;
 
   padding-bottom: 10px;
-}
-
-.text {
-  word-break: break-word;
-  max-height: 4rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  line-height: 2rem;
 }
 
 @media (max-width: 567px) {

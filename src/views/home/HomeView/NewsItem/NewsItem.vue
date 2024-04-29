@@ -40,3 +40,13 @@ const { news } = defineProps<Props>()
     </template>
   </Card>
 </template>
+
+<style scoped>
+.text {
+  word-break: break-word;
+  max-height: 4rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 2rem;
+}
+</style>
