@@ -177,3 +177,18 @@ export const tournamentsData = [
     game: 'Mobile'
   }
 ]
+
+export const invitesToTeam = [
+  {
+    name: 'Алик Мотов',
+    team_name: 'GeForce Exp'
+  },
+  {
+    name: 'Алик Мотов',
+    team_name: 'GeForce Exp'
+  },
+  {
+    name: 'Алик Мотов',
+    team_name: 'GeForce Exp'
+  }
+]

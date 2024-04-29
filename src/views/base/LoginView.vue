@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { authApi } from '@/api/requests'
-import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
 
 const toast = useToast()
-
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 
 const { isLoading, fetchData } = authApi.authorize({
   login: email.value,
-  password: password.value,
+  password: password.value
 })
 
 const { login } = useAuthStore()
@@ -26,7 +26,7 @@ const handleLogin = async () => {
       severity: 'info',
       summary: 'Выполняется вход',
       detail: 'Пожалуйста, подождите',
-      life: 1000,
+      life: 1000
     })
 
     await sleep(1500)

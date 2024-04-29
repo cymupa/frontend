@@ -2,9 +2,10 @@
 import { usePrimeVue } from 'primevue/config'
 import { onBeforeUnmount, ref } from 'vue'
 
-import NotificationsButton from '@/layout/components/NotificationsButton.vue'
-import useClickOutside from './composables/useClickOutside'
-import { useLayout } from './composables/useLayout'
+import useClickOutside from '../composables/useClickOutside'
+import { useLayout } from '../composables/useLayout'
+
+import NotificationsButton from './NotificationsButton/NotificationsButton.vue'
 
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()
@@ -19,7 +20,7 @@ const onTopBarMenuButton = () => {
 const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
   menuButton,
   topbarMenuActive,
-  onTopBarMenuButton,
+  onTopBarMenuButton
 )
 
 const onChangeTheme = (theme: string, mode: boolean) => {

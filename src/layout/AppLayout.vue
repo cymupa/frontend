@@ -4,9 +4,8 @@ import { computed, ref, watch } from 'vue'
 import { useLoadStore } from '@/stores/load'
 import { useLayout } from './composables/useLayout'
 
-import { storeToRefs } from 'pinia'
-import AppTopbar from './AppHeader.vue'
 import AppMenu from './AppSidebar.vue'
+import AppHeader from './Header/AppHeader.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 const isLoading = useLoadStore()
@@ -29,10 +28,12 @@ const containerClass = computed(() => {
     'layout-theme-dark': layoutConfig.darkTheme.value,
     'layout-overlay': layoutConfig.menuMode.value === 'overlay',
     'layout-static': layoutConfig.menuMode.value === 'static',
-    'layout-static-inactive': layoutState.staticMenuDesktopInactive.value && layoutConfig.menuMode.value === 'static',
+    'layout-static-inactive':
+      layoutState.staticMenuDesktopInactive.value &&
+      layoutConfig.menuMode.value === 'static',
     'layout-overlay-active': layoutState.overlayMenuActive.value,
     'layout-mobile-active': layoutState.staticMenuMobileActive.value,
-    'p-ripple-disabled': !layoutConfig.ripple.value,
+    'p-ripple-disabled': !layoutConfig.ripple.value
   }
 })
 
@@ -77,7 +78,7 @@ const isOutsideClicked = (event: MouseEvent) => {
 
 <template>
   <div class="layout-wrapper" :class="containerClass">
-    <AppTopbar />
+    <AppHeader />
     <div class="layout-sidebar">
       <AppMenu />
     </div>
@@ -86,50 +87,10 @@ const isOutsideClicked = (event: MouseEvent) => {
         <div v-if="isLoading.state" class="card flex justify-content-center">
           <ProgressSpinner />
         </div>
-        <router-view v-else v-slot="{ Component, route }">
-          <transition name="nested">
-            <div :key="route.path">
-              <component :is="Component" />
-            </div>
-          </transition>
-        </router-view>
+
+        <router-view v-else />
       </div>
     </div>
     <div class="layout-mask"></div>
   </div>
 </template>
-
-<style>
-html {
-  overflow: hidden;
-}
-
-.nested-enter-active,
-.nested-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-
-.nested-leave-active {
-  overflow: hidden;
-  transition-delay: 0s;
-}
-
-.nested-enter-from,
-.nested-leave-to {
-  html {
-    overflow: hidden;
-  }
-  transform: translateY(30px);
-  opacity: 0;
-  position: absolute;
-}
-
-.nested-enter-active .inner,
-.nested-leave-active .inner {
-  transition: all 0.3s ease-in-out;
-}
-
-.nested-enter-active .inner {
-  transition-delay: 0.25s;
-}
-</style>

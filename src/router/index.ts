@@ -5,7 +5,6 @@ import AppLayout from '../layout/AppLayout.vue'
 
 import { disableLoader } from '@/router/loader/disableLoader'
 import { setLoader } from '@/router/loader/setLoader'
-import { useLoadStore } from '@/stores/load'
 import { checkAuth } from './checkAuth'
 
 const router = createRouter({
@@ -18,7 +17,7 @@ const router = createRouter({
         {
           path: '/',
           name: 'home',
-          component: () => import('@/views/home/HomeView.vue')
+          component: () => import('@/views/home/HomeView/HomeView.vue')
         },
         //   конкретная новость
         {
@@ -31,7 +30,8 @@ const router = createRouter({
           // просмотр туриков
           path: '/tournaments',
           name: 'tournaments',
-          component: () => import('@/views/tournament/TournamentsView.vue')
+          component: () =>
+            import('@/views/tournament/TournamentsView/TournamentsView.vue')
         },
         {
           // просмотр команд

@@ -3,7 +3,7 @@ interface Props {
   is?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
 }
 const { is } = withDefaults(defineProps<Props>(), {
-  is: 'h3',
+  is: 'h3'
 })
 </script>
 

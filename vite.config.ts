@@ -46,7 +46,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'group-news': [
-            './src/views/home/HomeView.vue',
+            './src/views/home/NewsItem.vue',
             './src/views/home/SingleNewsView.vue'
           ],
           'group-teams': [
