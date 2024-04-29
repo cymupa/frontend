@@ -3,19 +3,20 @@ import { useRouter } from 'vue-router'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import SmallText from '@/components/SmallText/SmallText.vue'
+import type { Game } from '@/types/Game'
 
 interface Props {
   index: number
-  tournament: {
-    dates: string
-    title: string
-    game: string
-    teamsCount: number
-    totalPrize: number
+  team: {
     id: number
+    name: string
+    players_count: number
+    reward: number
+    game: string
+    date: string
   }
 }
-const { tournament } = defineProps<Props>()
+const { team } = defineProps<Props>()
 
 const router = useRouter()
 
@@ -40,27 +41,29 @@ const getTagStyle = (game: keyof typeof Game) => {
     <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 md:gap-2 gap-4">
       <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
         <div>
-          <SmallText>{{ tournament.dates }}</SmallText>
-          <MainTitle>{{ tournament.title }}</MainTitle>
-          <Tag :value="tournament.game" :severity="getTagStyle(tournament.game)" />
+          <MainTitle class="mb-1">{{ team.name }}</MainTitle>
+          <SmallText class="mb-1">{{ team.date }}</SmallText>
+          <Tag :value="team.game" :severity="getTagStyle(team.game)" />
+
         </div>
       </div>
 
       <div class="flex flex-column md:align-items-end gap-5">
         <div class="flex flex-column gap-2">
-          <SmallText>Кол-во команд:</SmallText>
-          <span class="text-xl font-semibold text-900">{{ tournament.teamsCount }}</span>
+          <SmallText class="mb-1">Кол-во игроков:</SmallText>
+          <span class="text-xl font-semibold text-900">{{ team.players_count }}</span>
         </div>
       </div>
 
       <div class="flex flex-column md:align-items-end gap-5">
         <div class="flex flex-column gap-2">
-          <SmallText>Призовой фонд:</SmallText>
-          <span class="text-xl font-semibold text-900">${{ tournament.totalPrize }}</span>
+          <SmallText class="mb-1">Суммарный выигрышь:</SmallText>
+          <span class="text-xl font-semibold text-900">${{ team.reward }}</span>
         </div>
       </div>
 
-      <Button size="small" icon="pi pi-arrow-right" @click="router.push(`tournament/${tournament.id}`)" label="Перейти" />
+      <Button size="small" icon="pi pi-arrow-right" @click="router.push(`tournament/${team.id}`)" label="Перейти" />
+
     </div>
   </div>
 </template>

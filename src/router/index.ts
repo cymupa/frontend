@@ -37,7 +37,7 @@ const router = createRouter({
           // просмотр команд
           path: '/teams',
           name: 'teams',
-          component: () => import('@/views/team/TeamsView.vue')
+          component: () => import('@/views/team/TeamsView/TeamsView.vue')
         },
         {
           // просмотр турика по айди

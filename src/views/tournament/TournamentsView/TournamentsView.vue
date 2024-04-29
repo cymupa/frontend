@@ -5,7 +5,7 @@ import { reactive, ref } from 'vue'
 import { tournamentsData } from '@/data'
 
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import TournamentItem from './TournamentItem.vue'
+import TournamentItem from './TournamentItem/TournamentItem.vue'
 
 const toast = useToast()
 const tournaments = reactive(tournamentsData)
@@ -79,7 +79,7 @@ const items = [
     <DataView data-key="id" :value="tournaments">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
-          <div v-for="(item, index) in tournaments" :key="item.id" class="col-12">
+          <div v-for="(item, index) in slotProps.items" :key="item.id" class="col-12">
             <TournamentItem :index="index" :tournament="item" />
           </div>
         </div>

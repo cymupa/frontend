@@ -192,3 +192,54 @@ export const invitesToTeam = [
     team_name: 'GeForce Exp'
   }
 ]
+
+export const teamsData = [
+  {
+    id: 1,
+    name: 'Ge Force Experience',
+    players_count: 5,
+    reward: 1000,
+    game: 'Dota 2',
+    date: '10.10.2024'
+  },
+  {
+    id: 2,
+    name: 'G2',
+    players_count: 5,
+    reward: 100000,
+    game: 'CS2',
+    date: '11.08.2000'
+  },
+  {
+    id: 3,
+    name: 'Falcons',
+    players_count: 5,
+    reward: 30000,
+    game: 'LoL',
+    date: '10.01.2021'
+  },
+  {
+    id: 4,
+    name: 'Team Spirit',
+    players_count: 5,
+    reward: 158000,
+    game: 'CS2',
+    date: '18.10.2010'
+  },
+  {
+    id: 5,
+    name: 'NaVi',
+    players_count: 5,
+    reward: 15000,
+    game: 'Mobile',
+    date: '10.10.2024'
+  },
+  {
+    id: 6,
+    name: 'Cyber Makeup',
+    players_count: 5,
+    reward: 17000,
+    game: 'LoL',
+    date: '1.10.2024'
+  },
+]
