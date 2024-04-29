@@ -44,7 +44,6 @@ const getTagStyle = (game: keyof typeof Game) => {
           <MainTitle class="mb-1">{{ team.name }}</MainTitle>
           <SmallText class="mb-1">{{ team.date }}</SmallText>
           <Tag :value="team.game" :severity="getTagStyle(team.game)" />
-
         </div>
       </div>
 
@@ -63,7 +62,6 @@ const getTagStyle = (game: keyof typeof Game) => {
       </div>
 
       <Button size="small" icon="pi pi-arrow-right" @click="router.push(`tournament/${team.id}`)" label="Перейти" />
-
     </div>
   </div>
 </template>

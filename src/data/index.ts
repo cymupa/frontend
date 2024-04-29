@@ -241,5 +241,5 @@ export const teamsData = [
     reward: 17000,
     game: 'LoL',
     date: '1.10.2024'
-  },
+  }
 ]

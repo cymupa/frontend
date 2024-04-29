@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
-
 import { mount } from '@vue/test-utils'
+import { createPinia } from 'pinia'
+
+import ToastService from 'primevue/toastservice'
+import PrimeVue from 'primevue/config'
+import router from '@/router'
+
 import NewsItem from './NewsItem.vue'
 
 describe('NewsItem', () => {
@@ -13,6 +18,9 @@ describe('NewsItem', () => {
           title: 'Title',
           description: 'Title'
         }
+      },
+      global: {
+        plugins: [PrimeVue, ToastService, router, createPinia()]
       }
     })
 
