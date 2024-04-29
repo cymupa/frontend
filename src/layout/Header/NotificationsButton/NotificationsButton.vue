@@ -16,7 +16,7 @@ const toggle = (event: MouseEvent) => {
 <template>
   <div>
     <button class="p-link layout-menu-button layout-topbar-button" @click="toggle">
-      <i v-badge="2" class="pi pi-bell"></i>
+      <i v-badge="members.length" class="pi pi-bell"></i>
       <span>Уведомления</span>
     </button>
 

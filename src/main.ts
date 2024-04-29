@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 
 import BadgeDirective from 'primevue/badgedirective'
 import PrimeVue from 'primevue/config'
+import ConfirmationService from 'primevue/confirmationservice'
 import Ripple from 'primevue/ripple'
 import StyleClass from 'primevue/styleclass'
 import Toast from 'primevue/toast'
@@ -19,6 +20,7 @@ const app = createApp(App)
 // Настройка UI библиотеки PrimeVue
 app.use(PrimeVue, { ripple: true })
 app.use(ToastService)
+app.use(ConfirmationService)
 
 app.component('Toast', Toast)
 

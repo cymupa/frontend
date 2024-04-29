@@ -63,9 +63,7 @@ const handleLogin = async () => {
             />
 
             <div class="flex align-items-center justify-content-between mb-5 gap-5">
-              <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer">
-                Уже есть аккаунт?
-              </RouterLink>
+              <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer"> Уже есть аккаунт? </RouterLink>
             </div>
 
             <Button label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />

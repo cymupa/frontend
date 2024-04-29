@@ -36,10 +36,7 @@ const getTagStyle = (game: keyof typeof Game) => {
 </script>
 
 <template>
-  <div
-    class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-2"
-    :class="{ 'border-top-1 surface-border': index !== 0 }"
-  >
+  <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-2" :class="{ 'border-top-1 surface-border': index !== 0 }">
     <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 md:gap-2 gap-4">
       <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
         <div>
