@@ -10,7 +10,7 @@ const handleLogin = async () => {
   const { isLoading, fetchData } = authApi.register({
     login: email.value,
     password: password.value,
-    name: 'asd'
+    name: 'asd',
   })
 
   try {

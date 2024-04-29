@@ -46,9 +46,9 @@ const items = [
         severity: 'success',
         summary: 'Updated',
         detail: 'Data Updated',
-        life: 3000
+        life: 3000,
       })
-    }
+    },
   },
   {
     label: 'Delete',
@@ -57,17 +57,17 @@ const items = [
         severity: 'warn',
         summary: 'Delete',
         detail: 'Data Deleted',
-        life: 3000
+        life: 3000,
       })
-    }
+    },
   },
   {
     label: 'Vue Website',
     command: () => {
       window.location.href = 'https://vuejs.org/'
-    }
+    },
   },
-  { label: 'Upload', to: '/fileupload' }
+  { label: 'Upload', to: '/fileupload' },
 ]
 
 const save = () => {
@@ -83,9 +83,9 @@ const save = () => {
 
 <template>
   <ScrollWrapper>
-<!--    <SelectButton v-model="filter" :options="filterOptions" optionLabel="label" optionValue="value" class="mb-3" />-->
+    <!--    <SelectButton v-model="filter" :options="filterOptions" optionLabel="label" optionValue="value" class="mb-3" />-->
     <SplitButton label="Фильтр" @click="save" :model="items" />
-    <Toast  />
+    <Toast />
 
     <DataView data-key="id" :value="tournaments">
       <template #list="slotProps">
@@ -95,9 +95,7 @@ const save = () => {
               class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-2"
               :class="{ 'border-top-1 surface-border': index !== 0 }"
             >
-              <div
-                class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 md:gap-2 gap-4"
-              >
+              <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 md:gap-2 gap-4">
                 <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
                   <div>
                     <SmallText>{{ item.dates }}</SmallText>

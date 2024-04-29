@@ -10,8 +10,8 @@ const model: MenuGroup[] = reactive([
     items: [
       { label: 'Лента новостей', icon: 'pi pi-sparkles', to: '/' },
       { label: 'Список турниров', icon: 'pi pi-trophy', to: '/tournaments' },
-      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' }
-    ]
+      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' },
+    ],
   },
   {
     label: 'Личное',
@@ -19,16 +19,16 @@ const model: MenuGroup[] = reactive([
     items: [
       { label: 'Мой профиль', icon: 'pi pi-user', to: '/profile' },
       { label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' },
-      { label: 'Настройки', icon: 'pi pi-cog', to: '/self' }
-    ]
+      { label: 'Настройки', icon: 'pi pi-cog', to: '/self' },
+    ],
   },
   {
     label: 'FOR TESTS',
     items: [
       { label: 'login', icon: 'pi pi-fw pi-id-card', to: '/login' },
-      { label: 'register', icon: 'pi pi-fw pi-id-card', to: '/register' }
-    ]
-  }
+      { label: 'register', icon: 'pi pi-fw pi-id-card', to: '/register' },
+    ],
+  },
 ])
 </script>
 

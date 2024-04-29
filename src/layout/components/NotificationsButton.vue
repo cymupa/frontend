@@ -5,16 +5,16 @@ const isVisible = ref()
 const members = ref([
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp'
+    team_name: 'GeForce Exp',
   },
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp'
+    team_name: 'GeForce Exp',
   },
   {
     name: 'Алик Мотов',
-    team_name: 'GeForce Exp'
-  }
+    team_name: 'GeForce Exp',
+  },
 ])
 
 const toggle = (event: MouseEvent) => {
@@ -25,7 +25,7 @@ const toggle = (event: MouseEvent) => {
 <template>
   <div>
     <button class="p-link layout-menu-button layout-topbar-button" @click="toggle">
-      <i class="pi pi-bell"></i>
+      <i v-badge="2" class="pi pi-bell"></i>
       <span>Уведомления</span>
     </button>
 
@@ -36,10 +36,10 @@ const toggle = (event: MouseEvent) => {
           <ul class="list-none p-0 m-0 flex flex-column gap-3">
             <li v-for="member in members" :key="member.name" class="flex align-items-center gap-2">
               <!--              TODO: разобраться с line-height -->
-              <span class="font-medium line-height-2"
-                ><Tag severity="info" class="ine-height-2">{{ member.name }}</Tag> приглашает вас в команду
-                <Tag class="ine-height-2">{{ member.team_name }}</Tag></span
-              >
+              <span class="font-medium line-height-2">
+                <Tag severity="info" class="ine-height-2">{{ member.name }}</Tag> приглашает вас в команду
+                <Tag class="ine-height-2">{{ member.team_name }}</Tag>
+              </span>
 
               <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
                 <Button icon="pi pi-check" aria-label="Filter" />

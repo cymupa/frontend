@@ -14,7 +14,7 @@ const password = ref('')
 
 const { isLoading, fetchData } = authApi.authorize({
   login: email.value,
-  password: password.value
+  password: password.value,
 })
 
 const { login } = useAuthStore()
@@ -26,7 +26,7 @@ const handleLogin = async () => {
       severity: 'info',
       summary: 'Выполняется вход',
       detail: 'Пожалуйста, подождите',
-      life: 1000
+      life: 1000,
     })
 
     await sleep(1500)
