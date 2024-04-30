@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
 import { reactive, ref } from 'vue'
 
@@ -75,7 +74,8 @@ const items = [
 
 <template>
   <ScrollWrapper>
-    <MainTitle>Турниры</MainTitle>
+    <MainTitle bold>Турниры</MainTitle>
+
     <SplitButton :label="filter" :model="items" />
     <Toast />
 

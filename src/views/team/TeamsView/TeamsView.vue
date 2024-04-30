@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue'
 
 import { teamsData } from '@/data'
 
+import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
 
@@ -15,6 +16,8 @@ console.log('teams', teams)
 
 <template>
   <ScrollWrapper>
+    <MainTitle bold>Команды</MainTitle>
+
     <Toast />
 
     <DataView data-key="id" :value="teams">

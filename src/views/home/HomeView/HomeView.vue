@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import { newsListData } from '@/data'
 
+import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
 
@@ -11,10 +12,17 @@ const newsList = ref(newsListData)
 
 <template>
   <ScrollWrapper>
-    <h3 class="font-bold white-space-nowrap mb-3">Новости</h3>
+    <MainTitle bold>Новости</MainTitle>
+
     <div class="news-container">
-      <NewsItem v-if="newsList.length" style="overflow: hidden" v-for="(news, index) in newsList" :news="news" :index="index" :key="index" />
-      
+      <NewsItem
+        v-if="newsList.length"
+        style="overflow: hidden"
+        v-for="(news, index) in newsList"
+        :news="news"
+        :index="index"
+        :key="index"
+      />
     </div>
   </ScrollWrapper>
 </template>
