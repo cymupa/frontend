@@ -9,7 +9,7 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import TournamentItem from './TournamentItem/TournamentItem.vue'
 
 const toast = useToast()
-const tournaments = reactive(tournamentsData)
+const tournaments = reactive([])
 
 const filter = ref<string>('All')
 
@@ -79,7 +79,10 @@ const items = [
     <SplitButton :label="filter" :model="items" />
     <Toast />
 
-    <DataView data-key="id" :value="tournaments">
+   <div class="flex justify-content-center" v-if="!tournaments.length" >
+     <Message :closable="false">Турниров нет</Message>
+   </div>
+    <DataView v-else data-key="id" :value="tournaments">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
           <div v-for="(item, index) in slotProps.items" :key="item.id" class="col-12">

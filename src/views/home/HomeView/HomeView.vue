@@ -14,6 +14,9 @@ const newsList = ref(newsListData)
   <ScrollWrapper>
     <MainTitle bold>Новости</MainTitle>
 
+    <div class="flex justify-content-center" v-if="!newsListData.length" >
+      <Message :closable="false">Новостей нет</Message>
+    </div>
     <div class="news-container">
       <NewsItem
         v-if="newsList.length"
