@@ -1,10 +1,7 @@
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { createPinia } from 'pinia'
+import { describe, expect, it } from 'vitest'
 
-import ToastService from 'primevue/toastservice'
-import PrimeVue from 'primevue/config'
-import router from '@/router'
+import { plugins } from '@/tests/plugins'
 
 import NewsItem from './NewsItem.vue'
 
@@ -20,7 +17,7 @@ describe('NewsItem', () => {
         }
       },
       global: {
-        plugins: [PrimeVue, ToastService, router, createPinia()]
+        plugins
       }
     })
 

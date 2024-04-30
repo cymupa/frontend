@@ -1,12 +1,12 @@
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import PrimeVue from 'primevue/config'
+import { describe, expect, it } from 'vitest'
 
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 
-import NotificationItem from './NotificationItem.vue'
 import router from '@/router'
+import NotificationItem from './NotificationItem.vue'
 
 const wrapper = mount(NotificationItem, {
   global: {

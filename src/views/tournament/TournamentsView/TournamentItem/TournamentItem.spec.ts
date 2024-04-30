@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createPinia } from 'pinia'
+import { describe, expect, it } from 'vitest'
 
-import TournamentItem from './TournamentItem.vue'
 import PrimeVue from 'primevue/config'
+import TournamentItem from './TournamentItem.vue'
 
 import router from '@/router'
 import ToastService from 'primevue/toastservice'

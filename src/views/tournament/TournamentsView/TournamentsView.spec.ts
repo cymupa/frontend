@@ -1,12 +1,12 @@
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createPinia } from 'pinia'
+import { describe, expect, it } from 'vitest'
 
-import ToastService from 'primevue/toastservice'
 import PrimeVue from 'primevue/config'
+import ToastService from 'primevue/toastservice'
 
-import TournamentsView from './TournamentsView.vue'
 import router from '@/router'
+import TournamentsView from './TournamentsView.vue'
 
 describe('TournamentsView', () => {
   it('renders properly', async () => {

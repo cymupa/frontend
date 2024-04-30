@@ -44,26 +44,28 @@ const router = createRouter({
           path: '/tournament/:id',
           props: true,
           name: 'tournament',
-          component: () => import('@/views/tournament/TournamentView.vue')
+          component: () =>
+            import('@/views/tournament/TournamentView/TournamentView.vue')
         },
         {
           // просмотр тимы по айди
           path: '/team/:id',
           props: true,
           name: 'team',
-          component: () => import('@/views/team/TeamView.vue')
+          component: () => import('@/views/team/TeamView/TeamView.vue')
         },
         {
           // просмотр своего профиля
           path: '/profile',
           name: 'profile',
-          component: () => import('@/views/profile/ProfileView.vue')
+          component: () => import('@/views/profile/ProfileView/ProfileView.vue')
         },
         {
           // редактирование своего профиля
           path: '/self',
           name: 'self-edit',
-          component: () => import('@/views/profile/UpdateProfileView.vue')
+          component: () =>
+            import('@/views/profile/UpdateProfileView/UpdateProfileView.vue')
         }
       ]
     },

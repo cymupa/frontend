@@ -12,7 +12,7 @@
     "format-unsafe": "biome check . --apply-unsafe",
     "format": "prettier --write \"src/**/*.vue\"",
     "test:ui": "vitest spec",
-    "test:unit": "bun test -t test",
+    "test:unit": "bun test test",
     "coverage": "bun run test:unit --coverage"
   },
   "dependencies": {

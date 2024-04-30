@@ -13,7 +13,8 @@ const newsList = ref(newsListData)
   <ScrollWrapper>
     <h3 class="font-bold white-space-nowrap mb-3">Новости</h3>
     <div class="news-container">
-      <NewsItem style="overflow: hidden" v-for="(news, index) in newsList" :news="news" :index="index" :key="index" />
+      <NewsItem v-if="newsList.length" style="overflow: hidden" v-for="(news, index) in newsList" :news="news" :index="index" :key="index" />
+      
     </div>
   </ScrollWrapper>
 </template>
