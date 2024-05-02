@@ -79,9 +79,9 @@ const items = [
     <SplitButton :label="filter" :model="items" />
     <Toast />
 
-   <div class="flex justify-content-center" v-if="!tournaments.length" >
-     <Message :closable="false">Турниров нет</Message>
-   </div>
+    <div class="flex justify-content-center" v-if="!tournaments.length">
+      <Message :closable="false">Турниров нет</Message>
+    </div>
     <DataView v-else data-key="id" :value="tournaments">
       <template #list="slotProps">
         <div class="grid grid-nogutter">

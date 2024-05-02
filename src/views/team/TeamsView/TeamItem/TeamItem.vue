@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import SmallText from '@/components/SmallText/SmallText.vue'
+
 import type { Game } from '@/types/Game'
 
 interface Props {

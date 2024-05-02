@@ -15,12 +15,21 @@ export interface AuthController {
   }
   registration: {
     POST: {
-      req: { login: string; password: string; name: string }
+      req: RegistrationRequest
       res: AuthResponse
     }
   }
 }
 
-interface AuthResponse {
+export interface AuthResponse {
   data: { token: string }
+}
+
+export interface RegistrationRequest {
+  name: string
+  surname: string
+  tel: string
+  birth: string
+  password: string
+  avatar: File
 }
