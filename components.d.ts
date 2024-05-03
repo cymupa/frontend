@@ -10,7 +10,6 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Calendar: typeof import('primevue/calendar')['default']
     Card: typeof import('primevue/card')['default']
-    DataView: typeof import('primevue/dataview')['default']
     Divider: typeof import('primevue/divider')['default']
     FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
     InputText: typeof import('primevue/inputtext')['default']
@@ -24,7 +23,6 @@ declare module 'vue' {
     ScrollPanel: typeof import('primevue/scrollpanel')['default']
     ScrollWrapper: typeof import('./src/components/ScrollWrapper/ScrollWrapper.vue')['default']
     SmallText: typeof import('./src/components/SmallText/SmallText.vue')['default']
-    SplitButton: typeof import('primevue/splitbutton')['default']
     SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
     Tag: typeof import('primevue/tag')['default']
   }

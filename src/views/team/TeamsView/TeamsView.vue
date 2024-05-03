@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useToast } from 'primevue/usetoast'
-import { reactive, ref } from 'vue'
+// import { useToast } from 'primevue/usetoast'
+import { reactive } from 'vue'
 
 import { teamsData } from '@/data'
 
@@ -8,7 +8,7 @@ import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
 
-const toast = useToast()
+// const toast = useToast()
 const teams = reactive(teamsData)
 
 console.log('teams', teams)

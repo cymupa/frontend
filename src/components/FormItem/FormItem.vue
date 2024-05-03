@@ -26,7 +26,7 @@ defineEmits(['update:modelValue'])
         class="mb-1 p-3"
         :value="modelValue"
         :class="{'w-full': full}"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="$emit('update:modelValue', $event.target?.value)"
     />
 
     <slot />
