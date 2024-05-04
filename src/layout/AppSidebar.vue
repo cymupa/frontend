@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 import { storeToRefs } from 'pinia'
+import { reactive } from 'vue'
 
-import type { MenuGroup } from './types'
 import { useAuthStore } from '@/stores/auth'
+import type { MenuGroup } from './types'
 
 import AppMenuItem from './AppMenuItem.vue'
 
@@ -34,8 +34,8 @@ const unauth: MenuGroup[] = reactive([
   {
     label: 'Для гостя',
     items: [
-      { label: 'Вход', icon: 'pi pi-fw pi-id-card', to: '/login' },
-      { label: 'Регистрация', icon: 'pi pi-fw pi-id-card', to: '/register' }
+      { label: 'Вход', icon: 'pi pi-sign-in', to: '/login' },
+      { label: 'Регистрация', icon: 'pi pi-user-plus', to: '/register' }
     ]
   }
 ])

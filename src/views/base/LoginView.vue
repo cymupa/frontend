@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { authApi } from '@/api/requests'
 import { useAuthStore } from '@/stores/auth'
 
 import type { AuthorizationRequest } from '@/api/types'
+import { type ValidationError, isApiError } from '@/utils/isApiError'
+
 import FormItem from '@/components/FormItem/FormItem.vue'
 import RenderErrors from '@/components/RenderErrors/RenderErrors.vue'
-import { type ValidationError, isApiError } from '@/utils/isApiError'
 
 const toast = useToast()
 const router = useRouter()
@@ -21,38 +22,70 @@ const userData = reactive<AuthorizationRequest>({
 
 const { isLoading, fetchData, data } = authApi.authorize(userData)
 
+const cleanErrors = {
+  tel: [],
+  password: []
+}
+
 const errors = reactive<{ data: ValidationError }>({
-  data: {
-    tel: [],
-    password: []
-  }
+  data: cleanErrors
 })
+const error = ref('')
 
 const { login } = useAuthStore()
 
+watch(
+  data,
+  () => {
+    if (!data.value) return
+    login?.(data.value.token)
+  },
+  { immediate: true }
+)
+
 const handleLogin = async () => {
+  errors.data = cleanErrors
+  error.value = ''
+
+  toast.add({
+    closable: false,
+    severity: 'info',
+    summary: 'Выполняется вход',
+    detail: 'Пожалуйста, подождите',
+    life: 1000
+  })
+
   try {
+    await fetchData()
+    await router.replace('/')
+  } catch (e) {
     toast.add({
-      closable: false,
-      severity: 'info',
-      summary: 'Выполняется вход',
-      detail: 'Пожалуйста, подождите',
-      life: 1000
+      closable: true,
+      severity: 'error',
+      summary: 'Произошла ошибка',
+      detail: 'Попробуйте еще раз',
+      life: 1500
     })
 
-    if (!data.value) {
+    if (!(isApiError(e) && e.response)) {
       return
     }
 
-    await fetchData()
-    login(data.value.data.token)
-    await router.replace('/')
-  } catch (e) {
-    if (isApiError(e) && e.response) {
+    if (e.response.status === 422) {
       errors.data = e.response.data.errors
+      return
     }
+
+    error.value = e.response.data.message
   }
 }
+
+const isAllDataPassed = computed(
+  () =>
+    !isLoading.value &&
+    userData.tel.trim() !== '' &&
+    userData.password.trim() !== ''
+)
 </script>
 
 <template>
@@ -67,8 +100,12 @@ const handleLogin = async () => {
         "
       >
         <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
-          <div class="text-center mb-5">
+          <div class="text-center mb-3">
             <div class="text-900 text-3xl font-medium mb-3">Вход</div>
+          </div>
+
+          <div class="flex justify-content-center mb-3">
+            <InlineMessage v-if="error.length" severity="error">{{error}}</InlineMessage>
           </div>
 
           <div class="w-full">
@@ -104,7 +141,7 @@ const handleLogin = async () => {
               </RouterLink>
             </div>
 
-            <Button :disabled="isLoading" label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
+            <Button :disabled="!isAllDataPassed" label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
           </div>
         </div>
       </div>

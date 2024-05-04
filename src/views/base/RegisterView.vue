@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -9,6 +11,8 @@ import { type ValidationError, isApiError } from '@/utils/isApiError'
 
 import FormItem from '@/components/FormItem/FormItem.vue'
 import RenderErrors from '@/components/RenderErrors/RenderErrors.vue'
+
+const toast = useToast()
 
 const userData = reactive<RegistrationRequest>({
   tel: '',
@@ -29,10 +33,11 @@ const cleanErrors = {
 const errors = reactive<{ data: ValidationError }>({
   data: cleanErrors
 })
+const error = ref('')
+const date = ref<Date | null>(null)
 
 const router = useRouter()
 const { login } = useAuthStore()
-const date = ref<Date | null>(null)
 const { isLoading, fetchData, data } = authApi.register(userData)
 
 watch(
@@ -44,16 +49,32 @@ watch(
   { immediate: true }
 )
 
-const handleLogin = async () => {
+const handleRegister = async () => {
   errors.data = cleanErrors
+  error.value = ''
 
   try {
     await fetchData()
     await router.replace('/')
   } catch (e) {
-    if (isApiError(e) && e.response) {
-      errors.data = e.response.data.errors
+    toast.add({
+      closable: true,
+      severity: 'error',
+      summary: 'Произошла ошибка',
+      detail: 'Попробуйте еще раз',
+      life: 1500
+    })
+
+    if (!(isApiError(e) && e.response)) {
+      return
     }
+
+    if (e.response.status === 422) {
+      errors.data = e.response.data.errors
+      return
+    }
+
+    error.value = e.response.data.message
   }
 }
 
@@ -88,9 +109,14 @@ const isAllDataPassed = computed(() => {
           background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
         "
       >
+        <Toast />
         <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 55px">
           <div class="text-center mb-5">
             <div class="text-900 text-3xl font-medium mb-3">Регистрация</div>
+          </div>
+
+          <div class="flex justify-content-center mb-3">
+            <InlineMessage v-if="error.length" severity="error">{{error}}</InlineMessage>
           </div>
 
           <div>
@@ -158,10 +184,10 @@ const isAllDataPassed = computed(() => {
             </div>
 
             <div class="flex align-items-center justify-content-between mb-3 mt-3">
-              <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer"> Уже есть аккаунт? </RouterLink>
+              <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer">Уже есть аккаунт?</RouterLink>
             </div>
 
-            <Button :disabled="!isAllDataPassed" label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
+            <Button :disabled="!isAllDataPassed" label="Войти" class="w-full p-3 text-xl" @click="handleRegister" />
           </div>
         </div>
       </div>
