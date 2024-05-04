@@ -22,7 +22,7 @@ export interface AuthController {
 }
 
 export interface AuthResponse {
-  data: { token: string }
+  token: string
 }
 
 export interface AuthorizationRequest {

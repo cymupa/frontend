@@ -7,13 +7,15 @@ export const useAuthStore = defineStore('auth', () => {
   // const isAdmin = ref(false)
   const token = ref(t || '')
 
-  function login(tokenValue: string) {
+  const login = (tokenValue: string) => {
+    console.log('[Store] Auth token: ', tokenValue)
+
     token.value = tokenValue
     localStorage.setItem('token', tokenValue)
     isLoggedIn.value = true
   }
 
-  function logout() {
+  const logout = () => {
     localStorage.removeItem('token')
     token.value = ''
     isLoggedIn.value = false
@@ -23,5 +25,5 @@ export const useAuthStore = defineStore('auth', () => {
   //   isAdmin.value = true
   // }
 
-  return { token, login, logout }
+  return { token, login, logout, isLoggedIn }
 })

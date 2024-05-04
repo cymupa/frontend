@@ -19,7 +19,7 @@ const userData = reactive<AuthorizationRequest>({
   password: ''
 })
 
-const { isLoading, fetchData } = authApi.authorize(userData)
+const { isLoading, fetchData, data } = authApi.authorize(userData)
 
 const errors = reactive<{ data: ValidationError }>({
   data: {
@@ -40,8 +40,12 @@ const handleLogin = async () => {
       life: 1000
     })
 
+    if (!data.value) {
+      return
+    }
+
     await fetchData()
-    login('asd')
+    login(data.value.data.token)
     await router.replace('/')
   } catch (e) {
     if (isApiError(e) && e.response) {

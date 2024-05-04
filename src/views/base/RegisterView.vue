@@ -4,11 +4,11 @@ import { useRouter } from 'vue-router'
 
 import { authApi } from '@/api/requests'
 import type { RegistrationRequest } from '@/api/types'
+import { useAuthStore } from '@/stores/auth'
 import { type ValidationError, isApiError } from '@/utils/isApiError'
 
 import FormItem from '@/components/FormItem/FormItem.vue'
 import RenderErrors from '@/components/RenderErrors/RenderErrors.vue'
-import { useAuthStore } from '@/stores/auth'
 
 const userData = reactive<RegistrationRequest>({
   tel: '',
@@ -35,16 +35,21 @@ const { login } = useAuthStore()
 const date = ref<Date | null>(null)
 const { isLoading, fetchData, data } = authApi.register(userData)
 
+watch(
+  data,
+  () => {
+    if (!data.value) return
+    login?.(data.value.token)
+  },
+  { immediate: true }
+)
+
 const handleLogin = async () => {
   errors.data = cleanErrors
 
   try {
     await fetchData()
-
-    if (!data.value) return
-
     await router.replace('/')
-    login(data.value.data.token)
   } catch (e) {
     if (isApiError(e) && e.response) {
       errors.data = e.response.data.errors

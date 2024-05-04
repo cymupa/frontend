@@ -26,6 +26,7 @@ declare module 'vue' {
     ScrollPanel: typeof import('primevue/scrollpanel')['default']
     ScrollWrapper: typeof import('./src/components/ScrollWrapper/ScrollWrapper.vue')['default']
     SmallText: typeof import('./src/components/SmallText/SmallText.vue')['default']
+    SplitButton: typeof import('primevue/splitbutton')['default']
     SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
     Tag: typeof import('primevue/tag')['default']
   }
