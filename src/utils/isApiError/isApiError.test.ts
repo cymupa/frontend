@@ -1,31 +1,49 @@
 import { describe, expect, it } from 'bun:test'
-import { isApiError } from './index'
+import { type ApiError, type ValidationError, isApiError } from './index'
 
 describe('isApiError tests', () => {
-  it('should return true if message in obj', () => {
-    const error = {
-      message: 'Test'
-    }
+  it('should return false if message is missing', () => {
+    const error = {}
 
-    expect(isApiError(error)).toBe(true)
+    expect(isApiError(error)).toBe(false)
   })
 
-  // it('should resolve after 2000ms', async () => {
-  //   const startTime = Date.now()
-  //   await sleep(2000)
-  //   const endTime = Date.now()
-  //   const elapsedTime = endTime - startTime
-  //
-  //   expect(elapsedTime).toBeGreaterThan(1950)
-  //   expect(elapsedTime).toBeLessThan(2050)
-  // })
-  //
-  // it('should resolve after 0ms', async () => {
-  //   const startTime = Date.now()
-  //   await sleep(0)
-  //   const endTime = Date.now()
-  //   const elapsedTime = endTime - startTime
-  //
-  //   expect(elapsedTime).toBeLessThan(30)
-  // })
+  it('should return false if response is missing', () => {
+    const error = {
+      message: 'Test',
+      response: undefined
+    }
+
+    expect(isApiError(error)).toBe(false)
+  })
+
+  it('should return false if response.data is missing', () => {
+    const error = {
+      message: 'Test',
+      response: {}
+    }
+
+    expect(isApiError(error)).toBe(false)
+  })
+
+  it('should return true if all conditions are met', () => {
+    const validationErrors: ValidationError = {
+      tel: ['Invalid phone number'],
+      password: ['Password must be at least 8 characters long']
+    }
+
+    const apiError: ApiError = {
+      message: 'Validation error',
+      errors: validationErrors
+    }
+
+    const axiosError = {
+      message: 'Request failed',
+      response: {
+        data: apiError
+      }
+    }
+
+    expect(isApiError(axiosError)).toBe(true)
+  })
 })

@@ -6,6 +6,7 @@ interface Props {
   modelValue: string
   type?: 'text' | 'password'
   full?: boolean
+  invalid?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -20,6 +21,7 @@ defineEmits(['update:modelValue'])
     <label :for="id" class="block text-900 text-xl font-medium mb-2">{{ label }}</label>
 
     <InputText
+        :invalid="invalid"
         :id="id"
         :type="type"
         :placeholder="placeholder"

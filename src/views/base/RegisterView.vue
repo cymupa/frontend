@@ -1,31 +1,62 @@
 <script lang="ts" setup>
-import { authApi } from '@/api/requests'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
+import { authApi } from '@/api/requests'
 import type { RegistrationRequest } from '@/api/types'
+import { type ValidationError, isApiError } from '@/utils/isApiError'
+
 import FormItem from '@/components/FormItem/FormItem.vue'
+import RenderErrors from '@/components/RenderErrors/RenderErrors.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const userData = reactive<RegistrationRequest>({
   tel: '',
-  avatar: undefined,
   birth: '',
   name: '',
   surname: '',
   password: ''
 })
 
-const handleLogin = async () => {
-  const { isLoading, fetchData } = authApi.register(userData)
+const errors = reactive<{ data: ValidationError }>({
+  data: {
+    tel: [],
+    birth: [],
+    name: [],
+    surname: [],
+    password: []
+  }
+})
 
+const router = useRouter()
+const { login } = useAuthStore()
+const date = ref<Date | null>(null)
+const { isLoading, fetchData, data } = authApi.register(userData)
+
+const handleLogin = async () => {
   try {
-    console.log('isLoading', isLoading.value)
-    await fetchData()
+    const res = await fetchData()
+
+    if (!data.value) return
+
+    await router.replace('/')
+    login(data.value.data.token)
   } catch (e) {
-    console.error('isLoading', isLoading.value)
-  } finally {
-    console.log('isLoading', isLoading.value)
+    if (isApiError(e) && e.response) {
+      errors.data = e.response.data.errors
+    }
   }
 }
+
+const isAllDataPassed = computed(
+  () =>
+    !isLoading &&
+    date.value &&
+    userData.tel.trim() !== '' &&
+    userData.name.trim() !== '' &&
+    userData.surname.trim() !== '' &&
+    userData.password.trim() !== ''
+)
 </script>
 
 <template>
@@ -46,27 +77,37 @@ const handleLogin = async () => {
 
           <div>
             <div class="flex gap-3 flex-column align-items-center">
-              <FormItem full class="" id="phone" v-model="userData.tel" label="Имя" />
-              <FormItem full id="phone" v-model="userData.tel" label="Фамилия" />
+              <FormItem :invalid="Boolean(errors.data.name?.length)" placeholder="Введите имя" full id="name" v-model="userData.name" label="Имя" />
+              <RenderErrors v-if="errors.data.name?.length" :values="errors.data.name" />
+
+              <FormItem :invalid="Boolean(errors.data.surname?.length)" placeholder="Введите фамилию" full id="lastname" v-model="userData.surname" label="Фамилия" />
+              <RenderErrors v-if="errors.data.surname?.length" :values="errors.data.surname" />
 
               <div class="flex-auto w-full">
                 <label for="birth" class="block text-900 font-medium text-xl mb-2">Дата рождения</label>
-                <Calendar input-class="p-3 w-full" v-model="userData.birth" :max-date="new Date()" showIcon :showOnFocus="false" inputId="birth" />
+                <Calendar :invalid="Boolean(errors.data.birth?.length)" placeholder="Дата рождения" input-class="p-3 w-full" v-model="date" :max-date="new Date()" showIcon :showOnFocus="false" inputId="birth" />
+                <RenderErrors v-if="errors.data.birth?.length" :values="errors.data.birth" />
               </div>
 
               <div class="w-full">
-                <label for="password1" class="block text-900 font-medium text-xl mb-2">Пароль</label>
+                <label for="password" class="block text-900 font-medium text-xl mb-2">Пароль</label>
                 <Password
-                  id="password1"
+                  id="password"
                   v-model="userData.password"
-                  placeholder="Password"
+                  placeholder="Введите пароль"
                   :toggleMask="true"
                   class="w-full"
                   input-class="w-full p-3"
+                  :invalid="Boolean(errors.data.password?.length)"
                 />
+                <RenderErrors v-if="errors.data.password?.length" :values="errors.data.password" />
               </div>
 
-              <FormItem full id="phone" v-model="userData.tel" label="Телефон" />
+
+              <div class="w-full">
+                <FormItem :invalid="Boolean(errors.data.tel?.length)" placeholder="Введите номер телефона" full id="phone" v-model="userData.tel"  label="Телефон" />
+                <RenderErrors v-if="errors.data.tel?.length" :values="errors.data.tel" />
+              </div>
             </div>
 
 
@@ -74,7 +115,7 @@ const handleLogin = async () => {
               <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer"> Уже есть аккаунт? </RouterLink>
             </div>
 
-            <Button label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
+            <Button :disabled="!isAllDataPassed" label="Войти" class="w-full p-3 text-xl" @click="handleLogin" />
           </div>
         </div>
       </div>

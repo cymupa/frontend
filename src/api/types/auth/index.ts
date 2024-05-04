@@ -31,5 +31,4 @@ export interface RegistrationRequest {
   tel: string
   birth: string
   password: string
-  avatar: File
 }
