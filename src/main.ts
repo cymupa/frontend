@@ -1,24 +1,29 @@
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
+import ConfirmationService from 'primevue/confirmationservice'
+import ToastService from 'primevue/toastservice'
+
 import BadgeDirective from 'primevue/badgedirective'
+import StyleClass from 'primevue/styleclass'
+import Tooltip from 'primevue/tooltip'
+
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
-import StyleClass from 'primevue/styleclass'
 import Toast from 'primevue/toast'
-import ToastService from 'primevue/toastservice'
-import Tooltip from 'primevue/tooltip'
 
 import App from './App.vue'
 import router from './router'
 
+import { russian } from '@/assets/locales/ru'
 import '@/assets/styles.scss'
 
 const app = createApp(App)
 
 // Настройка UI библиотеки PrimeVue
-app.use(PrimeVue, { ripple: true })
+app.use(PrimeVue, { locale: russian, ripple: true })
 app.use(ToastService)
+app.use(ConfirmationService)
 
 app.component('Toast', Toast)
 

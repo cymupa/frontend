@@ -8,10 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    Calendar: typeof import('primevue/calendar')['default']
     Card: typeof import('primevue/card')['default']
-    DataView: typeof import('primevue/dataview')['default']
+    Divider: typeof import('primevue/divider')['default']
+    FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
+    Message: typeof import('primevue/message')['default']
     OverlayPanel: typeof import('primevue/overlaypanel')['default']
     Password: typeof import('primevue/password')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']

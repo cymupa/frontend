@@ -5,7 +5,6 @@ import AppLayout from '../layout/AppLayout.vue'
 
 import { disableLoader } from '@/router/loader/disableLoader'
 import { setLoader } from '@/router/loader/setLoader'
-import { useLoadStore } from '@/stores/load'
 import { checkAuth } from './checkAuth'
 
 const router = createRouter({
@@ -18,7 +17,7 @@ const router = createRouter({
         {
           path: '/',
           name: 'home',
-          component: () => import('@/views/home/HomeView.vue')
+          component: () => import('@/views/home/HomeView/HomeView.vue')
         },
         //   конкретная новость
         {
@@ -31,39 +30,42 @@ const router = createRouter({
           // просмотр туриков
           path: '/tournaments',
           name: 'tournaments',
-          component: () => import('@/views/tournament/TournamentsView.vue')
+          component: () =>
+            import('@/views/tournament/TournamentsView/TournamentsView.vue')
         },
         {
           // просмотр команд
           path: '/teams',
           name: 'teams',
-          component: () => import('@/views/team/TeamsView.vue')
+          component: () => import('@/views/team/TeamsView/TeamsView.vue')
         },
         {
           // просмотр турика по айди
           path: '/tournament/:id',
           props: true,
           name: 'tournament',
-          component: () => import('@/views/tournament/TournamentView.vue')
+          component: () =>
+            import('@/views/tournament/TournamentView/TournamentView.vue')
         },
         {
           // просмотр тимы по айди
           path: '/team/:id',
           props: true,
           name: 'team',
-          component: () => import('@/views/team/TeamView.vue')
+          component: () => import('@/views/team/TeamView/TeamView.vue')
         },
         {
           // просмотр своего профиля
           path: '/profile',
           name: 'profile',
-          component: () => import('@/views/profile/ProfileView.vue')
+          component: () => import('@/views/profile/ProfileView/ProfileView.vue')
         },
         {
           // редактирование своего профиля
           path: '/self',
           name: 'self-edit',
-          component: () => import('@/views/profile/UpdateProfileView.vue')
+          component: () =>
+            import('@/views/profile/UpdateProfileView/UpdateProfileView.vue')
         }
       ]
     },

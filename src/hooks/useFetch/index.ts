@@ -29,6 +29,8 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   method: M,
   data: ApiRequest<R, M>
 ): State<R, M> => {
+  console.log('[API] Receive data: ', data)
+
   const dataRes = ref<null | ApiResponseData<R, M>>(null)
   const error = ref<string | null>(null)
   const isLoading = ref(false)
@@ -47,10 +49,15 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
 
       dataRes.value = res.data as UnwrapRef<ApiResponseData<R, M>>
 
+      console.log('[API] Response: ', dataRes.value)
+
       error.value = null
     } catch (err) {
       const axiosError = err as AxiosError
       error.value = axiosError.message || 'Fetch error'
+
+      console.log('[API] Error: ', axiosError.message)
+
       throw axiosError
     } finally {
       isLoading.value = false

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { authApi } from '@/api/requests'
-import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
 
 const toast = useToast()
-
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 

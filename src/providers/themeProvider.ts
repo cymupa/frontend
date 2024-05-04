@@ -1,7 +1,7 @@
 import { usePrimeVue } from 'primevue/config'
 import { onBeforeMount } from 'vue'
 
-import { useLayout } from '../layout/composables/useLayout.ts'
+import { useLayout } from '@/layout/composables/useLayout'
 
 export const themeProvider = () => {
   const { layoutConfig } = useLayout()
