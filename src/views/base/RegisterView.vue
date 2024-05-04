@@ -18,14 +18,16 @@ const userData = reactive<RegistrationRequest>({
   password: ''
 })
 
+const cleanErrors = {
+  tel: [],
+  birth: [],
+  name: [],
+  surname: [],
+  password: []
+}
+
 const errors = reactive<{ data: ValidationError }>({
-  data: {
-    tel: [],
-    birth: [],
-    name: [],
-    surname: [],
-    password: []
-  }
+  data: cleanErrors
 })
 
 const router = useRouter()
@@ -34,8 +36,10 @@ const date = ref<Date | null>(null)
 const { isLoading, fetchData, data } = authApi.register(userData)
 
 const handleLogin = async () => {
+  errors.data = cleanErrors
+
   try {
-    const res = await fetchData()
+    await fetchData()
 
     if (!data.value) return
 
@@ -48,15 +52,24 @@ const handleLogin = async () => {
   }
 }
 
-const isAllDataPassed = computed(
-  () =>
-    !isLoading &&
+const isAllDataPassed = computed(() => {
+  if (date.value) {
+    const rawDate = new Date(date.value)
+    const year = rawDate.getFullYear()
+    const month = `0${rawDate.getMonth() + 1}`.slice(-2)
+    const day = `0${rawDate.getDate()}`.slice(-2)
+    userData.birth = `${year}-${month}-${day}`
+  }
+
+  return (
+    !isLoading.value &&
     date.value &&
     userData.tel.trim() !== '' &&
     userData.name.trim() !== '' &&
     userData.surname.trim() !== '' &&
     userData.password.trim() !== ''
-)
+  )
+})
 </script>
 
 <template>
@@ -77,15 +90,38 @@ const isAllDataPassed = computed(
 
           <div>
             <div class="flex gap-3 flex-column align-items-center">
-              <FormItem :invalid="Boolean(errors.data.name?.length)" placeholder="Введите имя" full id="name" v-model="userData.name" label="Имя" />
+              <FormItem
+                :invalid="Boolean(errors.data.name?.length)"
+                placeholder="Введите имя"
+                full
+                id="name"
+                v-model="userData.name"
+                label="Имя"
+              />
               <RenderErrors v-if="errors.data.name?.length" :values="errors.data.name" />
 
-              <FormItem :invalid="Boolean(errors.data.surname?.length)" placeholder="Введите фамилию" full id="lastname" v-model="userData.surname" label="Фамилия" />
+              <FormItem
+                :invalid="Boolean(errors.data.surname?.length)"
+                placeholder="Введите фамилию"
+                full
+                id="lastname"
+                v-model="userData.surname"
+                label="Фамилия"
+              />
               <RenderErrors v-if="errors.data.surname?.length" :values="errors.data.surname" />
 
               <div class="flex-auto w-full">
                 <label for="birth" class="block text-900 font-medium text-xl mb-2">Дата рождения</label>
-                <Calendar :invalid="Boolean(errors.data.birth?.length)" placeholder="Дата рождения" input-class="p-3 w-full" v-model="date" :max-date="new Date()" showIcon :showOnFocus="false" inputId="birth" />
+                <Calendar
+                  :invalid="Boolean(errors.data.birth?.length)"
+                  placeholder="Дата рождения"
+                  input-class="p-3 w-full"
+                  v-model="date"
+                  :max-date="new Date()"
+                  showIcon
+                  :showOnFocus="false"
+                  inputId="birth"
+                />
                 <RenderErrors v-if="errors.data.birth?.length" :values="errors.data.birth" />
               </div>
 
@@ -103,13 +139,18 @@ const isAllDataPassed = computed(
                 <RenderErrors v-if="errors.data.password?.length" :values="errors.data.password" />
               </div>
 
-
               <div class="w-full">
-                <FormItem :invalid="Boolean(errors.data.tel?.length)" placeholder="Введите номер телефона" full id="phone" v-model="userData.tel"  label="Телефон" />
+                <FormItem
+                  :invalid="Boolean(errors.data.tel?.length)"
+                  placeholder="Введите номер телефона"
+                  full
+                  id="phone"
+                  v-model="userData.tel"
+                  label="Телефон"
+                />
                 <RenderErrors v-if="errors.data.tel?.length" :values="errors.data.tel" />
               </div>
             </div>
-
 
             <div class="flex align-items-center justify-content-between mb-3 mt-3">
               <RouterLink to="/login" class="font-medium no-underline ml-2 text-right cursor-pointer"> Уже есть аккаунт? </RouterLink>

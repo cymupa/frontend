@@ -11,7 +11,6 @@ console.log('values', values)
   <ul>
     <li v-for="value in values">
       <InlineMessage> {{ value }}</InlineMessage>
-
     </li>
   </ul>
 </template>

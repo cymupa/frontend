@@ -17,18 +17,18 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div :class="{'w-full': full}">
+  <div :class="{ 'w-full': full }">
     <label :for="id" class="block text-900 text-xl font-medium mb-2">{{ label }}</label>
 
     <InputText
-        :invalid="invalid"
-        :id="id"
-        :type="type"
-        :placeholder="placeholder"
-        class="mb-1 p-3"
-        :value="modelValue"
-        :class="{'w-full': full}"
-        @input="$emit('update:modelValue', $event.target?.value)"
+      :invalid="invalid"
+      :id="id"
+      :type="type"
+      :placeholder="placeholder"
+      class="mb-1 p-3"
+      :value="modelValue"
+      :class="{ 'w-full': full }"
+      @input="$emit('update:modelValue', $event.target?.value)"
     />
 
     <slot />
