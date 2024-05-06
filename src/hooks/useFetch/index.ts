@@ -10,6 +10,8 @@ import type {
 
 import { sleep } from '@/utils'
 
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
 import api from '../../api'
 
 export interface State<R extends ApiRoutes, M extends HttpMethod> {
@@ -24,6 +26,8 @@ export interface State<R extends ApiRoutes, M extends HttpMethod> {
  * Благодаря строгой типизации каждый роут и принимаемые параметры подсказываются,
  * а также то, что вернет сервер в ответе
  */
+const { token } = storeToRefs(useAuthStore())
+
 export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   url: R,
   method: M,
@@ -45,7 +49,14 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
       }
 
       await sleep(1000)
-      const res = await api.request<ApiResponseData<R, M>>(requestConfig)
+      const res = await api.request<ApiResponseData<R, M>>({
+        ...requestConfig,
+        headers: {
+          Authorization: `Bearer ${
+            token.value ?? localStorage.getItem('token')
+          }`
+        }
+      })
 
       dataRes.value = res.data as UnwrapRef<ApiResponseData<R, M>>
 

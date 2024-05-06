@@ -38,7 +38,7 @@ watch(
   data,
   () => {
     if (!data.value) return
-    login?.(data.value.token)
+    login(data.value.token)
   },
   { immediate: true }
 )
