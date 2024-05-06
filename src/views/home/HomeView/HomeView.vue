@@ -7,13 +7,10 @@ import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
 
-import HomeWrapper from './HomeWrapper.vue'
-
 const newsList = ref(newsListData)
 </script>
 
 <template>
-  <HomeWrapper>
     <ScrollWrapper>
       <MainTitle bold>Новости</MainTitle>
 
@@ -31,7 +28,6 @@ const newsList = ref(newsListData)
         />
       </div>
     </ScrollWrapper>
-  </HomeWrapper>
 </template>
 
 <style scoped>

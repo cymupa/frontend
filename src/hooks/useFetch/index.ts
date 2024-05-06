@@ -26,13 +26,12 @@ export interface State<R extends ApiRoutes, M extends HttpMethod> {
  * Благодаря строгой типизации каждый роут и принимаемые параметры подсказываются,
  * а также то, что вернет сервер в ответе
  */
-const { token } = storeToRefs(useAuthStore())
-
 export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   url: R,
   method: M,
   data: ApiRequest<R, M>
 ): State<R, M> => {
+  const { token } = storeToRefs(useAuthStore())
   console.log('[API] Receive data: ', data)
 
   const dataRes = ref<null | ApiResponseData<R, M>>(null)

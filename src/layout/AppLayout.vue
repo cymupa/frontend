@@ -6,6 +6,7 @@ import { useLayout } from './composables/useLayout'
 
 import AppMenu from './AppSidebar.vue'
 import AppHeader from './Header/AppHeader.vue'
+import AuthProvider from '@/providers/AuthProvider.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 const isLoading = useLoadStore()
@@ -77,20 +78,22 @@ const isOutsideClicked = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div class="layout-wrapper" :class="containerClass">
-    <AppHeader />
-    <div class="layout-sidebar">
-      <AppMenu />
-    </div>
-    <div class="layout-main-container">
-      <div class="layout-main">
-        <div v-if="isLoading.state" class="card flex justify-content-center">
-          <ProgressSpinner />
-        </div>
-
-        <router-view v-else />
+  <AuthProvider>
+    <div class="layout-wrapper" :class="containerClass">
+      <AppHeader />
+      <div class="layout-sidebar">
+        <AppMenu />
       </div>
+      <div class="layout-main-container">
+        <div class="layout-main">
+          <div v-if="isLoading.state" class="card flex justify-content-center">
+            <ProgressSpinner />
+          </div>
+
+          <router-view v-else />
+        </div>
+      </div>
+      <div class="layout-mask"></div>
     </div>
-    <div class="layout-mask"></div>
-  </div>
+  </AuthProvider>
 </template>
