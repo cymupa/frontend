@@ -4,7 +4,6 @@ interface Props {
 }
 
 const { values } = defineProps<Props>()
-console.log('values', values)
 </script>
 
 <template>
