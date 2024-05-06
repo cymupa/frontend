@@ -22,8 +22,6 @@ const getNews = async () => {
       return
     }
 
-    console.log('data', data)
-
     newsList.value = data.value
   } catch (e) {
     if (!isApiError(e)) {

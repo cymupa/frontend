@@ -77,19 +77,19 @@ onMounted(async () => await getSingleNews())
       </div>
 
       <template v-if="news?.photos">
-        <div v-if=" news?.photos.length > 1" class="mb-3">
+        <div v-if="news?.photos.length > 1" class="mb-3">
           <Button icon="pi pi-minus" @click="prev" />
           <Button icon="pi pi-plus" @click="next" severity="secondary" class="ml-2" />
         </div>
 
         <Galleria
-            v-model:activeIndex="activeIndex"
-            :value="news?.photos"
-            :responsiveOptions="responsiveOptions"
-            :numVisible="5"
-            containerStyle="max-width: 340px"
-            :showThumbnails="false"
-            :showIndicators="true"
+          v-model:activeIndex="activeIndex"
+          :value="news?.photos"
+          :responsiveOptions="responsiveOptions"
+          :numVisible="5"
+          containerStyle="max-width: 340px"
+          :showThumbnails="false"
+          :showIndicators="true"
         >
           <template #item v-for="image in news?.photos">
             <img :src="image" alt="image" style="width: 100%" />
@@ -98,7 +98,7 @@ onMounted(async () => await getSingleNews())
       </template>
 
       <p class="m-0">
-        {{ news?.content  }}
+        {{ news?.content }}
       </p>
     </template>
   </Card>
