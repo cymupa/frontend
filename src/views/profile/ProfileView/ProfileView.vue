@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
 import { useUserStore } from '@/stores/user'
 
@@ -53,7 +53,6 @@ onMounted(async () => {
     <div class="card">
       <h5>Информация о вас</h5>
       <div class="p-fluid formgrid grid">
-
         <div class="field col-12 md:col-4">
           <label for="firstname">Имя</label>
           <InputText id="firstname" type="text" :value="state.data.name" />
@@ -61,38 +60,32 @@ onMounted(async () => {
 
         <div class="field col-12 md:col-4">
           <label for="lastname">Фамилия</label>
-          <InputText id="lastname" type="text" :value="state.data.surname"  />
+          <InputText id="lastname" type="text" :value="state.data.surname" />
         </div>
 
         <div class="field col-12 md:col-4">
           <label for="patronymic">Отчество</label>
-          <InputText id="patronymic" type="text" :value="state.data.patronymic"  />
+          <InputText id="patronymic" type="text" :value="state.data.patronymic" />
         </div>
 
         <div class="field col-12">
           <label for="about">О вас</label>
-          <Textarea auto-resize id="about" rows="4" :value="state.data.description"  />
+          <Textarea auto-resize id="about" rows="4" :value="state.data.description" />
         </div>
 
         <div class="field col-12 md:col-6">
           <label for="phone">Телефон</label>
-          <InputText id="phone" type="text" :value="state.data.tel"  />
+          <InputText id="phone" type="text" :value="state.data.tel" />
         </div>
 
         <div class="field col-12 md:col-6">
           <label for="address">Адрес</label>
-          <InputText id="address" type="text" :value="state.data.address"  />
+          <InputText id="address" type="text" :value="state.data.address" />
         </div>
 
         <div class="field col-12 md:col-6">
           <label for="birth">Дата рожедния</label>
-          <Calendar
-              placeholder="Дата рождения"
-              :max-date="new Date()"
-              showIcon
-              :showOnFocus="false"
-              inputId="birth"
-          />
+          <Calendar placeholder="Дата рождения" :max-date="new Date()" showIcon :showOnFocus="false" inputId="birth" />
         </div>
 
         <div class="field col-12 md:col-6">
