@@ -1,5 +1,9 @@
-import type { UserController } from '../types'
-import type { AuthController } from '../types'
+import type {
+  AuthController,
+  DynamicNewsController,
+  NewsController,
+  UserController
+} from '../types'
 
 export type HttpMethod = 'GET' | 'POST'
 
@@ -7,7 +11,10 @@ export type HttpMethod = 'GET' | 'POST'
  * Типы для работы с сервером
  */
 
-export type Api = UserController & AuthController
+export type Api = UserController &
+  AuthController &
+  NewsController &
+  DynamicNewsController
 
 export type ApiRoutes = keyof Api
 

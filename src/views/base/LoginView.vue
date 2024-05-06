@@ -38,7 +38,7 @@ watch(
   data,
   () => {
     if (!data.value) return
-    login?.(data.value.token)
+    login(data.value.token)
   },
   { immediate: true }
 )
@@ -105,7 +105,7 @@ const isAllDataPassed = computed(
           </div>
 
           <div class="flex justify-content-center mb-3">
-            <InlineMessage v-if="error.length" severity="error">{{error}}</InlineMessage>
+            <InlineMessage v-if="error.length" severity="error">{{ error }}</InlineMessage>
           </div>
 
           <div class="w-full">

@@ -116,7 +116,7 @@ const isAllDataPassed = computed(() => {
           </div>
 
           <div class="flex justify-content-center mb-3">
-            <InlineMessage v-if="error.length" severity="error">{{error}}</InlineMessage>
+            <InlineMessage v-if="error.length" severity="error">{{ error }}</InlineMessage>
           </div>
 
           <div>

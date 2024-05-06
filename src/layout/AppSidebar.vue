@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
+
 import type { MenuGroup } from './types'
 
 import AppMenuItem from './AppMenuItem.vue'
+
+const { state } = storeToRefs(useUserStore())
+const { isLoggedIn } = storeToRefs(useAuthStore())
 
 const model: MenuGroup[] = reactive([
   {
@@ -21,10 +26,8 @@ const model: MenuGroup[] = reactive([
 const auth: MenuGroup[] = reactive([
   {
     label: 'Личное',
-    // TODO: add team id from store
     items: [
       { label: 'Мой профиль', icon: 'pi pi-user', to: '/profile' },
-      { label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' },
       { label: 'Настройки', icon: 'pi pi-cog', to: '/self' }
     ]
   }
@@ -40,7 +43,13 @@ const unauth: MenuGroup[] = reactive([
   }
 ])
 
-const { isLoggedIn } = storeToRefs(useAuthStore())
+onMounted(() => {
+  if (state.value.data.teamId) {
+    const newItem = { label: 'Моя команда', icon: 'pi pi-home', to: '/team/1' }
+
+    auth[0].items.splice(1, 0, newItem)
+  }
+})
 </script>
 
 <template>

@@ -12,7 +12,9 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     DataView: typeof import('primevue/dataview')['default']
     Divider: typeof import('primevue/divider')['default']
+    Dropdown: typeof import('primevue/dropdown')['default']
     FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
+    Galleria: typeof import('primevue/galleria')['default']
     InlineMessage: typeof import('primevue/inlinemessage')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
@@ -29,5 +31,6 @@ declare module 'vue' {
     SplitButton: typeof import('primevue/splitbutton')['default']
     SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
     Tag: typeof import('primevue/tag')['default']
+    Textarea: typeof import('primevue/textarea')['default']
   }
 }

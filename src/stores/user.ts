@@ -1,33 +1,52 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
-interface User {
-  fullName: string
-  teamId: number | null
-  isCaptain: boolean
+import type { User } from '@/types/User'
+
+interface UserStore {
+  isCaptain?: boolean
+  teamId?: number | null
 }
 
 export const useUserStore = defineStore('user', () => {
-  const state: User = reactive({
-    fullName: '',
-    teamId: null,
-    isCaptain: false
+  const state: { data: User & UserStore } = reactive({
+    data: {
+      id: 0,
+      tel: '',
+      name: '',
+      birth: '',
+      surname: '',
+      role_id: 0,
+      avatar: null,
+      address: null,
+      nickname: null,
+      patronymic: null,
+      description: null,
+
+      remember_token: '',
+
+      created_at: '',
+      updated_at: '',
+
+      isCaptain: false,
+      teamId: null
+    }
   })
 
   const setUserInfo = (data: User): void => {
-    Object.assign(state, data)
+    state.data = data
   }
 
   const setTeamId = (id: number | null): void => {
-    state.teamId = id
+    state.data.teamId = id
   }
 
   const setIsCaptain = (status: boolean): void => {
-    state.isCaptain = status
+    state.data.isCaptain = status
   }
 
   return {
-    ...state,
+    state,
     setUserInfo,
     setTeamId,
     setIsCaptain

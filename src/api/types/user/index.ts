@@ -1,21 +1,12 @@
+import type { User } from '@/types/User'
+
 export interface UserController {
-  users: {
+  me: {
     GET: {
-      req: { id: number }
-      res: GetUserResponse
-    }
-    POST: {
       req: {}
-      res: GetUserResponse
+      res: GetUserInfoResponse
     }
   }
 }
 
-interface GetUserResponse {
-  data: {
-    firstName: string
-    lastName: string
-    patronymic?: string
-    age: Date
-  }
-}
+export type GetUserInfoResponse = [User]
