@@ -12,6 +12,7 @@ declare module 'vue' {
     DataView: typeof import('primevue/dataview')['default']
     Divider: typeof import('primevue/divider')['default']
     FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
+    Galleria: typeof import('primevue/galleria')['default']
     InlineMessage: typeof import('primevue/inlinemessage')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']

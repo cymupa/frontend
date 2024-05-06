@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import { newsListData } from '@/data'
-
 import { newsApi } from '@/api/requests/news'
 import type { GetNewsResponse } from '@/api/types'
 
@@ -31,10 +29,6 @@ const getNews = async () => {
     if (!isApiError(e)) {
       return
     }
-
-    // if (e.response?.status === 401) {
-    //   await logOut()
-    // }
 
     console.warn(e)
   }

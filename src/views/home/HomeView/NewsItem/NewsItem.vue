@@ -16,7 +16,7 @@ const { news } = defineProps<Props>()
 <template>
   <Card class="overflow-hidden" :key="index">
     <template #header>
-      <img v-if="news.photos[0]" alt="user header" height="300" class="w-full object-cover" :src="news.photos[0]" />
+      <img v-if="news.photos[0]" alt="user header" height="300" class="w-full" style="object-fit: cover" :src="news.photos[0]" />
     </template>
 
     <template #title>

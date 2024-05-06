@@ -3,7 +3,7 @@ export type DynamicNewsRouteKey = `news/${string}`
 export interface DynamicNewsController {
   [key: string]: {
     GET: {
-      req: { id: number }
+      req: { id: string }
       res: GetNewsResponse
     }
   }
