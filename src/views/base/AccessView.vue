@@ -22,7 +22,7 @@
             <span class="text-600 mb-5"> У вас нет прав для просмотра этой страницы. Обратитесь к администратору. </span>
             <div class="col-12 mt-5 text-center">
               <i class="pi pi-fw pi-arrow-left text-blue-500 mr-2" style="vertical-align: center"></i>
-              <router-link to="/" class="text-blue-500">Go to Home</router-link>
+              <router-link to="/" class="text-blue-500">На главную</router-link>
             </div>
           </div>
         </div>

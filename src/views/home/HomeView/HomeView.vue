@@ -7,27 +7,31 @@ import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
 
+import HomeWrapper from './HomeWrapper.vue'
+
 const newsList = ref(newsListData)
 </script>
 
 <template>
-  <ScrollWrapper>
-    <MainTitle bold>Новости</MainTitle>
+  <HomeWrapper>
+    <ScrollWrapper>
+      <MainTitle bold>Новости</MainTitle>
 
-    <div class="flex justify-content-center" v-if="!newsListData.length">
-      <Message :closable="false">Новостей нет</Message>
-    </div>
-    <div class="news-container">
-      <NewsItem
-        v-if="newsList.length"
-        style="overflow: hidden"
-        v-for="(news, index) in newsList"
-        :news="news"
-        :index="index"
-        :key="index"
-      />
-    </div>
-  </ScrollWrapper>
+      <div class="flex justify-content-center" v-if="!newsListData.length">
+        <Message :closable="false">Новостей нет</Message>
+      </div>
+      <div class="news-container">
+        <NewsItem
+            v-if="newsList.length"
+            style="overflow: hidden"
+            v-for="(news, index) in newsList"
+            :news="news"
+            :index="index"
+            :key="index"
+        />
+      </div>
+    </ScrollWrapper>
+  </HomeWrapper>
 </template>
 
 <style scoped>

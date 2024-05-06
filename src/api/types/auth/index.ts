@@ -9,7 +9,7 @@
 export interface AuthController {
   authorization: {
     POST: {
-      req: { login: string; password: string }
+      req: AuthorizationRequest
       res: AuthResponse
     }
   }
@@ -22,7 +22,12 @@ export interface AuthController {
 }
 
 export interface AuthResponse {
-  data: { token: string }
+  token: string
+}
+
+export interface AuthorizationRequest {
+  tel: string
+  password: string
 }
 
 export interface RegistrationRequest {
@@ -31,5 +36,4 @@ export interface RegistrationRequest {
   tel: string
   birth: string
   password: string
-  avatar: File
 }
