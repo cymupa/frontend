@@ -29,7 +29,7 @@ export interface State<R extends ApiRoutes, M extends HttpMethod> {
 export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   url: R,
   method: M,
-  data: ApiRequest<R, M>
+  data?: ApiRequest<R, M>
 ): State<R, M> => {
   const { token } = storeToRefs(useAuthStore())
   console.log('[API] Receive data: ', data)

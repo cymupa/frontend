@@ -1,34 +1,26 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
+import type { GetNewsResponse } from '@/api/types'
+
 const router = useRouter()
 
 interface Props {
   index: number
-  news: {
-    id: number
-    title: string
-    description: string
-  }
+  news: GetNewsResponse
 }
 
 const { news } = defineProps<Props>()
 </script>
 
 <template>
-  <Card style="overflow: hidden" :key="index">
+  <Card class="overflow-hidden" :key="index">
     <template #header>
-      <img
-        alt="user header"
-        height="300"
-        class="w-full"
-        style="object-fit: cover"
-        src="https://randomwordgenerator.com/img/picture-generator/5ee4d14b4d51b10ff3d8992cc12c30771037dbf8525478487c2f7dd69244_640.jpg"
-      />
+      <img v-if="news.photos[0]" alt="user header" height="300" class="w-full object-cover" :src="news.photos[0]" />
     </template>
 
     <template #title>
-      {{ news.title }}
+      {{ news.name }}
     </template>
 
     <template #content>

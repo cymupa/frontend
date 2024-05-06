@@ -81,9 +81,7 @@ watch(
 
 <template>
   <Toast />
-<slot />
+  <slot />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -4,9 +4,9 @@ import { computed, ref, watch } from 'vue'
 import { useLoadStore } from '@/stores/load'
 import { useLayout } from './composables/useLayout'
 
+import AuthProvider from '@/providers/AuthProvider.vue'
 import AppMenu from './AppSidebar.vue'
 import AppHeader from './Header/AppHeader.vue'
-import AuthProvider from '@/providers/AuthProvider.vue'
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout()
 const isLoading = useLoadStore()

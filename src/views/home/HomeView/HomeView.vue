@@ -1,33 +1,68 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { newsListData } from '@/data'
+
+import { newsApi } from '@/api/requests/news'
+import type { GetNewsResponse } from '@/api/types'
+
+import { isApiError } from '@/utils/isApiError'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
 
-const newsList = ref(newsListData)
+const newsList = ref<GetNewsResponse[]>([])
+
+const { data, fetchData, isLoading } = newsApi.getAllNews()
+
+const getNews = async () => {
+  try {
+    await fetchData()
+
+    if (!data.value) {
+      return
+    }
+
+    console.log('data', data)
+
+    newsList.value = data.value
+  } catch (e) {
+    if (!isApiError(e)) {
+      return
+    }
+
+    // if (e.response?.status === 401) {
+    //   await logOut()
+    // }
+
+    console.warn(e)
+  }
+}
+
+onMounted(async () => await getNews())
 </script>
 
 <template>
-    <ScrollWrapper>
-      <MainTitle bold>Новости</MainTitle>
+  <ScrollWrapper>
+    <MainTitle bold>Новости</MainTitle>
 
-      <div class="flex justify-content-center" v-if="!newsListData.length">
-        <Message :closable="false">Новостей нет</Message>
-      </div>
-      <div class="news-container">
-        <NewsItem
-            v-if="newsList.length"
-            style="overflow: hidden"
-            v-for="(news, index) in newsList"
-            :news="news"
-            :index="index"
-            :key="index"
-        />
-      </div>
-    </ScrollWrapper>
+    <div class="flex justify-content-center">
+      <ProgressSpinner v-if="isLoading" />
+      <Message v-else-if="!newsList.length" :closable="false">Новостей нет</Message>
+    </div>
+
+    <div class="news-container">
+      <NewsItem
+        v-if="newsList.length"
+        style="overflow: hidden"
+        v-for="(news, index) in newsList"
+        :news="news"
+        :index="index"
+        :key="index"
+      />
+    </div>
+  </ScrollWrapper>
 </template>
 
 <style scoped>
