@@ -20,7 +20,7 @@ const userData = reactive<AuthorizationRequest>({
   password: ''
 })
 
-const { isLoading, fetchData, data } = authApi.authorize(userData)
+const { isLoading, fetchData, data } = authApi.authorize()
 
 const cleanErrors = {
   tel: [],
@@ -56,7 +56,7 @@ const handleLogin = async () => {
   })
 
   try {
-    await fetchData()
+    await fetchData(userData)
     await router.replace('/')
   } catch (e) {
     toast.add({

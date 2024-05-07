@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 import type { User } from '@/types/User'
 
@@ -9,14 +9,16 @@ interface UserStore {
 }
 
 export const useUserStore = defineStore('user', () => {
+  const isError = ref(false)
+
   const state: { data: User & UserStore } = reactive({
     data: {
       id: 0,
       tel: '',
       name: '',
-      birth: '',
+      birth: new Date(),
       surname: '',
-      role_id: 0,
+      role_id: 1,
       avatar: null,
       address: null,
       nickname: null,
@@ -34,7 +36,10 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const setUserInfo = (data: User): void => {
-    state.data = data
+    state.data = {
+      ...data,
+      birth: new Date(data.birth)
+    }
   }
 
   const setTeamId = (id: number | null): void => {
@@ -49,6 +54,7 @@ export const useUserStore = defineStore('user', () => {
     state,
     setUserInfo,
     setTeamId,
-    setIsCaptain
+    setIsCaptain,
+    isError
   }
 })
