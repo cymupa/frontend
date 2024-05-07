@@ -6,6 +6,10 @@ export interface UserController {
       req: {}
       res: GetUserInfoResponse
     }
+    POST: {
+      req: {}
+      res: {}
+    }
   }
 }
 

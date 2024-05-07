@@ -6,6 +6,10 @@ export interface DynamicNewsController {
       req: { id: string }
       res: GetNewsResponse
     }
+    POST: {
+      req: {}
+      res: {}
+    }
   }
 }
 
@@ -14,6 +18,10 @@ export interface NewsController {
     GET: {
       req: {}
       res: GetNewsResponse[]
+    }
+    POST: {
+      req: {}
+      res: {}
     }
   }
 }

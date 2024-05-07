@@ -8,12 +8,20 @@
  */
 export interface AuthController {
   authorization: {
+    GET: {
+      req: {}
+      res: {}
+    }
     POST: {
       req: AuthorizationRequest
       res: AuthResponse
     }
   }
   registration: {
+    GET: {
+      req: {}
+      res: {}
+    }
     POST: {
       req: RegistrationRequest
       res: AuthResponse
