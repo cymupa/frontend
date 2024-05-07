@@ -9,10 +9,8 @@ import type {
   HttpMethod
 } from '@/api/core'
 
-import { API_URL } from '@/config/env'
 import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
-import axios from 'axios'
 import api from '../../api'
 
 export interface State<R extends ApiRoutes, M extends HttpMethod> {
