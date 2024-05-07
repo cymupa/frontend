@@ -33,7 +33,7 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
 ): State<R, M> => {
   const { token } = storeToRefs(useAuthStore())
 
-  const dataRes = ref<ApiResponseData<R, M> | null>(null)
+  const dataRes = ref<ApiResponseData<R, M>>()
   const error = ref<string | null>(null)
   const isLoading = ref(false)
 
@@ -62,7 +62,7 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
 
         dataRes.value = (
           await api.request<ApiResponseData<R, M>>(requestConfig)
-        ).data as UnwrapRef<ApiResponseData<R, M>>
+        ).data
       }
 
       error.value = null
