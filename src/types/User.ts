@@ -2,7 +2,7 @@ export interface User {
   id: number
   tel: string
   name: string
-  birth: string
+  birth: Date
   role_id: number
   surname: string
   address: string | null

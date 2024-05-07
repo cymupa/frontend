@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
       id: 0,
       tel: '',
       name: '',
-      birth: '',
+      birth: new Date(),
       surname: '',
       role_id: 0,
       avatar: null,
@@ -34,7 +34,10 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const setUserInfo = (data: User): void => {
-    state.data = data
+    state.data = {
+      ...data,
+      birth: new Date(data.birth)
+    }
   }
 
   const setTeamId = (id: number | null): void => {

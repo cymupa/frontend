@@ -22,10 +22,12 @@ export interface DynamicUserController {
       res: {}
     }
     POST: {
-      req: { id: string } & Partial<Omit<User, 'id'>>
+      req: UpdateUserRequest
       res: User
     }
   }
 }
+
+export type UpdateUserRequest = Partial<User>
 
 export type GetUserInfoResponse = [User]

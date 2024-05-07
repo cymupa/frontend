@@ -7,6 +7,8 @@ import { useRouter } from 'vue-router'
 import { authApi } from '@/api/requests'
 import type { RegistrationRequest } from '@/api/types'
 import { useAuthStore } from '@/stores/auth'
+
+import { formatDate } from '@/utils/formatDate'
 import { type ValidationError, isApiError } from '@/utils/isApiError'
 
 import FormItem from '@/components/FormItem/FormItem.vue'
@@ -33,18 +35,21 @@ const cleanErrors = {
 const errors = reactive<{ data: ValidationError }>({
   data: cleanErrors
 })
+
 const error = ref('')
 const date = ref<Date | null>(null)
 
 const router = useRouter()
 const { login } = useAuthStore()
+
 const { isLoading, fetchData, data } = authApi.register(userData)
 
 watch(
   data,
   () => {
-    if (!data.value) return
-    login?.(data.value.token)
+    if (data.value) {
+      login(data.value.token)
+    }
   },
   { immediate: true }
 )
@@ -80,11 +85,7 @@ const handleRegister = async () => {
 
 const isAllDataPassed = computed(() => {
   if (date.value) {
-    const rawDate = new Date(date.value)
-    const year = rawDate.getFullYear()
-    const month = `0${rawDate.getMonth() + 1}`.slice(-2)
-    const day = `0${rawDate.getDate()}`.slice(-2)
-    userData.birth = `${year}-${month}-${day}`
+    userData.birth = formatDate(data.value)
   }
 
   return (
