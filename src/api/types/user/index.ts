@@ -1,5 +1,7 @@
 import type { User } from '@/types/User'
 
+export type DynamicUsersRouteKey = `users/${string}`
+
 export interface UserController {
   me: {
     GET: {
@@ -9,6 +11,19 @@ export interface UserController {
     POST: {
       req: {}
       res: {}
+    }
+  }
+}
+
+export interface DynamicUserController {
+  [key: string]: {
+    GET: {
+      req: {}
+      res: {}
+    }
+    POST: {
+      req: { id: string } & Partial<Omit<User, 'id'>>
+      res: User
     }
   }
 }

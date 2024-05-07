@@ -1,6 +1,7 @@
 import type {
   AuthController,
   DynamicNewsController,
+  DynamicUserController,
   NewsController,
   UserController
 } from '../types'
@@ -14,7 +15,8 @@ export type HttpMethod = 'GET' | 'POST'
 export type Api = UserController &
   AuthController &
   NewsController &
-  DynamicNewsController
+  DynamicNewsController &
+  DynamicUserController
 
 export type ApiRoutes = keyof Api
 
