@@ -40,7 +40,7 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   const fetchData = async (data?: ApiRequest<R, M>, id?: string | number) => {
     isLoading.value = true
     const u = String(url)
-
+    const currentRoute = id ? `${u}/${id}` : u
     try {
       await sleep(1000)
       const headers = {
@@ -48,14 +48,14 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
       }
       if (data && 'avatar' in data) {
         dataRes.value = (
-          await axios.postForm(`${API_URL}/${id ? `${u}/${id}` : u}`, data, {
+          await axios.postForm(`${API_URL}/${currentRoute}`, data, {
             headers
           })
         ).data
       } else {
         const requestConfig: AxiosRequestConfig = {
           method,
-          url: id ? `${u}/${id}` : u,
+          url: currentRoute,
           data,
           headers
         }

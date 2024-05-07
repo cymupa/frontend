@@ -125,12 +125,14 @@ const onUpload = async (event: FileUploadUploaderEvent) => {
     </div>
   </div>
 
-  <div class="card">
-    <h5>Действия</h5>
+  <div class="col-12">
+    <div class="card">
+      <h5>Действия</h5>
 
-    <div class="flex flex-column gap-2 align-items-start">
-      <Button v-if="!isButtonBlocked && !isError && !error" severity="danger" :disabled="isButtonBlocked">Удалить аккаунт</Button>
-      <Button severity="help" :disabled="isButtonBlocked">Выйти</Button>
+      <div class="flex flex-column gap-2 align-items-start">
+        <Button v-if="!isButtonBlocked && !isError && !error" severity="danger" :disabled="isButtonBlocked">Удалить аккаунт</Button>
+        <Button severity="help" :disabled="isButtonBlocked">Выйти</Button>
+      </div>
     </div>
   </div>
 </template>
