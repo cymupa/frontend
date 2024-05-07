@@ -48,7 +48,7 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
       }
       if (data && 'avatar' in data) {
         dataRes.value = (
-          await axios.postForm(`${API_URL}/${currentRoute}`, data, {
+          await api.postForm(currentRoute, data, {
             headers
           })
         ).data
