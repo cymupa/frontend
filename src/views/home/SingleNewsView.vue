@@ -47,7 +47,9 @@ const { data, fetchData, isLoading } = newsApi.getNewsById({
 
 const getSingleNews = async () => {
   try {
-    await fetchData()
+    await fetchData({
+      id
+    })
 
     if (!data.value) {
       return

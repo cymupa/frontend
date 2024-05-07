@@ -1,4 +1,4 @@
-export const formatDate = (inputDate: string) => {
+export const formatDate = (inputDate: string | Date) => {
   const date = new Date(inputDate)
 
   const year = date.getFullYear()

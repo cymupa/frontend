@@ -1,4 +1,5 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios'
+import { storeToRefs } from 'pinia'
 import { type Ref, type UnwrapRef, ref } from 'vue'
 
 import type {
@@ -8,17 +9,17 @@ import type {
   HttpMethod
 } from '@/api/core'
 
-import { sleep } from '@/utils'
-
+import { API_URL } from '@/config/env'
 import { useAuthStore } from '@/stores/auth'
-import { storeToRefs } from 'pinia'
+import { sleep } from '@/utils'
+import axios from 'axios'
 import api from '../../api'
 
 export interface State<R extends ApiRoutes, M extends HttpMethod> {
-  isLoading: Ref<UnwrapRef<boolean>>
-  fetchData: () => Promise<void>
-  data: Ref<UnwrapRef<ApiResponseData<R, M> | null>>
-  error: Ref<UnwrapRef<string | null>>
+  isLoading: Ref<boolean>
+  fetchData: (data: ApiRequest<R, M>, id?: string | number) => Promise<void>
+  data: Ref<UnwrapRef<ApiResponseData<R, M>> | null>
+  error: Ref<string | null>
 }
 
 /**
@@ -28,46 +29,47 @@ export interface State<R extends ApiRoutes, M extends HttpMethod> {
  */
 export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
   url: R,
-  method: M,
-  data?: ApiRequest<R, M>
+  method: M
 ): State<R, M> => {
   const { token } = storeToRefs(useAuthStore())
-  console.log('[API] Receive data: ', data)
 
-  const dataRes = ref<null | ApiResponseData<R, M>>(null)
+  const dataRes = ref<ApiResponseData<R, M> | null>(null)
   const error = ref<string | null>(null)
   const isLoading = ref(false)
 
-  const fetchData = async () => {
+  const fetchData = async (data?: ApiRequest<R, M>, id?: string | number) => {
     isLoading.value = true
+    const u = String(url)
+
     try {
-      const requestConfig: AxiosRequestConfig = {
-        method,
-        url,
-        data
-      }
-
       await sleep(1000)
-      const res = await api.request<ApiResponseData<R, M>>({
-        ...requestConfig,
-        headers: {
-          Authorization: `Bearer ${
-            token.value ?? localStorage.getItem('token')
-          }`
+      const headers = {
+        Authorization: `Bearer ${token.value ?? localStorage.getItem('token')}`
+      }
+      if (data && 'avatar' in data) {
+        dataRes.value = (
+          await axios.postForm(`${API_URL}/${id ? `${u}/${id}` : u}`, data, {
+            headers
+          })
+        ).data
+      } else {
+        const requestConfig: AxiosRequestConfig = {
+          method,
+          url: id ? `${u}/${id}` : u,
+          data,
+          headers
         }
-      })
 
-      dataRes.value = res.data as UnwrapRef<ApiResponseData<R, M>>
-
-      console.log('[API] Response: ', dataRes.value)
+        dataRes.value = (
+          await api.request<ApiResponseData<R, M>>(requestConfig)
+        ).data as UnwrapRef<ApiResponseData<R, M>>
+      }
 
       error.value = null
     } catch (err) {
       const axiosError = err as AxiosError
       error.value = axiosError.message || 'Fetch error'
-
-      console.log('[API] Error: ', axiosError.message)
-
+      console.warn('[API] Error: ', axiosError)
       throw axiosError
     } finally {
       isLoading.value = false

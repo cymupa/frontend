@@ -6,7 +6,7 @@ export interface User {
   role_id: number
   surname: string
   address: string | null
-  avatar: string | null
+  avatar: FormData | string | null
   nickname: string | null
   patronymic: null | string
   description: string | null

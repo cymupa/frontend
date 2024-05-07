@@ -1,7 +1,5 @@
 import type { User } from '@/types/User'
 
-export type DynamicUsersRouteKey = `users/${string}`
-
 export interface UserController {
   me: {
     GET: {
@@ -13,10 +11,7 @@ export interface UserController {
       res: {}
     }
   }
-}
-
-export interface DynamicUserController {
-  [key: string]: {
+  users: {
     GET: {
       req: {}
       res: {}

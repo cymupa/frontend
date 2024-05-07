@@ -1,61 +1,73 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import type { FileUploadUploaderEvent } from 'primevue/fileupload'
+import { computed, onMounted, ref, watch } from 'vue'
 
+import { userApi } from '@/api/requests'
 import { useUserStore } from '@/stores/user'
-import {formatDate} from "@/utils/formatDate";
+import { formatDate } from '@/utils/formatDate'
 
-const { setUserInfo } = useUserStore()
-const { state } = storeToRefs(useUserStore())
+const { state, isError } = storeToRefs(useUserStore())
 
-// const getUserInfo = async () => {
-//   try {
-//     await fetchData()
-//
-//     if (!data.value) {
-//       return
-//     }
-//
-//     const userData = data.value[0]
-//
-//     console.log('user', userData)
-//
-//     setUserInfo(userData)
-//   } catch (e) {
-//     if (!isApiError(e)) {
-//       return
-//     }
-//
-//     if (e.response?.status === 401) {
-//       await logOut()
-//     }
-//
-//     console.warn(e)
-//   }
-// }
+const { fetchData, data, isLoading, error } = userApi.updateUserInfo()
+
+const isButtonBlocked = computed(() => !isLoading)
 
 const handleUpdateUserData = async () => {
-  console.log('state.data', state.value.data)
-  console.log('state.data2', state.value.data.birth)
-  console.log('state.data3', formatDate(state.value.data.birth))
+  try {
+    await fetchData(
+      {
+        ...state.value.data,
+        // @ts-ignore ok
+        birth: formatDate(state.value.data.birth)
+      },
+      state.value.data.id
+    )
+
+    if (!data.value) {
+      return
+    }
+
+    console.log('data.value', data.value)
+  } catch (e) {
+    console.log('aaaaaaaaaaaa')
+  }
 }
 
-onMounted(async () => {
-  if (!state.value.data.id) {
-    console.log(1)
-    // await getUserInfo()
+const onUpload = async (event: FileUploadUploaderEvent) => {
+  const files = event.files
+
+  if (!Array.isArray(files) || files.length === 0) {
+    return
   }
-})
+
+  const file = files[0]
+
+  const formData = new FormData()
+  formData.append('avatar', file)
+
+  await fetchData(
+    {
+      avatar: file
+    },
+    state.value.data.id
+  )
+}
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="card"  v-if="error || isError">
+    <Message severity="error"  :closable="false">Ошибка при получении данных</Message>
+  </div>
+  <div v-else-if="!state.data.id" class="card flex justify-content-center">
+    <ProgressSpinner />
+  </div>
+  <div class="col-12" v-else>
     <div class="card">
       <h5>Информация о вас</h5>
       <div class="p-fluid formgrid grid">
         <div class="field col-12 md:col-4">
           <label for="firstname">Имя</label>
-<!--          v-model="state.data.name"-->
           <InputText id="firstname" type="text" v-model="state.data.name" />
         </div>
 
@@ -86,7 +98,14 @@ onMounted(async () => {
 
         <div class="field col-12 md:col-6">
           <label for="birth">Дата рожедния</label>
-          <Calendar placeholder="Дата рождения" :max-date="new Date()" v-model="state.data.birth" showIcon :showOnFocus="false" inputId="birth" />
+          <Calendar
+            placeholder="Дата рождения"
+            :max-date="new Date()"
+            v-model="state.data.birth"
+            showIcon
+            :showOnFocus="false"
+            inputId="birth"
+          />
         </div>
 
         <div class="field col-12 md:col-6">
@@ -95,7 +114,23 @@ onMounted(async () => {
         </div>
       </div>
 
-      <Button @click="handleUpdateUserData">Сохранить</Button>
+      <label for="avatar" class="mb-2 block">Аватар</label>
+      <FileUpload name="avatar" @uploader="onUpload" :multiple="false" accept="image/*" :maxFileSize="1000000" custom-upload>
+        <template #empty>
+          <p>Перетащите файл для загрузки.</p>
+        </template>
+      </FileUpload>
+
+      <Button class="mt-4" @click="handleUpdateUserData" :disabled="isButtonBlocked">Сохранить</Button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h5>Действия</h5>
+
+    <div class="flex flex-column gap-2 align-items-start">
+      <Button v-if="!isButtonBlocked && !isError && !error" severity="danger" :disabled="isButtonBlocked">Удалить аккаунт</Button>
+      <Button severity="help" :disabled="isButtonBlocked">Выйти</Button>
     </div>
   </div>
 </template>

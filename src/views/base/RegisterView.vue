@@ -42,7 +42,7 @@ const date = ref<Date | null>(null)
 const router = useRouter()
 const { login } = useAuthStore()
 
-const { isLoading, fetchData, data } = authApi.register(userData)
+const { isLoading, fetchData, data } = authApi.register()
 
 watch(
   data,
@@ -59,7 +59,7 @@ const handleRegister = async () => {
   error.value = ''
 
   try {
-    await fetchData()
+    await fetchData(userData)
     await router.replace('/')
   } catch (e) {
     toast.add({
