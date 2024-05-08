@@ -76,9 +76,10 @@ onMounted(async () => {
 
 const visible = ref(false)
 
-const onReply = () => {
+const onReply = async () => {
   toast.removeGroup('bc')
   visible.value = false
+  await getUserInfo()
 }
 </script>
 
