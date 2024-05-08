@@ -16,7 +16,7 @@ const { data, fetchData, isLoading, error } = newsApi.getAllNews()
 
 const getNews = async () => {
   try {
-    await fetchData({})
+    await fetchData()
 
     if (!data.value) {
       return

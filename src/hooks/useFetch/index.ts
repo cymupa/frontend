@@ -14,10 +14,10 @@ import { sleep } from '@/utils'
 import api from '../../api'
 
 export interface State<R extends ApiRoutes, M extends HttpMethod> {
-  isLoading: Ref<boolean>
-  fetchData: (data: ApiRequest<R, M>, id?: string | number) => Promise<void>
-  data: Ref<UnwrapRef<ApiResponseData<R, M>> | null>
-  error: Ref<string | null>
+  isLoading: Ref<UnwrapRef<boolean>>
+  fetchData: (data?: ApiRequest<R, M>, id?: string | number) => Promise<void>
+  data: Ref<ApiResponseData<R, M> | undefined>
+  error: Ref<UnwrapRef<string | null>>
 }
 
 /**

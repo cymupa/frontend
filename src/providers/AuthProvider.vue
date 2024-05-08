@@ -24,7 +24,7 @@ const getUserInfo = async () => {
   isError.value = false
 
   try {
-    await fetchData({})
+    await fetchData()
 
     if (!data.value) {
       return
