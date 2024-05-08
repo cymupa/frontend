@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useToast } from 'primevue/usetoast'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import Toast from 'primevue/toast'
 
@@ -74,14 +74,6 @@ onMounted(async () => {
   await getUserInfo()
 })
 
-watch(
-  state,
-  () => {
-    console.log('state', state.value)
-  },
-  { immediate: true }
-)
-
 const visible = ref(false)
 
 const onReply = () => {
@@ -92,7 +84,7 @@ const onReply = () => {
 
 <template>
   <Toast position="top-center" group="bc">
-    <template #message="slotProps">
+    <template>
       <div class="flex flex-column align-items-start" style="flex: 1">
         <div>Произошла ошибка</div>
         <Button class="mt-3" severity="danger" label="Попробовать снова" @click="onReply()" />
