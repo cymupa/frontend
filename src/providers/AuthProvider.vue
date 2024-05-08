@@ -31,10 +31,8 @@ const getUserInfo = async () => {
     }
 
     const userData = data.value[0]
-
-    console.log('user', userData)
-
     setUserInfo(userData)
+
     toast.removeAllGroups()
     toast.add({
       closable: true,
@@ -96,10 +94,8 @@ const onReply = () => {
   <Toast position="top-center" group="bc">
     <template #message="slotProps">
       <div class="flex flex-column align-items-start" style="flex: 1">
-        <div>
-          Произошла ошибка
-        </div>
-        <Button class="mt-3" severity="danger" label="Попробовать снова" @click="onReply()"/>
+        <div>Произошла ошибка</div>
+        <Button class="mt-3" severity="danger" label="Попробовать снова" @click="onReply()" />
       </div>
     </template>
   </Toast>

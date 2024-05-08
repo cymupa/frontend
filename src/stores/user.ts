@@ -10,7 +10,6 @@ interface UserStore {
 
 export const useUserStore = defineStore('user', () => {
   const isError = ref(false)
-
   const state: { data: User & UserStore } = reactive({
     data: {
       id: 0,

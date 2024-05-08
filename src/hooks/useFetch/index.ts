@@ -37,8 +37,11 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
 
   const fetchData = async (data?: ApiRequest<R, M>, id?: string | number) => {
     isLoading.value = true
+    error.value = ''
+
     const u = String(url)
     const currentRoute = id ? `${u}/${id}` : u
+
     try {
       await sleep(1000)
       const headers = {

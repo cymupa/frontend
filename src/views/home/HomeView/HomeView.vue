@@ -41,7 +41,7 @@ onMounted(async () => await getNews())
 
     <div class="flex justify-content-center">
       <ProgressSpinner v-if="isLoading" />
-      <Message severity="error"  :closable="false" v-else-if="error">Ошибка</Message>
+      <Message severity="error" :closable="false" v-else-if="error">Ошибка</Message>
       <Message v-else-if="!newsList.length" :closable="false">Новостей нет</Message>
     </div>
 

@@ -67,11 +67,11 @@ const handleLogin = async () => {
       life: 1500
     })
 
-    if (!(isApiError(e) && e.response)) {
+    if (!isApiError(e)) {
       return
     }
 
-    if (e.response.status === 422) {
+    if (e?.response?.status === 422) {
       errors.data = e.response.data.errors
       return
     }

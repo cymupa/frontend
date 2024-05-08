@@ -3,10 +3,10 @@ export interface User {
   tel: string
   name: string
   birth: Date
-  role_id: number
+  role_id?: number
   surname: string
   address: string | null
-  avatar: FormData | string | null
+  avatar?: File | string | null
   nickname: string | null
   patronymic: null | string
   description: string | null
