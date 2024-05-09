@@ -1,6 +1,7 @@
 import type { Ref, UnwrapRef } from 'vue'
 import type {
   AuthController,
+  CategoriesController,
   DynamicNewsController,
   DynamicProductsRouteKey,
   NewsController,
@@ -19,7 +20,8 @@ export type Api = UserController &
   NewsController &
   ProductsController &
   DynamicProductsRouteKey &
-  DynamicNewsController
+  DynamicNewsController &
+  CategoriesController
 
 export type ApiRoutes = keyof Api
 

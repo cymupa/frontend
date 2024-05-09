@@ -40,7 +40,7 @@ const getUserInfo = async () => {
       severity: 'success',
       summary: 'Добро пожаловать!',
       detail: 'Данные загружены',
-      styleClass: { 'z-index': 99999999999 }
+      styleClass: { 'z-index': 99999999999 },
     })
   } catch (e) {
     isError.value = true
@@ -67,7 +67,7 @@ onMounted(async () => {
       severity: 'info',
       summary: 'Пожалуйста, подождите',
       detail: 'Загружаю информацию о тебе...',
-      styleClass: { 'z-index': 99999999999 }
+      styleClass: { 'z-index': 99999999999 },
     })
   }
 

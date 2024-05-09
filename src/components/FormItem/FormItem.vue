@@ -10,7 +10,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  type: 'text'
+  type: 'text',
 })
 
 defineEmits(['update:modelValue'])

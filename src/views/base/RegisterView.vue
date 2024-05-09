@@ -21,7 +21,7 @@ const userData = reactive<RegistrationRequest>({
   birth: '',
   name: '',
   surname: '',
-  password: ''
+  password: '',
 })
 
 const cleanErrors = {
@@ -29,11 +29,11 @@ const cleanErrors = {
   birth: [],
   name: [],
   surname: [],
-  password: []
+  password: [],
 }
 
 const errors = reactive<{ data: ValidationError }>({
-  data: cleanErrors
+  data: cleanErrors,
 })
 
 const error = ref('')
@@ -51,7 +51,7 @@ watch(
       login(data.value.token)
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 const handleRegister = async () => {
@@ -67,7 +67,7 @@ const handleRegister = async () => {
       severity: 'error',
       summary: 'Произошла ошибка',
       detail: 'Попробуйте еще раз',
-      life: 1500
+      life: 1500,
     })
 
     if (!(isApiError(e) && e.response)) {

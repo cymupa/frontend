@@ -18,7 +18,7 @@ const handleConfirmAccept = () => {
     },
     reject: () => {
       alert(2)
-    }
+    },
   })
 }
 
@@ -37,7 +37,7 @@ const handleConfirmDecline = () => {
     },
     reject: () => {
       alert(2)
-    }
+    },
   })
 }
 

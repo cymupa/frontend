@@ -67,6 +67,21 @@ const router = createRouter({
           name: 'self-edit',
           component: () =>
             import('@/views/profile/UpdateProfileView/UpdateProfileView.vue')
+        },
+        {
+          // продукты
+          path: '/products',
+          name: 'products',
+          component: () =>
+            import('@/views/products/ProductsView/ProductsView.vue')
+        },
+        {
+          // продукт
+          path: '/products/:id',
+          props: true,
+          name: 'product',
+          component: () =>
+            import('@/views/products/SingleProductView/SingleProductView.vue')
         }
       ]
     },

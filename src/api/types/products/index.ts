@@ -1,6 +1,6 @@
 export type DynamicProductsRouteKey = `products/${string}`
 
-export interface DynamicNewsController {
+export interface DynamicProductsController {
   [key: string]: {
     GET: {
       req: { id: string }
@@ -14,7 +14,7 @@ export interface DynamicNewsController {
 }
 
 export interface ProductsController {
-  news: {
+  products: {
     GET: {
       req: {}
       res: GetProductsResponse[]
@@ -30,6 +30,10 @@ export interface GetProductsResponse {
   id: number
   name: string
   description: string
-  content: string
-  photos: Array<string>
+  quantity: number
+  photo: string
+  price: string
+  category_id: number
+  created_at: string
+  updated_at: string
 }

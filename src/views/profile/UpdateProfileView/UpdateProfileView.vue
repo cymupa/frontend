@@ -19,15 +19,7 @@ const toast = useToast()
 
 const { state, isError } = storeToRefs(useUserStore())
 
-type UserDataSubsetKeys =
-  | 'tel'
-  | 'birth'
-  | 'address'
-  | 'description'
-  | 'name'
-  | 'surname'
-  | 'patronymic'
-  | 'nickname'
+type UserDataSubsetKeys = 'tel' | 'birth' | 'address' | 'description' | 'name' | 'surname' | 'patronymic' | 'nickname'
 
 const cleanErrors: Record<UserDataSubsetKeys, []> = {
   tel: [],
@@ -37,11 +29,11 @@ const cleanErrors: Record<UserDataSubsetKeys, []> = {
   nickname: [],
   name: [],
   surname: [],
-  patronymic: []
+  patronymic: [],
 }
 
 const errors = reactive<{ data: ValidationError }>({
-  data: cleanErrors
+  data: cleanErrors,
 })
 
 const { fetchData, data, isLoading, error } = userApi.updateUserInfo()
@@ -58,9 +50,9 @@ const handleUpdateUserData = async () => {
       {
         ...state.value.data,
         // @ts-ignore ok
-        birth: formatDate(state.value.data.birth)
+        birth: formatDate(state.value.data.birth),
       },
-      state.value.data.id
+      state.value.data.id,
     )
 
     if (!data.value) {
@@ -91,9 +83,9 @@ const onUpload = async (event: FileUploadUploaderEvent) => {
 
   await fetchData(
     {
-      avatar: file
+      avatar: file,
     },
-    state.value.data.id
+    state.value.data.id,
   )
 }
 
@@ -111,9 +103,9 @@ const confirmDeleteAccount = async (event: MouseEvent) => {
         severity: 'info',
         summary: 'Удаляю',
         detail: 'Пожалуйста, подождите',
-        life: 3000
+        life: 3000,
       })
-    }
+    },
   })
 }
 
@@ -131,9 +123,9 @@ const confirmLogOut = async (event: MouseEvent) => {
         severity: 'info',
         summary: 'Выхожу',
         detail: 'Пожалуйста, подождите',
-        life: 3000
+        life: 3000,
       })
-    }
+    },
   })
 }
 </script>
@@ -149,7 +141,7 @@ const confirmLogOut = async (event: MouseEvent) => {
     <ProgressSpinner />
   </div>
   <template v-else>
-    <div class="col-12" >
+    <div class="col-12">
       <div class="card">
         <h5>Информация о вас</h5>
         <div class="p-fluid formgrid grid">
@@ -192,12 +184,12 @@ const confirmLogOut = async (event: MouseEvent) => {
           <div class="field col-12 md:col-6">
             <label for="birth">Дата рожедния</label>
             <Calendar
-                placeholder="Дата рождения"
-                :max-date="new Date()"
-                v-model="state.data.birth"
-                showIcon
-                :showOnFocus="false"
-                inputId="birth"
+              placeholder="Дата рождения"
+              :max-date="new Date()"
+              v-model="state.data.birth"
+              showIcon
+              :showOnFocus="false"
+              inputId="birth"
             />
             <RenderErrors v-if="errors.data.birth?.length" :values="errors.data.birth" />
           </div>
@@ -232,11 +224,11 @@ const confirmLogOut = async (event: MouseEvent) => {
         <div class="flex flex-column gap-2 align-items-start">
           <Button @click="confirmLogOut" severity="help" :disabled="isButtonBlocked.value">Выйти</Button>
           <Button
-              @click="confirmDeleteAccount"
-              v-if="!isButtonBlocked.value && !isError && !error"
-              severity="danger"
-              :disabled="isButtonBlocked.value"
-              label="Удалить аккаунт"
+            @click="confirmDeleteAccount"
+            v-if="!isButtonBlocked.value && !isError && !error"
+            severity="danger"
+            :disabled="isButtonBlocked.value"
+            label="Удалить аккаунт"
           />
         </div>
       </div>
