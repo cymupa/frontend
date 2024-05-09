@@ -136,7 +136,10 @@ watch(categories, async () => {
         <template #list="slotProps">
           <div class="grid grid-nogutter">
             <div v-for="(item, index) in slotProps.items" :key="index" class="col-12">
-              <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" :class="{ 'border-top-1 surface-border': index !== 0 }">
+              <div
+                class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+                :class="{ 'border-top-1 surface-border': index !== 0 }"
+              >
                 <div class="md:w-10rem relative">
                   <img class="block xl:block mx-auto border-round w-full" :src="`${STORAGE_URL}/${item.photo}`" :alt="item.name" />
                 </div>
@@ -148,11 +151,18 @@ watch(categories, async () => {
                     </div>
 
                     <div class="surface-100 p-1" style="border-radius: 30px">
-                      <div class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                      <div
+                        class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                        style="
+                          border-radius: 30px;
+                          box-shadow:
+                            0px 1px 2px 0px rgba(0, 0, 0, 0.04),
+                            0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+                        "
+                      >
                         <div>{{ item.quantity }} шт.</div>
                       </div>
                     </div>
-
                   </div>
                   <div class="flex flex-column md:align-items-end gap-5">
                     <span class="text-xl font-semibold text-900">{{ item.price }} Р</span>
@@ -162,7 +172,8 @@ watch(categories, async () => {
                         label="Купить"
                         :disabled="isSomeLoading.value"
                         class="flex-auto md:flex-initial white-space-nowrap"
-                      /></div>
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -176,7 +187,7 @@ watch(categories, async () => {
               <div class="p-4 border-1 surface-border surface-card border-round flex flex-column">
                 <div class="surface-50 flex justify-content-center border-round p-3">
                   <div class="relative mx-auto">
-                    <img class="border-round w-full" :src="`${STORAGE_URL}/${item.photo}`" :alt="item.name" style="max-width: 300px"/>
+                    <img class="border-round w-full" :src="`${STORAGE_URL}/${item.photo}`" :alt="item.name" style="max-width: 300px" />
                   </div>
                 </div>
 
@@ -187,7 +198,6 @@ watch(categories, async () => {
                     </div>
                     <div class="surface-100 text-center p-1" style="border-radius: 5px">
                       <div>{{ item.quantity }} шт.</div>
-
                     </div>
                   </div>
                   <div class="flex flex-column gap-4 mt-4">

@@ -10,7 +10,7 @@ const members = ref(invitesToTeam)
 </script>
 
 <template>
-  <div  v-if="!members.length">
+  <div v-if="!members.length">
     <RouterLink class="p-link layout-menu-button layout-topbar-button" to="/cart">
       <i v-if="members.length" v-badge="members.length" class="pi pi-shopping-cart"></i>
       <i v-else class="pi pi-shopping-cart"></i>
