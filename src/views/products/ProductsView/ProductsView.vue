@@ -67,10 +67,7 @@ const getCategories = async () => {
   }
 }
 
-onMounted(async () => {
-  await getProducts()
-  await getCategories()
-})
+onMounted(() => Promise.all([getProducts(), getCategories()]))
 
 interface Item {
   label: string
@@ -144,8 +141,8 @@ watch(categories, async () => {
                 <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
                   <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
                     <div>
-                      <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
                       <div class="text-lg font-medium text-900 mt-2">{{ item.name }}</div>
+                      <span class="font-medium text-secondary text-sm">{{ item.description }}</span>
                     </div>
                   </div>
 
