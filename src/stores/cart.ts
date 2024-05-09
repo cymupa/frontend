@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 // import { reactive, ref } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
-
   // product / +/-
   // const useCart = (tokenValue: string) => {
   //   console.log('[Store] Auth token: ', tokenValue)
@@ -12,5 +11,5 @@ export const useCartStore = defineStore('cart', () => {
   //   isLoggedIn.value = true
   // }
 
-  return {  }
+  return {}
 })
