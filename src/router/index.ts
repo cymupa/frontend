@@ -75,14 +75,15 @@ const router = createRouter({
           component: () =>
             import('@/views/products/ProductsView/ProductsView.vue')
         },
-        {
-          // продукт
-          path: '/products/:id',
-          props: true,
-          name: 'product',
-          component: () =>
-            import('@/views/products/SingleProductView/SingleProductView.vue')
-        },
+        // TODO: remove
+        // {
+        //   // продукт
+        //   path: '/products/:id',
+        //   props: true,
+        //   name: 'product',
+        //   component: () =>
+        //     import('@/views/products/SingleProductView/SingleProductView.vue')
+        // },
         {
           // продукт
           path: '/cart',

@@ -3,20 +3,18 @@ import { ref } from 'vue'
 
 import { invitesToTeam } from '@/data'
 
-const isVisible = ref()
 const members = ref(invitesToTeam)
 
-const toggle = (event: MouseEvent) => {
-  isVisible.value.toggle(event)
-}
+// TODO:
+// 1. use store
 </script>
 
 <template>
-  <div>
-    <button class="p-link layout-menu-button layout-topbar-button" @click="toggle">
-      <i v-if="members.length" v-badge="members.length + 5" class="pi pi-shopping-cart"></i>
+  <div  v-if="!members.length">
+    <RouterLink class="p-link layout-menu-button layout-topbar-button" to="/cart">
+      <i v-if="members.length" v-badge="members.length" class="pi pi-shopping-cart"></i>
       <i v-else class="pi pi-shopping-cart"></i>
       <span>Корзина</span>
-    </button>
+    </RouterLink>
   </div>
 </template>

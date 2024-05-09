@@ -43,8 +43,16 @@ const getUserInfo = async () => {
       styleClass: { 'z-index': 99999999999 }
     })
   } catch (e) {
+    toast.removeAllGroups()
     isError.value = true
-    toast.add({ severity: 'error', group: 'bc', closable: false })
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: 'Попробуйте позже',
+      group: 'bc',
+      closable: false
+    })
+
     visible.value = true
 
     if (!isApiError(e)) {
