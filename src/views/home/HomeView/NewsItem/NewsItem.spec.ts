@@ -12,7 +12,9 @@ describe('NewsItem', () => {
         index: 0,
         news: {
           id: 1,
-          title: 'Title',
+          content: 'Content',
+          photos: [''],
+          name: 'Title',
           description: 'Title'
         }
       },
@@ -21,7 +23,7 @@ describe('NewsItem', () => {
       }
     })
 
-    expect(wrapper.text()).toContain('Title')
+    expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toContain('Title')
   })
 })

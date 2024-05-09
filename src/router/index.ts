@@ -24,7 +24,8 @@ const router = createRouter({
           path: '/news/:id',
           props: true,
           name: 'news',
-          component: () => import('../views/home/SingleNewsView.vue')
+          component: () =>
+            import('../views/home/SingleNewsView/SingleNewsView.vue')
         },
         {
           // просмотр туриков

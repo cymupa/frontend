@@ -1,7 +1,10 @@
+import type { Ref, UnwrapRef } from 'vue'
 import type {
   AuthController,
   DynamicNewsController,
+  DynamicProductsRouteKey,
   NewsController,
+  ProductsController,
   UserController
 } from '../types'
 
@@ -14,6 +17,8 @@ export type HttpMethod = 'GET' | 'POST'
 export type Api = UserController &
   AuthController &
   NewsController &
+  ProductsController &
+  DynamicProductsRouteKey &
   DynamicNewsController
 
 export type ApiRoutes = keyof Api
@@ -29,3 +34,10 @@ export type ApiRequest<
   Route extends keyof Api,
   Method extends HttpMethod
 > = Api[Route][Method]['req']
+
+export interface State<R extends ApiRoutes, M extends HttpMethod> {
+  isLoading: Ref<boolean>
+  fetchData: (data: ApiRequest<R, M>, id?: string | number) => Promise<void>
+  data: Ref<UnwrapRef<ApiResponseData<R, M>> | null>
+  error: Ref<string | null>
+}
