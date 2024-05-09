@@ -9,8 +9,8 @@ import { useAuthStore } from '@/stores/auth'
 /**
  * Функция принимает параметры от vue и смотрит куда передвигается юзер
 
- * В зависимости от того, авторизирован он или нет, мы либо совершаем переход, либо переводим на регистрацию
- * При этом пользователь без токена также не сможет попасть на страницы Forbidden (403) и NotFound (404)
+ * В зависимости от того, авторизирован он или нет, мы либо совершаем переход, либо переводим на 403
+ * При этом пользователь без токена также сможет попасть на страницу NotFound (404)
  */
 export const checkAuth = (to: T, _from: T, next: NavigationGuardNext): void => {
   const { token } = storeToRefs(useAuthStore())
@@ -21,6 +21,8 @@ export const checkAuth = (to: T, _from: T, next: NavigationGuardNext): void => {
     'news',
     'home',
     'teams',
+    'product',
+    'products',
     'register',
     'forbidden',
     'not-found',
