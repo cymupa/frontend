@@ -17,18 +17,18 @@ const router = useRouter()
 
 const userData = reactive<AuthorizationRequest>({
   tel: '',
-  password: '',
+  password: ''
 })
 
 const { isLoading, fetchData, data } = authApi.authorize()
 
 const cleanErrors = {
   tel: [],
-  password: [],
+  password: []
 }
 
 const errors = reactive<{ data: ValidationError }>({
-  data: cleanErrors,
+  data: cleanErrors
 })
 const error = ref('')
 
@@ -40,7 +40,7 @@ watch(
     if (!data.value) return
     login(data.value.token)
   },
-  { immediate: true },
+  { immediate: true }
 )
 
 const handleLogin = async () => {
@@ -52,7 +52,7 @@ const handleLogin = async () => {
     severity: 'info',
     summary: 'Выполняется вход',
     detail: 'Пожалуйста, подождите',
-    life: 1000,
+    life: 1000
   })
 
   try {
@@ -64,7 +64,7 @@ const handleLogin = async () => {
       severity: 'error',
       summary: 'Произошла ошибка',
       detail: 'Попробуйте еще раз',
-      life: 1500,
+      life: 1500
     })
 
     if (!isApiError(e)) {
@@ -80,7 +80,12 @@ const handleLogin = async () => {
   }
 }
 
-const isAllDataPassed = computed(() => !isLoading.value && userData.tel.trim() !== '' && userData.password.trim() !== '')
+const isAllDataPassed = computed(
+  () =>
+    !isLoading.value &&
+    userData.tel.trim() !== '' &&
+    userData.password.trim() !== ''
+)
 </script>
 
 <template>

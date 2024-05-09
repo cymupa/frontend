@@ -17,7 +17,11 @@ const onTopBarMenuButton = () => {
   topbarMenuActive.value = !topbarMenuActive.value
 }
 
-const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(menuButton, topbarMenuActive, onTopBarMenuButton)
+const { bind: bindOutsideClick, unbind: unbindOutsideClick } = useClickOutside(
+  menuButton,
+  topbarMenuActive,
+  onTopBarMenuButton
+)
 
 const onChangeTheme = (theme: string, mode: boolean) => {
   localStorage.setItem('theme', theme)
@@ -29,7 +33,9 @@ const onChangeTheme = (theme: string, mode: boolean) => {
 }
 
 const onDarkModeChange = (value: boolean) => {
-  const newThemeName = value ? layoutConfig.theme.value.replace('light', 'dark') : layoutConfig.theme.value.replace('dark', 'light')
+  const newThemeName = value
+    ? layoutConfig.theme.value.replace('light', 'dark')
+    : layoutConfig.theme.value.replace('dark', 'light')
 
   layoutConfig.darkTheme.value = value
   onChangeTheme(newThemeName, value)

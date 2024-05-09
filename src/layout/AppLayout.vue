@@ -29,10 +29,12 @@ const containerClass = computed(() => {
     'layout-theme-dark': layoutConfig.darkTheme.value,
     'layout-overlay': layoutConfig.menuMode.value === 'overlay',
     'layout-static': layoutConfig.menuMode.value === 'static',
-    'layout-static-inactive': layoutState.staticMenuDesktopInactive.value && layoutConfig.menuMode.value === 'static',
+    'layout-static-inactive':
+      layoutState.staticMenuDesktopInactive.value &&
+      layoutConfig.menuMode.value === 'static',
     'layout-overlay-active': layoutState.overlayMenuActive.value,
     'layout-mobile-active': layoutState.staticMenuMobileActive.value,
-    'p-ripple-disabled': !layoutConfig.ripple.value,
+    'p-ripple-disabled': !layoutConfig.ripple.value
   }
 })
 
@@ -66,7 +68,12 @@ const isOutsideClicked = (event: MouseEvent) => {
 
   const target = event.target as Node
 
-  return !(sidebarEl.isSameNode(target) || sidebarEl.contains(target) || topbarEl.isSameNode(target) || topbarEl.contains(target))
+  return !(
+    sidebarEl.isSameNode(target) ||
+    sidebarEl.contains(target) ||
+    topbarEl.isSameNode(target) ||
+    topbarEl.contains(target)
+  )
 }
 </script>
 

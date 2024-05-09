@@ -21,9 +21,9 @@ const items = [
       toast.add({
         severity: 'success',
         summary: 'All',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   },
   {
     label: 'CS2',
@@ -32,9 +32,9 @@ const items = [
       toast.add({
         severity: 'success',
         summary: 'CS2',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   },
   {
     label: 'Dota 2',
@@ -43,9 +43,9 @@ const items = [
       toast.add({
         severity: 'success',
         summary: 'Dota 2',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   },
   {
     label: 'Mobile Legends',
@@ -54,9 +54,9 @@ const items = [
       toast.add({
         severity: 'success',
         summary: 'MOBA',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   },
   {
     label: 'League Of Legends',
@@ -65,10 +65,10 @@ const items = [
       toast.add({
         severity: 'success',
         summary: 'Lol',
-        life: 3000,
+        life: 3000
       })
-    },
-  },
+    }
+  }
 ]
 </script>
 

@@ -9,8 +9,8 @@ import { isApiError } from '@/utils/isApiError'
 const { id } = defineProps({
   id: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const news = ref<GetNewsResponse | null>(null)
@@ -18,12 +18,12 @@ const activeIndex = ref(0)
 const responsiveOptions = ref([
   {
     breakpoint: '1300px',
-    numVisible: 4,
+    numVisible: 4
   },
   {
     breakpoint: '575px',
-    numVisible: 1,
-  },
+    numVisible: 1
+  }
 ])
 
 const next = () => {
@@ -31,7 +31,10 @@ const next = () => {
     return
   }
 
-  activeIndex.value = activeIndex.value === news.value.photos.length - 1 ? news.value?.photos.length - 1 : activeIndex.value + 1
+  activeIndex.value =
+    activeIndex.value === news.value.photos.length - 1
+      ? news.value?.photos.length - 1
+      : activeIndex.value + 1
 }
 
 const prev = () => {
@@ -39,13 +42,13 @@ const prev = () => {
 }
 
 const { data, fetchData, isLoading } = newsApi.getNewsById({
-  id,
+  id
 })
 
 const getSingleNews = async () => {
   try {
     await fetchData({
-      id,
+      id
     })
 
     if (!data.value) {

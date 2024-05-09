@@ -18,12 +18,17 @@ const toast = useToast()
 const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
 
-const { data: productsData, fetchData: fetchProducts, isLoading: isProductsLoading, error: productsError } = productsApi.getAll()
+const {
+  data: productsData,
+  fetchData: fetchProducts,
+  isLoading: isProductsLoading,
+  error: productsError
+} = productsApi.getAll()
 const {
   data: categoriesData,
   fetchData: fetchCategories,
   isLoading: isCategoriesLoading,
-  error: categoriesError,
+  error: categoriesError
 } = categoriesApi.getAll()
 
 const getProducts = async () => {
@@ -68,8 +73,8 @@ onMounted(async () => {
 })
 
 interface Item {
-  label: string;
-  command: () => void;
+  label: string
+  command: () => void
 }
 
 const filter = ref<string>('Все')
@@ -87,9 +92,9 @@ watch(categories, async () => {
           toast.add({
             severity: 'success',
             summary: 'Все',
-            life: 3000,
+            life: 3000
           })
-        },
+        }
       },
       ...categories.value.map((category) => ({
         label: category.name,
@@ -98,10 +103,10 @@ watch(categories, async () => {
           toast.add({
             severity: 'success',
             summary: category.name,
-            life: 3000,
+            life: 3000
           })
-        },
-      })),
+        }
+      }))
     ]
   }
 })

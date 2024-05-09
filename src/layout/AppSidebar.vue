@@ -19,9 +19,9 @@ const model: MenuGroup[] = reactive([
       { label: 'Лента новостей', icon: 'pi pi-sparkles', to: '/' },
       { label: 'Список турниров', icon: 'pi pi-trophy', to: '/tournaments' },
       { label: 'Список команд', icon: 'pi pi-users', to: '/teams' },
-      { label: 'Товары', icon: 'pi pi-shopping-bag', to: '/products' },
-    ],
-  },
+      { label: 'Товары', icon: 'pi pi-shopping-bag', to: '/products' }
+    ]
+  }
 ])
 
 const auth: MenuGroup[] = reactive([
@@ -29,9 +29,9 @@ const auth: MenuGroup[] = reactive([
     label: 'Личное',
     items: [
       { label: 'Мой профиль', icon: 'pi pi-user', to: '/profile' },
-      { label: 'Настройки', icon: 'pi pi-cog', to: '/self' },
-    ],
-  },
+      { label: 'Настройки', icon: 'pi pi-cog', to: '/self' }
+    ]
+  }
 ])
 
 const unauth: MenuGroup[] = reactive([
@@ -39,9 +39,9 @@ const unauth: MenuGroup[] = reactive([
     label: 'Для гостя',
     items: [
       { label: 'Вход', icon: 'pi pi-sign-in', to: '/login' },
-      { label: 'Регистрация', icon: 'pi pi-user-plus', to: '/register' },
-    ],
-  },
+      { label: 'Регистрация', icon: 'pi pi-user-plus', to: '/register' }
+    ]
+  }
 ])
 
 onMounted(() => {

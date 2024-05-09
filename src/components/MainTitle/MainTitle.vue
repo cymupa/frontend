@@ -4,7 +4,7 @@ interface Props {
   bold?: boolean
 }
 const { is } = withDefaults(defineProps<Props>(), {
-  is: 'h3',
+  is: 'h3'
 })
 </script>
 

@@ -19,7 +19,15 @@ const toast = useToast()
 
 const { state, isError } = storeToRefs(useUserStore())
 
-type UserDataSubsetKeys = 'tel' | 'birth' | 'address' | 'description' | 'name' | 'surname' | 'patronymic' | 'nickname'
+type UserDataSubsetKeys =
+  | 'tel'
+  | 'birth'
+  | 'address'
+  | 'description'
+  | 'name'
+  | 'surname'
+  | 'patronymic'
+  | 'nickname'
 
 const cleanErrors: Record<UserDataSubsetKeys, []> = {
   tel: [],
@@ -29,11 +37,11 @@ const cleanErrors: Record<UserDataSubsetKeys, []> = {
   nickname: [],
   name: [],
   surname: [],
-  patronymic: [],
+  patronymic: []
 }
 
 const errors = reactive<{ data: ValidationError }>({
-  data: cleanErrors,
+  data: cleanErrors
 })
 
 const { fetchData, data, isLoading, error } = userApi.updateUserInfo()
@@ -50,9 +58,9 @@ const handleUpdateUserData = async () => {
       {
         ...state.value.data,
         // @ts-ignore ok
-        birth: formatDate(state.value.data.birth),
+        birth: formatDate(state.value.data.birth)
       },
-      state.value.data.id,
+      state.value.data.id
     )
 
     if (!data.value) {
@@ -83,9 +91,9 @@ const onUpload = async (event: FileUploadUploaderEvent) => {
 
   await fetchData(
     {
-      avatar: file,
+      avatar: file
     },
-    state.value.data.id,
+    state.value.data.id
   )
 }
 
@@ -103,9 +111,9 @@ const confirmDeleteAccount = async (event: MouseEvent) => {
         severity: 'info',
         summary: 'Удаляю',
         detail: 'Пожалуйста, подождите',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   })
 }
 
@@ -123,9 +131,9 @@ const confirmLogOut = async (event: MouseEvent) => {
         severity: 'info',
         summary: 'Выхожу',
         detail: 'Пожалуйста, подождите',
-        life: 3000,
+        life: 3000
       })
-    },
+    }
   })
 }
 </script>
