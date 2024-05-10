@@ -1,4 +1,5 @@
 import { cartApi } from '@/api/requests'
+import type { CartProduct } from '@/api/types'
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
@@ -24,6 +25,21 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     state.data.push({ id, quantity: 1 })
+  }
+
+  const setCartItem = (item: CartItem): CartProduct => {
+    const index = state.data.findIndex(
+      (existingItem) => existingItem.id === item.id
+    )
+
+    console.log('item', item)
+
+    if (index !== -1) {
+      state.data[index] = item
+      return
+    }
+
+    state.data.push(item)
   }
 
   const removeFromCart = (id: number) => {
@@ -64,6 +80,7 @@ export const useCartStore = defineStore('cart', () => {
     removeFromCart,
     isItemExists,
     getActualCart,
+    setCartItem,
     setCart
   }
 })

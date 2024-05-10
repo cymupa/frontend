@@ -9,7 +9,7 @@ import { useCartStore } from '@/stores/cart'
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 
 const { state } = storeToRefs(useCartStore())
-const { setCart } = useCartStore()
+const { setCart, getActualCart, setCartItem } = useCartStore()
 
 const cartId = ref('1')
 
@@ -37,8 +37,6 @@ onMounted(async () => {
       return
     }
 
-    console.log('data', data.value)
-
     setCart(data.value)
   }
 })
@@ -46,6 +44,19 @@ onMounted(async () => {
 const handleAddToCart = async (id: number) => {
   try {
     await fetchPlus(undefined, id)
+
+    if (!plusData.value) {
+      return
+    }
+
+    const { product } = plusData.value
+
+    setCartItem({
+      photo: product.photo,
+      name: product.name,
+      price: product.price,
+      ...plusData.value
+    })
   } catch {
     console.log(1)
   }
@@ -54,6 +65,7 @@ const handleAddToCart = async (id: number) => {
 const handleMinusFromCart = async (id: number) => {
   try {
     await fetchMinus(undefined, id)
+    setCartItem(minusData.value)
   } catch {
     console.log(1)
   }

@@ -190,7 +190,7 @@ const handleAddToCart = async (id: number) => {
                         v-if="isItemExists(item.id)"
                         severity="secondary"
                         icon="pi pi-shopping-cart"
-                        label="Уже куплено / Кончилось"
+                        label="В корзине / Кончилось"
                         disabled
                       />
                       <Button
@@ -235,7 +235,7 @@ const handleAddToCart = async (id: number) => {
                         severity="secondary"
                         v-if="isItemExists(item.id)"
                         icon="pi pi-shopping-cart"
-                        label="Уже куплено / Кончилось"
+                        label="В корзине / Кончилось"
                         disabled
                       />
                       <Button
