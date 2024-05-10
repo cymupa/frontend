@@ -101,11 +101,7 @@ const toggle = (event: MouseEvent) => {
               :class="{ 'border-top-1 surface-border': index !== 0 }"
             >
               <div class="md:w-10rem relative">
-                <img
-                  class="block xl:block mx-auto border-round w-full"
-                  :src="`${STORAGE_URL}/${item.photo}`"
-                  :alt="item.name"
-                />
+                <img class="block xl:block mx-auto border-round w-full" :src="`${STORAGE_URL}/${item.photo}`" :alt="item.name" />
               </div>
 
               <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
@@ -118,7 +114,14 @@ const toggle = (event: MouseEvent) => {
                 <div class="flex flex-column md:align-items-end gap-5">
                   <span class="text-xl font-semibold text-900">{{ item.price }} Р.</span>
                   <div class="flex flex-row-reverse md:flex-row gap-2 align-items-center">
-                    <Button :disabled="isSomeLoading" @click="item.quantity === 1 ? toggle : handleMinusFromCart(item.id)" icon="pi pi-cart-minus" severity="danger" aria-label="Minus" outlined />
+                    <Button
+                      :disabled="isSomeLoading"
+                      @click="item.quantity === 1 ? toggle : handleMinusFromCart(item.id)"
+                      icon="pi pi-cart-minus"
+                      severity="danger"
+                      aria-label="Minus"
+                      outlined
+                    />
 
                     <OverlayPanel ref="isVisible">
                       <div class="flex flex-column gap-3 w-20rem">
@@ -130,7 +133,13 @@ const toggle = (event: MouseEvent) => {
 
                     <Tag>{{ item.quantity }}</Tag>
 
-                    <Button :disabled="isSomeLoading" @click="handleAddToCart(item.id)" icon="pi pi-cart-plus"  aria-label="Plus" outlined />
+                    <Button
+                      :disabled="isSomeLoading"
+                      @click="handleAddToCart(item.id)"
+                      icon="pi pi-cart-plus"
+                      aria-label="Plus"
+                      outlined
+                    />
                   </div>
                 </div>
               </div>
