@@ -7,6 +7,7 @@ export type {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
     Calendar: typeof import('primevue/calendar')['default']
     Card: typeof import('primevue/card')['default']
@@ -15,6 +16,7 @@ declare module 'vue' {
     FileUpload: typeof import('primevue/fileupload')['default']
     FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
     InlineMessage: typeof import('primevue/inlinemessage')['default']
+    InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
     Message: typeof import('primevue/message')['default']

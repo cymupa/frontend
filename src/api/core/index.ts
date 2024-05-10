@@ -5,6 +5,7 @@ import type {
   UserController
 } from '../types'
 
+// TODO: add DELETE
 export type HttpMethod = 'GET' | 'POST'
 
 /**
