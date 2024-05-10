@@ -1,8 +1,13 @@
 import type { Ref, UnwrapRef } from 'vue'
 import type {
   AuthController,
+  CartController,
   CategoriesController,
+  DynamicCartAddRouteKey,
+  DynamicCartController,
+  DynamicCartMinusRouteKey,
   DynamicNewsController,
+  DynamicProductsController,
   DynamicProductsRouteKey,
   NewsController,
   ProductsController,
@@ -22,6 +27,11 @@ export type Api = UserController &
   ProductsController &
   DynamicProductsRouteKey &
   DynamicNewsController &
+  DynamicProductsController &
+  DynamicCartController &
+  DynamicCartAddRouteKey &
+  DynamicCartMinusRouteKey &
+  CartController &
   CategoriesController
 
 export type ApiRoutes = keyof Api
@@ -40,7 +50,7 @@ export type ApiRequest<
 
 export interface State<R extends ApiRoutes, M extends HttpMethod> {
   isLoading: Ref<boolean>
-  fetchData: (data: ApiRequest<R, M>, id?: string | number) => Promise<void>
+  fetchData: (data?: ApiRequest<R, M>, id?: string | number) => Promise<void>
   data: Ref<UnwrapRef<ApiResponseData<R, M>> | null>
   error: Ref<string | null>
 }

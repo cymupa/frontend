@@ -1,22 +1,35 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, effect, onMounted, ref, watch } from 'vue'
 
 import { STORAGE_URL } from '@/config/env'
 
-import { categoriesApi, productsApi } from '@/api/requests'
+import { cartApi, categoriesApi, productsApi } from '@/api/requests'
 import type { GetCategoriesResponse, GetProductsResponse } from '@/api/types'
-
-import { isApiError } from '@/utils/isApiError'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
+import { useCartStore } from '@/stores/cart'
 
 const toast = useToast()
+
 const layout = ref<'grid' | 'list'>('grid')
+
 const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
+
+const { addToCart, isItemExists, getActualCart } = useCartStore()
+const { state } = storeToRefs(useCartStore())
+
+watch(
+  state,
+  () => {
+    console.log('alert')
+  },
+  { immediate: true }
+)
 
 const {
   data: productsData,
@@ -24,6 +37,7 @@ const {
   isLoading: isProductsLoading,
   error: productsError
 } = productsApi.getAll()
+
 const {
   data: categoriesData,
   fetchData: fetchCategories,
@@ -31,43 +45,37 @@ const {
   error: categoriesError
 } = categoriesApi.getAll()
 
+const {
+  data: addToCartData,
+  fetchData: fetchAddToCart,
+  isLoading: isCartLoading,
+  error: addToCartError
+} = cartApi.addToCart()
+
 const getProducts = async () => {
-  try {
-    await fetchProducts({})
+  await fetchProducts({})
 
-    if (!productsData.value) {
-      return
-    }
-
-    productsList.value = productsData.value
-  } catch (e) {
-    if (!isApiError(e)) {
-      return
-    }
-
-    console.warn(e)
+  if (!productsData.value) {
+    return
   }
+
+  productsList.value = productsData.value
 }
 
 const getCategories = async () => {
-  try {
-    await fetchCategories({})
+  await fetchCategories()
 
-    if (!categoriesData.value) {
-      return
-    }
-
-    categories.value = categoriesData.value
-  } catch (e) {
-    if (!isApiError(e)) {
-      return
-    }
-
-    console.warn(e)
+  if (!categoriesData.value) {
+    return
   }
+
+  categories.value = categoriesData.value
 }
 
-onMounted(() => Promise.all([getProducts(), getCategories()]))
+onMounted(
+  async () =>
+    await Promise.all([getActualCart(), getCategories(), getProducts()])
+)
 
 interface Item {
   label: string
@@ -77,7 +85,9 @@ interface Item {
 const filter = ref<string>('Все')
 const items = ref<Item[]>([])
 
-const isSomeLoading = computed(() => isCategoriesLoading || isProductsLoading)
+const isSomeLoading = computed(
+  () => isCategoriesLoading || isProductsLoading || isCartLoading
+)
 
 watch(categories, async () => {
   if (categories.value.length > 0) {
@@ -107,6 +117,15 @@ watch(categories, async () => {
     ]
   }
 })
+
+const handleAddToCart = async (id: number) => {
+  await fetchAddToCart({
+    product_id: id,
+    quantity: 1
+  })
+
+  addToCart(id)
+}
 </script>
 
 <template>
@@ -168,9 +187,18 @@ watch(categories, async () => {
                     <span class="text-xl font-semibold text-900">{{ item.price }} Р</span>
                     <div class="flex flex-row-reverse md:flex-row gap-2">
                       <Button
+                        v-if="isItemExists(item.id)"
+                        severity="secondary"
+                        icon="pi pi-shopping-cart"
+                        label="В корзине / Кончилось"
+                        disabled
+                      />
+                      <Button
+                        v-else
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
-                        :disabled="isSomeLoading.value"
+                        @click="handleAddToCart(item.product_id)"
+                        :disabled="isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>
@@ -183,7 +211,7 @@ watch(categories, async () => {
 
         <template #grid="slotProps">
           <div class="grid grid-nogutter">
-            <div v-for="(item, index) in slotProps.items" :key="index" class="col-12 sm:col-6 md:col-4 xl:col-6 p-2">
+            <div v-for="(item, index) in slotProps.items" :key="index" class="col-12 sm:col-6 xl:col-6 p-2">
               <div class="p-4 border-1 surface-border surface-card border-round flex flex-column">
                 <div class="surface-50 flex justify-content-center border-round p-3">
                   <div class="relative mx-auto">
@@ -204,9 +232,18 @@ watch(categories, async () => {
                     <span class="text-2xl font-semibold text-900">{{ item.price }} Р</span>
                     <div class="flex gap-2">
                       <Button
+                        severity="secondary"
+                        v-if="isItemExists(item.id)"
+                        icon="pi pi-shopping-cart"
+                        label="В корзине / Кончилось"
+                        disabled
+                      />
+                      <Button
+                        v-else
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
-                        :disabled="isSomeLoading.value"
+                        @click="handleAddToCart(item.id)"
+                        :disabled="isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>

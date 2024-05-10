@@ -4,8 +4,6 @@ import { onMounted, ref } from 'vue'
 import { newsApi } from '@/api/requests'
 import type { GetNewsResponse } from '@/api/types'
 
-import { isApiError } from '@/utils/isApiError'
-
 const { id } = defineProps({
   id: {
     type: String,
@@ -46,23 +44,15 @@ const { data, fetchData, isLoading } = newsApi.getNewsById({
 })
 
 const getSingleNews = async () => {
-  try {
-    await fetchData({
-      id
-    })
+  await fetchData({
+    id
+  })
 
-    if (!data.value) {
-      return
-    }
-
-    news.value = data.value
-  } catch (e) {
-    if (!isApiError(e)) {
-      return
-    }
-
-    console.warn(e)
+  if (!data.value) {
+    return
   }
+
+  news.value = data.value
 }
 
 onMounted(async () => await getSingleNews())

@@ -4,8 +4,6 @@ import { onMounted, ref } from 'vue'
 import { newsApi } from '@/api/requests'
 import type { GetNewsResponse } from '@/api/types'
 
-import { isApiError } from '@/utils/isApiError'
-
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import NewsItem from './NewsItem/NewsItem.vue'
@@ -15,21 +13,13 @@ const newsList = ref<GetNewsResponse[]>([])
 const { data, fetchData, isLoading, error } = newsApi.getAllNews()
 
 const getNews = async () => {
-  try {
-    await fetchData()
+  await fetchData()
 
-    if (!data.value) {
-      return
-    }
-
-    newsList.value = data.value
-  } catch (e) {
-    if (!isApiError(e)) {
-      return
-    }
-
-    console.warn(e)
+  if (!data.value) {
+    return
   }
+
+  newsList.value = data.value
 }
 
 onMounted(async () => await getNews())
