@@ -30,7 +30,8 @@ const getUserInfo = async () => {
       return
     }
 
-    const userData = data.value[0]
+    const userData = data.value
+
     setUserInfo(userData)
 
     toast.removeAllGroups()
@@ -43,6 +44,8 @@ const getUserInfo = async () => {
       styleClass: { 'z-index': 99999999999 }
     })
   } catch (e) {
+    console.log('e', e)
+
     toast.removeAllGroups()
     isError.value = true
     toast.add({

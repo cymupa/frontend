@@ -25,4 +25,4 @@ export interface UserController {
 
 export type UpdateUserRequest = Partial<User>
 
-export type GetUserInfoResponse = [User]
+export type GetUserInfoResponse = User
