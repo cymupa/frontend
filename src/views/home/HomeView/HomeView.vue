@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import { newsApi } from '@/api/requests/news'
+import { newsApi } from '@/api/requests'
 import type { GetNewsResponse } from '@/api/types'
 
 import { isApiError } from '@/utils/isApiError'
@@ -16,7 +16,7 @@ const { data, fetchData, isLoading, error } = newsApi.getAllNews()
 
 const getNews = async () => {
   try {
-    await fetchData({})
+    await fetchData()
 
     if (!data.value) {
       return

@@ -1,7 +1,7 @@
-import type { ApiRequest } from '@/api/core'
+import type { ApiRequest, State } from '@/api/core'
 import type { DynamicNewsRouteKey } from '@/api/types'
 
-import { type State, useFetch } from '@/hooks'
+import { useFetch } from '@/hooks'
 
 interface NewsRequests {
   getAllNews(): State<'news', 'GET'>

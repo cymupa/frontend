@@ -24,7 +24,7 @@ const getUserInfo = async () => {
   isError.value = false
 
   try {
-    await fetchData({})
+    await fetchData()
 
     if (!data.value) {
       return
@@ -43,8 +43,16 @@ const getUserInfo = async () => {
       styleClass: { 'z-index': 99999999999 }
     })
   } catch (e) {
+    toast.removeAllGroups()
     isError.value = true
-    toast.add({ severity: 'error', group: 'bc', closable: false })
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: 'Попробуйте позже',
+      group: 'bc',
+      closable: false
+    })
+
     visible.value = true
 
     if (!isApiError(e)) {
@@ -76,9 +84,10 @@ onMounted(async () => {
 
 const visible = ref(false)
 
-const onReply = () => {
+const onReply = async () => {
   toast.removeGroup('bc')
   visible.value = false
+  await getUserInfo()
 }
 </script>
 

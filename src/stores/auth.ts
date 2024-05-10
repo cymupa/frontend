@@ -4,7 +4,6 @@ import { reactive, ref } from 'vue'
 export const useAuthStore = defineStore('auth', () => {
   const t = localStorage.getItem('token')
   const isLoggedIn = ref(Boolean(t))
-  // const isAdmin = ref(false)
   const token = ref(t || '')
 
   const login = (tokenValue: string) => {
@@ -20,10 +19,6 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = ''
     isLoggedIn.value = false
   }
-
-  // function checkAdmin() {
-  //   isAdmin.value = true
-  // }
 
   return { token, login, logout, isLoggedIn }
 })

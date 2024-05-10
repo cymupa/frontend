@@ -97,6 +97,7 @@ const onUpload = async (event: FileUploadUploaderEvent) => {
   )
 }
 
+// TODO: доделать удаление
 const confirmDeleteAccount = async (event: MouseEvent) => {
   confirm.require({
     target: event.currentTarget as HTMLElement,
@@ -149,7 +150,7 @@ const confirmLogOut = async (event: MouseEvent) => {
     <ProgressSpinner />
   </div>
   <template v-else>
-    <div class="col-12" >
+    <div class="col-12">
       <div class="card">
         <h5>Информация о вас</h5>
         <div class="p-fluid formgrid grid">
@@ -192,12 +193,12 @@ const confirmLogOut = async (event: MouseEvent) => {
           <div class="field col-12 md:col-6">
             <label for="birth">Дата рожедния</label>
             <Calendar
-                placeholder="Дата рождения"
-                :max-date="new Date()"
-                v-model="state.data.birth"
-                showIcon
-                :showOnFocus="false"
-                inputId="birth"
+              placeholder="Дата рождения"
+              :max-date="new Date()"
+              v-model="state.data.birth"
+              showIcon
+              :showOnFocus="false"
+              inputId="birth"
             />
             <RenderErrors v-if="errors.data.birth?.length" :values="errors.data.birth" />
           </div>
@@ -232,11 +233,11 @@ const confirmLogOut = async (event: MouseEvent) => {
         <div class="flex flex-column gap-2 align-items-start">
           <Button @click="confirmLogOut" severity="help" :disabled="isButtonBlocked.value">Выйти</Button>
           <Button
-              @click="confirmDeleteAccount"
-              v-if="!isButtonBlocked.value && !isError && !error"
-              severity="danger"
-              :disabled="isButtonBlocked.value"
-              label="Удалить аккаунт"
+            @click="confirmDeleteAccount"
+            v-if="!isButtonBlocked.value && !isError && !error"
+            severity="danger"
+            :disabled="isButtonBlocked.value"
+            label="Удалить аккаунт"
           />
         </div>
       </div>

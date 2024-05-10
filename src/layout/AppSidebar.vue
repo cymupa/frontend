@@ -18,7 +18,8 @@ const model: MenuGroup[] = reactive([
     items: [
       { label: 'Лента новостей', icon: 'pi pi-sparkles', to: '/' },
       { label: 'Список турниров', icon: 'pi pi-trophy', to: '/tournaments' },
-      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' }
+      { label: 'Список команд', icon: 'pi pi-users', to: '/teams' },
+      { label: 'Товары', icon: 'pi pi-shopping-bag', to: '/products' }
     ]
   }
 ])
