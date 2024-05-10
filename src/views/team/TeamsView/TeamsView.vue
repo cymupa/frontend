@@ -10,8 +10,6 @@ import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
 
 // const toast = useToast()
 const teams = reactive(teamsData)
-
-console.log('teams', teams)
 </script>
 
 <template>

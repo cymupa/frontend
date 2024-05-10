@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
-import { invitesToTeam } from '@/data'
+import { useCartStore } from '@/stores/cart'
 
-const members = ref(invitesToTeam)
-
-// TODO:
-// 1. use store
+const { state } = storeToRefs(useCartStore())
 </script>
 
 <template>
-  <div v-if="!members.length">
+  <div v-if="state.data.length">
     <RouterLink class="p-link layout-menu-button layout-topbar-button" to="/cart">
-      <i v-if="members.length" v-badge="members.length" class="pi pi-shopping-cart"></i>
-      <i v-else class="pi pi-shopping-cart"></i>
+      <i v-badge="state.data.length" class="pi pi-shopping-cart"></i>
       <span>Корзина</span>
     </RouterLink>
   </div>

@@ -1,5 +1,6 @@
 export * from './auth'
 export * from './user'
 export * from './news'
+export * from './cart'
 export * from './products'
 export * from './categories'

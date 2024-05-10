@@ -2,8 +2,6 @@
 import { storeToRefs } from 'pinia'
 
 import ConfirmPopup from 'primevue/confirmpopup'
-import InputGroup from 'primevue/inputgroup'
-import InputGroupAddon from 'primevue/inputgroupaddon'
 
 import { useUserStore } from '@/stores/user'
 import { formatDate } from '@/utils/formatDate'

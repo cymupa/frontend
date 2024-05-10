@@ -21,8 +21,6 @@ export const checkAuth = (to: T, _from: T, next: NavigationGuardNext): void => {
     'news',
     'home',
     'teams',
-    // TODO: remove
-    // 'product',
     'products',
     'register',
     'forbidden',
