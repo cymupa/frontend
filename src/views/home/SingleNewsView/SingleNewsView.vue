@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import { newsApi } from '@/api/requests/news'
+import { newsApi } from '@/api/requests'
 import type { GetNewsResponse } from '@/api/types'
 
 import { isApiError } from '@/utils/isApiError'

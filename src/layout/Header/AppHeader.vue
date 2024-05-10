@@ -5,6 +5,7 @@ import { onBeforeUnmount, ref } from 'vue'
 import useClickOutside from '../composables/useClickOutside'
 import { useLayout } from '../composables/useLayout'
 
+import CartButton from '@/layout/Header/CartButton/CartButton.vue'
 import NotificationsButton from './NotificationsButton/NotificationsButton.vue'
 
 const $primevue = usePrimeVue()
@@ -62,6 +63,7 @@ onBeforeUnmount(unbindOutsideClick)
       </button>
 
       <NotificationsButton />
+      <CartButton />
     </div>
   </div>
 </template>

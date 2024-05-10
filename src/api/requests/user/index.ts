@@ -1,4 +1,5 @@
-import { type State, useFetch } from '@/hooks'
+import type { State } from '@/api/core'
+import { useFetch } from '@/hooks'
 
 interface UserRequests {
   getUserInfo(): State<'me', 'GET'>

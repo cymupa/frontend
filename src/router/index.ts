@@ -24,7 +24,8 @@ const router = createRouter({
           path: '/news/:id',
           props: true,
           name: 'news',
-          component: () => import('../views/home/SingleNewsView.vue')
+          component: () =>
+            import('../views/home/SingleNewsView/SingleNewsView.vue')
         },
         {
           // просмотр туриков
@@ -66,6 +67,28 @@ const router = createRouter({
           name: 'self-edit',
           component: () =>
             import('@/views/profile/UpdateProfileView/UpdateProfileView.vue')
+        },
+        {
+          // продукты
+          path: '/products',
+          name: 'products',
+          component: () =>
+            import('@/views/products/ProductsView/ProductsView.vue')
+        },
+        // TODO: remove
+        // {
+        //   // продукт
+        //   path: '/products/:id',
+        //   props: true,
+        //   name: 'product',
+        //   component: () =>
+        //     import('@/views/products/SingleProductView/SingleProductView.vue')
+        // },
+        {
+          // продукт
+          path: '/cart',
+          name: 'cart',
+          component: () => import('@/views/products/CartView/CartView.vue')
         }
       ]
     },

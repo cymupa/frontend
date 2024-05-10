@@ -1,24 +1,19 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios'
 import { storeToRefs } from 'pinia'
-import { type Ref, type UnwrapRef, ref } from 'vue'
+import { ref } from 'vue'
 
 import type {
   ApiRequest,
   ApiResponseData,
   ApiRoutes,
-  HttpMethod
+  HttpMethod,
+  State
 } from '@/api/core'
 
 import { useAuthStore } from '@/stores/auth'
 import { sleep } from '@/utils'
-import api from '../../api'
 
-export interface State<R extends ApiRoutes, M extends HttpMethod> {
-  isLoading: Ref<UnwrapRef<boolean>>
-  fetchData: (data?: ApiRequest<R, M>, id?: string | number) => Promise<void>
-  data: Ref<ApiResponseData<R, M> | undefined>
-  error: Ref<UnwrapRef<string | null>>
-}
+import api from '../../api'
 
 /**
  * Хук useFetch позволяет взаимодействовать с сервером
@@ -47,7 +42,7 @@ export const useFetch = <R extends ApiRoutes, M extends HttpMethod>(
       const headers = {
         Authorization: `Bearer ${token.value ?? localStorage.getItem('token')}`
       }
-      if (data && 'avatar' in data) {
+      if (typeof data === 'object' && data && 'avatar' in data) {
         dataRes.value = (
           await api.postForm(currentRoute, data, {
             headers

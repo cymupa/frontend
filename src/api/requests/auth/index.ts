@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@/api/core'
-import { type State, useFetch } from '@/hooks'
+import type { State } from '@/api/core'
+import { useFetch } from '@/hooks'
 
 interface AuthRequests {
   authorize(): State<'authorization', 'POST'>
