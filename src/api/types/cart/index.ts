@@ -1,11 +1,24 @@
+import type { Product } from '@/types/Product'
+
 /** id итема в корзине */
-export type DynamicCartAddRouteKey = `countplus/${string}`
-export type DynamicCartMinusRouteKey = `countminus/${string}`
+export type DynamicCartAddRouteKey = `countplus`
+export type DynamicCartMinusRouteKey = `countminus`
 
 export interface DynamicCartController {
-  [key: string]: {
+  countplus: {
     GET: {
-      req: { id: string }
+      req: {}
+      res: ActionCartRequest
+    }
+    POST: {
+      req: {}
+      res: {}
+    }
+  }
+
+  countminus: {
+    GET: {
+      req: {}
       res: ActionCartRequest
     }
     POST: {
@@ -28,23 +41,11 @@ export interface CartController {
   }
 }
 
-interface CartProduct {
+export interface CartProduct {
   id: number
   quantity: number
   product_id: number
   user_id: number
-  created_at: Date
-  updated_at: Date
-}
-
-interface Product {
-  id: number
-  name: string
-  description: string
-  quantity: number
-  photo: string
-  price: string
-  category_id: number
   created_at: Date
   updated_at: Date
 }

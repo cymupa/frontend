@@ -1,19 +1,86 @@
-<script setup>
-import { onMounted, ref } from 'vue'
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, ref } from 'vue'
 
-const products = ref()
-// TODO:
-// 1. cart btns
-// 2. update after click
-// 3. interactive messages
-// 4. use store
-// 5. idk what else
+import { cartApi } from '@/api/requests'
+import { STORAGE_URL } from '@/config/env'
+import { useCartStore } from '@/stores/cart'
+
+import MainTitle from '@/components/MainTitle/MainTitle.vue'
+
+const { state } = storeToRefs(useCartStore())
+const { setCart } = useCartStore()
+
+const cartId = ref('1')
+
+const { data, fetchData, isLoading, error } = cartApi.getAll()
+
+const {
+  data: minusData,
+  fetchData: fetchMinus,
+  isLoading: isMinusLoading,
+  error: minusError
+} = cartApi.minusFromCart()
+
+const {
+  data: plusData,
+  fetchData: fetchPlus,
+  isLoading: isPlusLoading,
+  error: plusError
+} = cartApi.plusToCart()
+
+onMounted(async () => {
+  if (!state.value.data.length) {
+    await fetchData()
+
+    if (!data?.value) {
+      return
+    }
+
+    console.log('data', data.value)
+
+    setCart(data.value)
+  }
+})
+
+const handleAddToCart = async (id: number) => {
+  try {
+    await fetchPlus(undefined, id)
+  } catch {
+    console.log(1)
+  }
+}
+
+const handleMinusFromCart = async (id: number) => {
+  try {
+    await fetchMinus(undefined, id)
+  } catch {
+    console.log(1)
+  }
+}
+
+const isSomeLoading = computed(
+  () => isPlusLoading.value || isMinusLoading.value
+)
+
+const isVisible = ref()
+
+const toggle = (event: MouseEvent) => {
+  isVisible.value.toggle(event)
+}
 </script>
 
 <template>
   <div class="card">
-    
-    <DataView :value="products">
+    <MainTitle bold>Корзина</MainTitle>
+
+    <div class="flex justify-content-center">
+      <ProgressSpinner v-if="isLoading" />
+      <Message severity="error" :closable="false" v-else-if="error">Ошибка</Message>
+      <Message v-else-if="!data?.length && !state.data.length" :closable="false">Корзина пустая</Message>
+    </div>
+
+    <DataView v-if="Boolean(state.data?.length)" :value="state.data" data-key="id">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
           <div v-for="(item, index) in slotProps.items" :key="index" class="col-12">
@@ -24,7 +91,7 @@ const products = ref()
               <div class="md:w-10rem relative">
                 <img
                   class="block xl:block mx-auto border-round w-full"
-                  :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
+                  :src="`${STORAGE_URL}/${item.photo}`"
                   :alt="item.name"
                 />
               </div>
@@ -32,35 +99,26 @@ const products = ref()
               <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
                 <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
                   <div>
-                    <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
                     <div class="text-lg font-medium text-900 mt-2">{{ item.name }}</div>
-                  </div>
-
-                  <div class="surface-100 p-1" style="border-radius: 30px">
-                    <div
-                      class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
-                      style="
-                        border-radius: 30px;
-                        box-shadow:
-                          0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                          0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                      "
-                    >
-                      <span class="text-900 font-medium text-sm">{{ item.rating }}</span>
-                      <i class="pi pi-star-fill text-yellow-500"></i>
-                    </div>
                   </div>
                 </div>
 
                 <div class="flex flex-column md:align-items-end gap-5">
-                  <span class="text-xl font-semibold text-900">${{ item.price }}</span>
-                  <div class="flex flex-row-reverse md:flex-row gap-2">
-                    <Button
-                      icon="pi pi-shopping-cart"
-                      label="Buy Now"
-                      :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                      class="flex-auto md:flex-initial white-space-nowrap"
-                    ></Button>
+                  <span class="text-xl font-semibold text-900">{{ item.price }} Р.</span>
+                  <div class="flex flex-row-reverse md:flex-row gap-2 align-items-center">
+                    <Button :disabled="isSomeLoading" @click="item.quantity === 1 ? toggle : handleMinusFromCart(item.id)" icon="pi pi-cart-minus" severity="danger" aria-label="Minus" outlined />
+
+                    <OverlayPanel ref="isVisible">
+                      <div class="flex flex-column gap-3 w-20rem">
+                        <div>
+                          <span class="font-medium text-900 block">{{ 'Приглашения в команду' }}</span>
+                        </div>
+                      </div>
+                    </OverlayPanel>
+
+                    <Tag>{{ item.quantity }}</Tag>
+
+                    <Button :disabled="isSomeLoading" @click="handleAddToCart(item.id)" icon="pi pi-cart-plus"  aria-label="Plus" outlined />
                   </div>
                 </div>
               </div>

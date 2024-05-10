@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 
-import {plugins} from "@/tests/plugins";
+import { plugins } from '@/tests/plugins'
 
 import ProductsView from './ProductsView.vue'
 

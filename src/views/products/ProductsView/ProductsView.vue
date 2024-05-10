@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, effect, onMounted, ref, watch } from 'vue'
 
 import { STORAGE_URL } from '@/config/env'
 
-import { categoriesApi, productsApi } from '@/api/requests'
+import { cartApi, categoriesApi, productsApi } from '@/api/requests'
 import type { GetCategoriesResponse, GetProductsResponse } from '@/api/types'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
@@ -20,6 +21,15 @@ const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
 
 const { addToCart, isItemExists, getActualCart } = useCartStore()
+const { state } = storeToRefs(useCartStore())
+
+watch(
+  state,
+  () => {
+    console.log('alert')
+  },
+  { immediate: true }
+)
 
 const {
   data: productsData,
@@ -27,12 +37,20 @@ const {
   isLoading: isProductsLoading,
   error: productsError
 } = productsApi.getAll()
+
 const {
   data: categoriesData,
   fetchData: fetchCategories,
   isLoading: isCategoriesLoading,
   error: categoriesError
 } = categoriesApi.getAll()
+
+const {
+  data: addToCartData,
+  fetchData: fetchAddToCart,
+  isLoading: isCartLoading,
+  error: addToCartError
+} = cartApi.addToCart()
 
 const getProducts = async () => {
   await fetchProducts({})
@@ -54,7 +72,10 @@ const getCategories = async () => {
   categories.value = categoriesData.value
 }
 
-onMounted(() => Promise.all([getProducts(), getCategories(), getActualCart()]))
+onMounted(
+  async () =>
+    await Promise.all([getActualCart(), getCategories(), getProducts()])
+)
 
 interface Item {
   label: string
@@ -64,7 +85,9 @@ interface Item {
 const filter = ref<string>('Все')
 const items = ref<Item[]>([])
 
-const isSomeLoading = computed(() => isCategoriesLoading || isProductsLoading)
+const isSomeLoading = computed(
+  () => isCategoriesLoading || isProductsLoading || isCartLoading
+)
 
 watch(categories, async () => {
   if (categories.value.length > 0) {
@@ -94,6 +117,15 @@ watch(categories, async () => {
     ]
   }
 })
+
+const handleAddToCart = async (id: number) => {
+  await fetchAddToCart({
+    product_id: id,
+    quantity: 1
+  })
+
+  addToCart(id)
+}
 </script>
 
 <template>
@@ -157,15 +189,15 @@ watch(categories, async () => {
                       <Button
                         v-if="isItemExists(item.id)"
                         severity="secondary"
-                        icon="pi pi-cart-arrow-down"
-                        label="Уже куплено"
+                        icon="pi pi-shopping-cart"
+                        label="Уже куплено / Кончилось"
                         disabled
                       />
                       <Button
                         v-else
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
-                        @click="addToCart(item.id)"
+                        @click="handleAddToCart(item.product_id)"
                         :disabled="isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
@@ -179,7 +211,7 @@ watch(categories, async () => {
 
         <template #grid="slotProps">
           <div class="grid grid-nogutter">
-            <div v-for="(item, index) in slotProps.items" :key="index" class="col-12 sm:col-6 md:col-4 xl:col-6 p-2">
+            <div v-for="(item, index) in slotProps.items" :key="index" class="col-12 sm:col-6 xl:col-6 p-2">
               <div class="p-4 border-1 surface-border surface-card border-round flex flex-column">
                 <div class="surface-50 flex justify-content-center border-round p-3">
                   <div class="relative mx-auto">
@@ -202,15 +234,15 @@ watch(categories, async () => {
                       <Button
                         severity="secondary"
                         v-if="isItemExists(item.id)"
-                        icon="pi pi-cart-arrow-down"
-                        label="Уже куплено"
+                        icon="pi pi-shopping-cart"
+                        label="Уже куплено / Кончилось"
                         disabled
                       />
                       <Button
                         v-else
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
-                        @click="addToCart(item.id)"
+                        @click="handleAddToCart(item.id)"
                         :disabled="isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
