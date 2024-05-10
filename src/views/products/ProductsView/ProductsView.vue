@@ -2,16 +2,16 @@
 import { storeToRefs } from 'pinia'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
-import { computed, effect, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 import { STORAGE_URL } from '@/config/env'
+import { useCartStore } from '@/stores/cart'
 
 import { cartApi, categoriesApi, productsApi } from '@/api/requests'
 import type { GetCategoriesResponse, GetProductsResponse } from '@/api/types'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import { useCartStore } from '@/stores/cart'
 
 const toast = useToast()
 
@@ -20,16 +20,7 @@ const layout = ref<'grid' | 'list'>('grid')
 const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
 
-const { addToCart, isItemExists, getActualCart } = useCartStore()
-const { state } = storeToRefs(useCartStore())
-
-watch(
-  state,
-  () => {
-    console.log('alert')
-  },
-  { immediate: true }
-)
+const { addToCart, isItemExists } = useCartStore()
 
 const {
   data: productsData,
@@ -53,7 +44,7 @@ const {
 } = cartApi.addToCart()
 
 const getProducts = async () => {
-  await fetchProducts({})
+  await fetchProducts()
 
   if (!productsData.value) {
     return
@@ -72,10 +63,7 @@ const getCategories = async () => {
   categories.value = categoriesData.value
 }
 
-onMounted(
-  async () =>
-    await Promise.all([getActualCart(), getCategories(), getProducts()])
-)
+onMounted(async () => await Promise.all([getCategories(), getProducts()]))
 
 interface Item {
   label: string

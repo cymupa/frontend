@@ -7,6 +7,7 @@ import Toast from 'primevue/toast'
 
 import { userApi } from '@/api/requests'
 import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 import { useUserStore } from '@/stores/user'
 import { isApiError } from '@/utils/isApiError'
 import { logOut } from '@/utils/logOut'
@@ -17,6 +18,7 @@ const { token } = storeToRefs(useAuthStore())
 const { state, isError } = storeToRefs(useUserStore())
 
 const toast = useToast()
+const { getActualCart } = useCartStore()
 
 const { data, fetchData, isLoading } = userApi.getUserInfo()
 
@@ -43,6 +45,7 @@ const getUserInfo = async () => {
       detail: 'Данные загружены',
       styleClass: { 'z-index': 99999999999 }
     })
+    getActualCart()
   } catch (e) {
     console.log('e', e)
 

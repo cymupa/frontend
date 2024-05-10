@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 
-import HomeView from './HomeView.vue'
 import { plugins } from '@/tests/plugins'
+import HomeView from './HomeView.vue'
 
 describe('HomeView', () => {
   it('renders properly', () => {
