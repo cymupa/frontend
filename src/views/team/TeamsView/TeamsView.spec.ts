@@ -13,6 +13,6 @@ describe('TeamsView', () => {
       }
     })
 
-    expect(wrapper.text()).toContain('Турниры')
+    expect(wrapper.text()).toContain('Команды')
   })
 })
