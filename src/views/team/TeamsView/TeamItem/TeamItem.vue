@@ -43,8 +43,8 @@ const router = useRouter()
       <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
         <div>
           <MainTitle class="mb-1">{{ team.name }}</MainTitle>
-<!--          <SmallText class="mb-1">{{ team.date }}</SmallText>-->
-<!--          <Tag :value="team.game" :severity="getTagStyle(team.game)" />-->
+          <!--          <SmallText class="mb-1">{{ team.date }}</SmallText>-->
+          <!--          <Tag :value="team.game" :severity="getTagStyle(team.game)" />-->
         </div>
       </div>
 
@@ -55,12 +55,12 @@ const router = useRouter()
         </div>
       </div>
 
-<!--      <div class="flex flex-column md:align-items-end gap-5">-->
-<!--        <div class="flex flex-column gap-2">-->
-<!--          <SmallText class="mb-1">Суммарный выигрышь:</SmallText>-->
-<!--          <span class="text-xl font-semibold text-900">${{ team.reward }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="flex flex-column md:align-items-end gap-5">-->
+      <!--        <div class="flex flex-column gap-2">-->
+      <!--          <SmallText class="mb-1">Суммарный выигрышь:</SmallText>-->
+      <!--          <span class="text-xl font-semibold text-900">${{ team.reward }}</span>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
       <Button size="small" icon="pi pi-arrow-right" @click="router.push(`team/${team.id}`)" label="Перейти" />
     </div>

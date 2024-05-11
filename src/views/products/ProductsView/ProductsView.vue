@@ -140,7 +140,7 @@ const handleAddToCart = async (id: number) => {
     <div class="flex justify-content-center">
       <ProgressSpinner v-if="isProductsLoading" />
       <Message severity="error" :closable="false" v-else-if="productsError">Ошибка</Message>
-      <Message v-else-if="!filteredProducts.length " :closable="false">Продуктов нет</Message>
+      <Message v-else-if="!filteredProducts.length" :closable="false">Продуктов нет</Message>
     </div>
 
     <div v-if="filteredProducts.length">

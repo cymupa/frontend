@@ -27,14 +27,13 @@ onMounted(getTeams)
   <ScrollWrapper>
     <MainTitle bold>Команды</MainTitle>
 
-
     <div class="flex justify-content-center">
       <ProgressSpinner v-if="isLoading" />
       <Message severity="error" :closable="false" v-else-if="error">Ошибка</Message>
       <Message v-else-if="!teams.length" :closable="false">Продуктов нет</Message>
     </div>
 
-    <DataView v-if="teams.length"  data-key="id" :value="teams">
+    <DataView v-if="teams.length" data-key="id" :value="teams">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
           <div v-for="(item, index) in slotProps.items" :key="item.id" class="col-12">
