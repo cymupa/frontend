@@ -8,27 +8,42 @@ import type { Game } from '@/types/Game'
 interface Props {
   index: number
   tournament: {
-    dates: string
     name: string
-    game: string
-    teamsCount: number
-    totalPrize: number
+    start: string
+    end: string
+    payment: string
     id: number
+    game_id: number
   }
 }
 const { tournament } = defineProps<Props>()
 
 const router = useRouter()
 
-const getTagStyle = (game: keyof typeof Game) => {
+const getTagStyle = (game: number) => {
   switch (game) {
-    case 'Dota 2':
+    case 2:
       return 'info'
-    case 'CS2':
+    case 3:
       return 'success'
-    case 'Mobile':
+    case 4:
       return 'secondary'
-    case 'LoL':
+    case 5:
+      return 'warning'
+    default:
+      return 'contrast'
+  }
+}
+
+const getTagName = (game: number) => {
+  switch (game) {
+    case 2:
+      return 'Valorant'
+    case 3:
+      return 'CS16'
+    case 4:
+      return 'secondary'
+    case 5:
       return 'warning'
     default:
       return 'contrast'
@@ -43,7 +58,7 @@ const getTagStyle = (game: keyof typeof Game) => {
         <div>
           <SmallText class="mb-1">{{ tournament.start }} - {{ tournament.end }}</SmallText>
           <MainTitle class="mb-1">{{ tournament.name }}</MainTitle>
-          <Tag :value="tournament.game" :severity="getTagStyle(tournament.game)" />
+          <Tag :value="getTagName(tournament.game_id)" :severity="getTagStyle(tournament.game_id)" />
         </div>
       </div>
 
