@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import TournamentItem from './TournamentItem.vue'
 
-import {plugins} from "@/tests/plugins";
+import { plugins } from '@/tests/plugins'
 
 describe('TournamentItem', () => {
   it('renders properly', () => {
@@ -11,7 +11,6 @@ describe('TournamentItem', () => {
       props: {
         index: 0,
         tournament: {
-
           id: 1
         }
       },
@@ -20,8 +19,6 @@ describe('TournamentItem', () => {
       }
     })
 
-    expect(wrapper.text()).toContain(
-      'contrastВзнос:$ Р.Перейти'
-    )
+    expect(wrapper.text()).toContain('contrastВзнос:$ Р.Перейти')
   })
 })
