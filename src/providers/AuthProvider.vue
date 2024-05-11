@@ -47,17 +47,8 @@ const getUserInfo = async () => {
     })
     getActualCart()
   } catch (e) {
-    console.log('e', e)
-
     toast.removeAllGroups()
     isError.value = true
-    toast.add({
-      severity: 'error',
-      summary: 'Ошибка',
-      detail: 'Попробуйте позже',
-      group: 'bc',
-      closable: false
-    })
 
     visible.value = true
 
@@ -66,8 +57,17 @@ const getUserInfo = async () => {
     }
 
     if (e.response?.status === 401) {
-      await logOut()
+      // await logOut()
+      return
     }
+
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка',
+      detail: 'Попробуйте позже',
+      group: 'bc',
+      closable: false
+    })
 
     console.warn(e)
   }

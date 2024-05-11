@@ -5,6 +5,7 @@ import { useToast } from 'primevue/usetoast'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import { STORAGE_URL } from '@/config/env'
+import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 
 import { cartApi, categoriesApi, productsApi } from '@/api/requests'
@@ -21,6 +22,7 @@ const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
 
 const { addToCart, isItemExists } = useCartStore()
+const { isLoggedIn } = storeToRefs(useAuthStore())
 
 const filteredProducts = computed(() => {
   if (filter.value === 'Все') {
@@ -144,6 +146,8 @@ const handleAddToCart = async (id: number) => {
     </div>
 
     <div v-if="filteredProducts.length">
+      <Message v-if="!isLoggedIn" :closable="false">Для покупки надо войти в аккаунт</Message>
+
       <DataView :value="filteredProducts" data-key="id" :layout="layout">
         <template #header>
           <div class="flex justify-content-end">
@@ -197,7 +201,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.product_id)"
-                        :disabled="isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn ||isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>
@@ -242,7 +246,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.id)"
-                        :disabled="isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn || isSomeLoading.value && item.quantity"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>
