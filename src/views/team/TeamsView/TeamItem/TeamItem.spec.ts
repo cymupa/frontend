@@ -13,7 +13,7 @@ describe('TeamItem', () => {
         team: {
           id: 1,
           name: 'Name',
-          team_list: [],
+          team_list: []
         }
       },
       global: {
@@ -21,8 +21,6 @@ describe('TeamItem', () => {
       }
     })
 
-    expect(wrapper.text()).toContain(
-      'NameКол-во игроков:1Перейти'
-    )
+    expect(wrapper.text()).toContain('NameКол-во игроков:1Перейти')
   })
 })

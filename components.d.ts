@@ -9,20 +9,14 @@ declare module 'vue' {
   export interface GlobalComponents {
     Avatar: typeof import('primevue/avatar')['default']
     Button: typeof import('primevue/button')['default']
-    Calendar: typeof import('primevue/calendar')['default']
     Card: typeof import('primevue/card')['default']
     DataView: typeof import('primevue/dataview')['default']
     DataViewLayoutOptions: typeof import('primevue/dataviewlayoutoptions')['default']
     Divider: typeof import('primevue/divider')['default']
-    FileUpload: typeof import('primevue/fileupload')['default']
     FormItem: typeof import('./src/components/FormItem/FormItem.vue')['default']
-    Galleria: typeof import('primevue/galleria')['default']
-    InlineMessage: typeof import('primevue/inlinemessage')['default']
-    InputText: typeof import('primevue/inputtext')['default']
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
     Message: typeof import('primevue/message')['default']
     OverlayPanel: typeof import('primevue/overlaypanel')['default']
-    Password: typeof import('primevue/password')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RenderErrors: typeof import('./src/components/RenderErrors/RenderErrors.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -33,6 +27,5 @@ declare module 'vue' {
     SplitButton: typeof import('primevue/splitbutton')['default']
     SuspensedComponent: typeof import('./src/components/SuspensedComponent/SuspensedComponent.vue')['default']
     Tag: typeof import('primevue/tag')['default']
-    Textarea: typeof import('primevue/textarea')['default']
   }
 }

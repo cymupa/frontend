@@ -18,7 +18,8 @@ describe('formatDate tests', () => {
   })
 
   it('should return formatted date for different time zone input', () => {
-    const dateString = 'Tue May 07 2024 05:20:09 GMT-0700 (Pacific Daylight Time)'
+    const dateString =
+      'Tue May 07 2024 05:20:09 GMT-0700 (Pacific Daylight Time)'
     const expected = '2024-05-07'
     const result = formatDate(dateString)
     expect(result).toBe(expected)
@@ -38,4 +39,3 @@ describe('formatDate tests', () => {
     expect(result).toBe(expected)
   })
 })
-

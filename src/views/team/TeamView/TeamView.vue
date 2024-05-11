@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetch } from '@/hooks'
-import { onMounted, ref } from 'vue'
 import { formatDate } from '@/utils/formatDate'
+import { onMounted, ref } from 'vue'
 
 const { id } = defineProps({
   id: {
@@ -10,7 +10,7 @@ const { id } = defineProps({
   }
 })
 
-const { data, fetchData, isLoading, error} = useFetch(`teams/${id}`, 'GET')
+const { data, fetchData, isLoading, error } = useFetch(`teams/${id}`, 'GET')
 
 const team = ref()
 
@@ -25,7 +25,6 @@ const getTeams = async () => {
 }
 
 onMounted(getTeams)
-
 </script>
 
 <template>

@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
 import { useFetch } from '@/hooks'
+import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
 
-const { data, fetchData, isLoading} = useFetch('teams', 'GET')
+const { data, fetchData, isLoading } = useFetch('teams', 'GET')
 
 const teams = ref([])
 
@@ -21,7 +21,6 @@ const getTeams = async () => {
 }
 
 onMounted(getTeams)
-
 </script>
 
 <template>
