@@ -6,10 +6,14 @@ import useClickOutside from '../composables/useClickOutside'
 import { useLayout } from '../composables/useLayout'
 
 import CartButton from '@/layout/Header/CartButton/CartButton.vue'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
 import NotificationsButton from './NotificationsButton/NotificationsButton.vue'
 
 const $primevue = usePrimeVue()
 const { onMenuToggle, layoutConfig } = useLayout()
+
+const { isLoggedIn } = storeToRefs(useAuthStore())
 
 const topbarMenuActive = ref<boolean>(false)
 const menuButton = ref<HTMLElement | null>(null)
@@ -62,8 +66,10 @@ onBeforeUnmount(unbindOutsideClick)
         <span>Тема</span>
       </button>
 
-      <NotificationsButton />
-      <CartButton />
+      <template v-if="isLoggedIn">
+        <NotificationsButton />
+        <CartButton />
+      </template>
     </div>
   </div>
 </template>

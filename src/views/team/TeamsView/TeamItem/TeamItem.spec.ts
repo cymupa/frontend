@@ -13,10 +13,7 @@ describe('TeamItem', () => {
         team: {
           id: 1,
           name: 'Name',
-          players_count: 1,
-          reward: 100,
-          game: 'Dota 2',
-          date: '10.20.2024'
+          team_list: []
         }
       },
       global: {
@@ -24,8 +21,6 @@ describe('TeamItem', () => {
       }
     })
 
-    expect(wrapper.text()).toContain(
-      'Name10.20.2024Dota 2Кол-во игроков:1Суммарный выигрышь:$100Перейти'
-    )
+    expect(wrapper.text()).toContain('NameКол-во игроков:1Перейти')
   })
 })

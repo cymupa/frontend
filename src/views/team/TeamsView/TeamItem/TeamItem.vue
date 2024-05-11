@@ -20,21 +20,21 @@ interface Props {
 const { team } = defineProps<Props>()
 
 const router = useRouter()
-
-const getTagStyle = (game: keyof typeof Game) => {
-  switch (game) {
-    case 'Dota 2':
-      return 'info'
-    case 'CS2':
-      return 'success'
-    case 'Mobile':
-      return 'secondary'
-    case 'LoL':
-      return 'warning'
-    default:
-      return 'contrast'
-  }
-}
+//
+// const getTagStyle = (game: keyof typeof Game) => {
+//   switch (game) {
+//     case 'Dota 2':
+//       return 'info'
+//     case 'CS2':
+//       return 'success'
+//     case 'Mobile':
+//       return 'secondary'
+//     case 'LoL':
+//       return 'warning'
+//     default:
+//       return 'contrast'
+//   }
+// }
 </script>
 
 <template>
@@ -43,26 +43,26 @@ const getTagStyle = (game: keyof typeof Game) => {
       <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
         <div>
           <MainTitle class="mb-1">{{ team.name }}</MainTitle>
-          <SmallText class="mb-1">{{ team.date }}</SmallText>
-          <Tag :value="team.game" :severity="getTagStyle(team.game)" />
+          <!--          <SmallText class="mb-1">{{ team.date }}</SmallText>-->
+          <!--          <Tag :value="team.game" :severity="getTagStyle(team.game)" />-->
         </div>
       </div>
 
       <div class="flex flex-column md:align-items-end gap-5">
         <div class="flex flex-column gap-2">
           <SmallText class="mb-1">Кол-во игроков:</SmallText>
-          <span class="text-xl font-semibold text-900">{{ team.players_count }}</span>
+          <span class="text-xl font-semibold text-900">{{ team.team_list.length + 1 }}</span>
         </div>
       </div>
 
-      <div class="flex flex-column md:align-items-end gap-5">
-        <div class="flex flex-column gap-2">
-          <SmallText class="mb-1">Суммарный выигрышь:</SmallText>
-          <span class="text-xl font-semibold text-900">${{ team.reward }}</span>
-        </div>
-      </div>
+      <!--      <div class="flex flex-column md:align-items-end gap-5">-->
+      <!--        <div class="flex flex-column gap-2">-->
+      <!--          <SmallText class="mb-1">Суммарный выигрышь:</SmallText>-->
+      <!--          <span class="text-xl font-semibold text-900">${{ team.reward }}</span>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
-      <Button size="small" icon="pi pi-arrow-right" @click="router.push(`tournament/${team.id}`)" label="Перейти" />
+      <Button size="small" icon="pi pi-arrow-right" @click="router.push(`team/${team.id}`)" label="Перейти" />
     </div>
   </div>
 </template>

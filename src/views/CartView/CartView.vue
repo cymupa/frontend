@@ -2,6 +2,8 @@
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
 
+import { useFetch } from '@/hooks'
+
 import { cartApi } from '@/api/requests'
 import { STORAGE_URL } from '@/config/env'
 import { useCartStore } from '@/stores/cart'
@@ -9,11 +11,14 @@ import { useCartStore } from '@/stores/cart'
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 
 const { state } = storeToRefs(useCartStore())
-const { setCart, getActualCart, setCartItem } = useCartStore()
-
-const cartId = ref('1')
+const { setCart, getActualCart, setCartItem, removeFromCart } = useCartStore()
 
 const { data, fetchData, isLoading, error } = cartApi.getAll()
+
+const { fetchData: fetchCreateOrder, data: orderData } = useFetch(
+  'orders',
+  'POST'
+)
 
 const {
   data: minusData,
@@ -33,7 +38,7 @@ onMounted(async () => {
   if (!state.value.data.length) {
     await fetchData()
 
-    if (!data?.value) {
+    if (!data?.value || data.value.message) {
       return
     }
 
@@ -42,43 +47,46 @@ onMounted(async () => {
 })
 
 const handleAddToCart = async (id: number) => {
-  try {
-    await fetchPlus(undefined, id)
+  await fetchPlus(undefined, id)
 
-    if (!plusData.value) {
-      return
-    }
-
-    const { product } = plusData.value
-
-    setCartItem({
-      photo: product.photo,
-      name: product.name,
-      price: product.price,
-      ...plusData.value
-    })
-  } catch {
-    console.log(1)
+  if (!plusData.value) {
+    return
   }
+
+  const { product } = plusData.value
+
+  setCartItem({
+    photo: product.photo,
+    name: product.name,
+    price: product.price,
+    ...plusData.value
+  })
 }
 
 const handleMinusFromCart = async (id: number) => {
-  try {
-    await fetchMinus(undefined, id)
-    setCartItem(minusData.value)
-  } catch {
-    console.log(1)
+  await fetchMinus(undefined, id)
+  if (!minusData.value?.length) {
+    removeFromCart(id)
+    return
   }
+
+  const { product } = minusData.value
+
+  setCartItem({
+    photo: product.photo,
+    name: product.name,
+    price: product.price,
+    ...minusData.value
+  })
 }
 
 const isSomeLoading = computed(
   () => isPlusLoading.value || isMinusLoading.value
 )
 
-const isVisible = ref()
-
-const toggle = (event: MouseEvent) => {
-  isVisible.value.toggle(event)
+const createOrder = async () => {
+  await fetchCreateOrder()
+  await getActualCart()
 }
 </script>
 
@@ -116,7 +124,7 @@ const toggle = (event: MouseEvent) => {
                   <div class="flex flex-row-reverse md:flex-row gap-2 align-items-center">
                     <Button
                       :disabled="isSomeLoading"
-                      @click="item.quantity === 1 ? toggle : handleMinusFromCart(item.id)"
+                      @click="handleMinusFromCart(item.id)"
                       icon="pi pi-cart-minus"
                       severity="danger"
                       aria-label="Minus"
@@ -148,5 +156,7 @@ const toggle = (event: MouseEvent) => {
         </div>
       </template>
     </DataView>
+
+    <Button v-if="Boolean(state.data?.length)" @click="createOrder">Оформить заказ</Button>
   </div>
 </template>

@@ -84,8 +84,8 @@ const handleRegister = async () => {
 }
 
 const isAllDataPassed = computed(() => {
-  if (date.value) {
-    userData.birth = formatDate(data.value)
+  if (date.value && date.value instanceof Date) {
+    userData.birth = formatDate(date.value)
   }
 
   return (

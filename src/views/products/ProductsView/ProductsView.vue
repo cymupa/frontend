@@ -2,16 +2,17 @@
 import { storeToRefs } from 'pinia'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
-import { computed, effect, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 import { STORAGE_URL } from '@/config/env'
+import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 
 import { cartApi, categoriesApi, productsApi } from '@/api/requests'
 import type { GetCategoriesResponse, GetProductsResponse } from '@/api/types'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
-import { useCartStore } from '@/stores/cart'
 
 const toast = useToast()
 
@@ -20,16 +21,19 @@ const layout = ref<'grid' | 'list'>('grid')
 const productsList = ref<GetProductsResponse[]>([])
 const categories = ref<GetCategoriesResponse[]>([])
 
-const { addToCart, isItemExists, getActualCart } = useCartStore()
-const { state } = storeToRefs(useCartStore())
+const { addToCart, isItemExists } = useCartStore()
+const { isLoggedIn } = storeToRefs(useAuthStore())
 
-watch(
-  state,
-  () => {
-    console.log('alert')
-  },
-  { immediate: true }
-)
+const filteredProducts = computed(() => {
+  if (filter.value === 'Все') {
+    return productsList.value
+  }
+
+  return productsList.value.filter((product) => {
+    const category = categories.value.find((cat) => cat.name === filter.value)
+    return category ? product.category_id === category.id : false
+  })
+})
 
 const {
   data: productsData,
@@ -53,7 +57,7 @@ const {
 } = cartApi.addToCart()
 
 const getProducts = async () => {
-  await fetchProducts({})
+  await fetchProducts()
 
   if (!productsData.value) {
     return
@@ -72,10 +76,7 @@ const getCategories = async () => {
   categories.value = categoriesData.value
 }
 
-onMounted(
-  async () =>
-    await Promise.all([getActualCart(), getCategories(), getProducts()])
-)
+onMounted(async () => await Promise.all([getCategories(), getProducts()]))
 
 interface Item {
   label: string
@@ -95,7 +96,7 @@ watch(categories, async () => {
       {
         label: 'Все',
         command: () => {
-          filter.value = 'All'
+          filter.value = 'Все'
           toast.add({
             severity: 'success',
             summary: 'Все',
@@ -141,11 +142,13 @@ const handleAddToCart = async (id: number) => {
     <div class="flex justify-content-center">
       <ProgressSpinner v-if="isProductsLoading" />
       <Message severity="error" :closable="false" v-else-if="productsError">Ошибка</Message>
-      <Message v-else-if="!productsList.length" :closable="false">Продуктов нет</Message>
+      <Message v-else-if="!filteredProducts.length" :closable="false">Продуктов нет</Message>
     </div>
 
-    <div v-if="productsList.length">
-      <DataView :value="productsList" data-key="id" :layout="layout">
+    <div v-if="filteredProducts.length">
+      <Message v-if="!isLoggedIn" :closable="false">Для покупки надо войти в аккаунт</Message>
+
+      <DataView :value="filteredProducts" data-key="id" :layout="layout">
         <template #header>
           <div class="flex justify-content-end">
             <DataViewLayoutOptions v-model="layout" />
@@ -198,7 +201,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.product_id)"
-                        :disabled="isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn || (isSomeLoading.value && item.quantity)"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>
@@ -243,7 +246,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.id)"
-                        :disabled="isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn || (isSomeLoading.value && item.quantity)"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>

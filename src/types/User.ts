@@ -13,8 +13,9 @@ export interface User {
 
   remember_token: string
 
-  created_at: string
-  updated_at: string
+  created_at: Date
+  updated_at: Date
 
-  // team_id: string | null
+  team: number | null
+  isCaptain: boolean | null
 }
