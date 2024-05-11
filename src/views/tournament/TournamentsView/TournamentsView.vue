@@ -9,7 +9,7 @@ import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import TournamentItem from './TournamentItem/TournamentItem.vue'
 
 const toast = useToast()
-const tournaments = reactive([])
+const tournaments = reactive(tournamentsData)
 
 const filter = ref<string>('All')
 

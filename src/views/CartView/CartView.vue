@@ -9,9 +9,7 @@ import { useCartStore } from '@/stores/cart'
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 
 const { state } = storeToRefs(useCartStore())
-const { setCart, getActualCart, setCartItem } = useCartStore()
-
-const cartId = ref('1')
+const { setCart, getActualCart, setCartItem, removeFromCart } = useCartStore()
 
 const { data, fetchData, isLoading, error } = cartApi.getAll()
 
@@ -33,7 +31,7 @@ onMounted(async () => {
   if (!state.value.data.length) {
     await fetchData()
 
-    if (!data?.value) {
+    if (!data?.value || data.value.message) {
       return
     }
 
@@ -65,8 +63,21 @@ const handleAddToCart = async (id: number) => {
 const handleMinusFromCart = async (id: number) => {
   try {
     await fetchMinus(undefined, id)
-    setCartItem(minusData.value)
-  } catch {
+    if (!minusData.value.length) {
+      removeFromCart(id)
+      return
+    }
+
+    const { product } = minusData.value
+
+    setCartItem({
+      photo: product.photo,
+      name: product.name,
+      price: product.price,
+      ...minusData.value
+    })
+  } catch (e) {
+    console.log(e)
     console.log(1)
   }
 }
@@ -75,11 +86,11 @@ const isSomeLoading = computed(
   () => isPlusLoading.value || isMinusLoading.value
 )
 
-const isVisible = ref()
-
-const toggle = (event: MouseEvent) => {
-  isVisible.value.toggle(event)
-}
+// const isVisible = ref()
+//
+// const toggle = (event: MouseEvent) => {
+//   isVisible.value.toggle(event)
+// }
 </script>
 
 <template>
@@ -116,7 +127,7 @@ const toggle = (event: MouseEvent) => {
                   <div class="flex flex-row-reverse md:flex-row gap-2 align-items-center">
                     <Button
                       :disabled="isSomeLoading"
-                      @click="item.quantity === 1 ? toggle : handleMinusFromCart(item.id)"
+                      @click="handleMinusFromCart(item.id)"
                       icon="pi pi-cart-minus"
                       severity="danger"
                       aria-label="Minus"
@@ -148,5 +159,7 @@ const toggle = (event: MouseEvent) => {
         </div>
       </template>
     </DataView>
+
+    <Button v-if="Boolean(state.data?.length)">Оформить заказ</Button>
   </div>
 </template>

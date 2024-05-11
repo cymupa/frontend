@@ -1,22 +1,32 @@
 <script setup lang="ts">
-// import { useToast } from 'primevue/usetoast'
-import { reactive } from 'vue'
-
-import { teamsData } from '@/data'
+import { onMounted, ref } from 'vue'
 
 import MainTitle from '@/components/MainTitle/MainTitle.vue'
 import ScrollWrapper from '@/components/ScrollWrapper/ScrollWrapper.vue'
 import TeamItem from '@/views/team/TeamsView/TeamItem/TeamItem.vue'
+import { useFetch } from '@/hooks'
 
-// const toast = useToast()
-const teams = reactive(teamsData)
+const { data, fetchData, isLoading} = useFetch('teams', 'GET')
+
+const teams = ref([])
+
+const getTeams = async () => {
+  await fetchData()
+
+  if (!data.value) {
+    return
+  }
+
+  teams.value = data.value
+}
+
+onMounted(getTeams)
+
 </script>
 
 <template>
   <ScrollWrapper>
     <MainTitle bold>Команды</MainTitle>
-
-    <Toast />
 
     <DataView data-key="id" :value="teams">
       <template #list="slotProps">

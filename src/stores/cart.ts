@@ -40,7 +40,14 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   const removeFromCart = (id: number) => {
-    const index = state.data?.findIndex((item) => item.id === id)
+    const index = state.data?.findIndex((item) => {
+      console.log('id', id)
+
+      console.log('item', item.id)
+      console.log('product_id', item.product_id)
+
+      return item.id === id
+    })
 
     if (index === -1) {
       return
@@ -55,15 +62,17 @@ export const useCartStore = defineStore('cart', () => {
     state.data?.splice(index, 1)
   }
 
-  const isItemExists = (id: number) =>
-    state.data?.findIndex((item) => item?.product_id === id) !== -1
+  const isItemExists = (id: number) => {
+    console.log('state', state)
+    return state?.data?.findIndex((item) => item?.id === id) !== -1
+  }
 
   const getActualCart = async () => {
     const { data, fetchData } = cartApi.getAll()
 
     await fetchData()
 
-    if (!data?.value) {
+    if (!data?.value || data.value.message) {
       return
     }
 

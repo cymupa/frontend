@@ -22,6 +22,7 @@ declare module 'vue' {
     MainTitle: typeof import('./src/components/MainTitle/MainTitle.vue')['default']
     Message: typeof import('primevue/message')['default']
     OverlayPanel: typeof import('primevue/overlaypanel')['default']
+    Password: typeof import('primevue/password')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RenderErrors: typeof import('./src/components/RenderErrors/RenderErrors.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

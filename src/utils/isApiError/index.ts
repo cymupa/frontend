@@ -22,3 +22,12 @@ export const isApiError = (obj: unknown): obj is AxiosError<ApiError, any> =>
       obj?.response &&
       'data' in obj?.response
   )
+
+
+
+
+
+
+
+
+
