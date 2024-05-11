@@ -9,7 +9,7 @@ interface Props {
   index: number
   tournament: {
     dates: string
-    title: string
+    name: string
     game: string
     teamsCount: number
     totalPrize: number
@@ -41,23 +41,16 @@ const getTagStyle = (game: keyof typeof Game) => {
     <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 md:gap-2 gap-4">
       <div class="md:w-5 flex md:flex-column justify-content-between gap-2">
         <div>
-          <SmallText class="mb-1">{{ tournament.dates }}</SmallText>
-          <MainTitle class="mb-1">{{ tournament.title }}</MainTitle>
+          <SmallText class="mb-1">{{ tournament.start }} - {{ tournament.end }}</SmallText>
+          <MainTitle class="mb-1">{{ tournament.name }}</MainTitle>
           <Tag :value="tournament.game" :severity="getTagStyle(tournament.game)" />
         </div>
       </div>
 
       <div class="flex flex-column md:align-items-end gap-5">
         <div class="flex flex-column gap-2">
-          <SmallText class="mb-1">Кол-во команд:</SmallText>
-          <span class="text-xl font-semibold text-900">{{ tournament.teamsCount }}</span>
-        </div>
-      </div>
-
-      <div class="flex flex-column md:align-items-end gap-5">
-        <div class="flex flex-column gap-2">
-          <SmallText class="mb-1">Призовой фонд:</SmallText>
-          <span class="text-xl font-semibold text-900">${{ tournament.totalPrize }}</span>
+          <SmallText class="mb-1">Взнос:</SmallText>
+          <span class="text-xl font-semibold text-900">${{ tournament.payment }} Р.</span>
         </div>
       </div>
 

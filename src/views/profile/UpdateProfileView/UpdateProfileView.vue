@@ -10,14 +10,18 @@ import { userApi } from '@/api/requests'
 import { useUserStore } from '@/stores/user'
 
 import RenderErrors from '@/components/RenderErrors/RenderErrors.vue'
+
 import { formatDate } from '@/utils/formatDate'
 import { isApiError } from '@/utils/isApiError'
 import type { ValidationError } from '@/utils/isApiError'
+import { logOut } from '@/utils/logOut'
 
 const confirm = useConfirm()
 const toast = useToast()
 
 const { state, isError } = storeToRefs(useUserStore())
+const { setUserInfo } = useUserStore()
+const { fetchData: fetchUserData, data: userData } = userApi.getUserInfo()
 
 type UserDataSubsetKeys =
   | 'tel'
@@ -55,9 +59,9 @@ const handleUpdateUserData = async () => {
 
   try {
     await fetchData(
+      // @ts-ignore ok
       {
         ...state.value.data,
-        // @ts-ignore ok
         birth: formatDate(state.value.data.birth)
       },
       state.value.data.id
@@ -95,6 +99,14 @@ const onUpload = async (event: FileUploadUploaderEvent) => {
     },
     state.value.data.id
   )
+
+  await fetchUserData()
+
+  if (!userData.value) {
+    return
+  }
+
+  setUserInfo(userData.value)
 }
 
 // TODO: доделать удаление
@@ -107,13 +119,14 @@ const confirmDeleteAccount = async (event: MouseEvent) => {
     acceptClass: 'p-button-danger p-button-sm',
     rejectLabel: 'Отменить',
     acceptLabel: 'Удалить',
-    accept: () => {
+    accept: async () => {
       toast.add({
         severity: 'info',
         summary: 'Удаляю',
         detail: 'Пожалуйста, подождите',
         life: 3000
       })
+      await logOut()
     }
   })
 }
@@ -127,13 +140,14 @@ const confirmLogOut = async (event: MouseEvent) => {
     acceptClass: 'p-button-danger p-button-sm',
     rejectLabel: 'Отменить',
     acceptLabel: 'Выйти',
-    accept: () => {
+    accept: async () => {
       toast.add({
         severity: 'info',
         summary: 'Выхожу',
         detail: 'Пожалуйста, подождите',
         life: 3000
       })
+      await logOut()
     }
   })
 }
@@ -146,7 +160,7 @@ const confirmLogOut = async (event: MouseEvent) => {
   <div class="card" v-if="(error || isError) && Object.values(errors.data).every((array) => array.length === 0)">
     <Message severity="error" :closable="false">Ошибка при получении данных</Message>
   </div>
-  <div v-else-if="isLoading || !state.data.id" class="card flex justify-content-center">
+  <div v-else-if="isLoading || !state?.data?.id" class="card flex justify-content-center">
     <ProgressSpinner />
   </div>
   <template v-else>

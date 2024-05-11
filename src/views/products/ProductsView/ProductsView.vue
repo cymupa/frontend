@@ -201,7 +201,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.product_id)"
-                        :disabled="!isLoggedIn ||isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn || (isSomeLoading.value && item.quantity)"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>
@@ -246,7 +246,7 @@ const handleAddToCart = async (id: number) => {
                         icon="pi pi-cart-arrow-down"
                         label="Купить"
                         @click="handleAddToCart(item.id)"
-                        :disabled="!isLoggedIn || isSomeLoading.value && item.quantity"
+                        :disabled="!isLoggedIn || (isSomeLoading.value && item.quantity)"
                         class="flex-auto md:flex-initial white-space-nowrap"
                       />
                     </div>

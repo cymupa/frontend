@@ -66,10 +66,10 @@ onBeforeUnmount(unbindOutsideClick)
         <span>Тема</span>
       </button>
 
-     <template v-if="isLoggedIn">
-       <NotificationsButton />
-       <CartButton />
-     </template>
+      <template v-if="isLoggedIn">
+        <NotificationsButton />
+        <CartButton />
+      </template>
     </div>
   </div>
 </template>

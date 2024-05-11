@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 
 import ConfirmPopup from 'primevue/confirmpopup'
 
+import { STORAGE_URL } from '@/config/env'
 import { useUserStore } from '@/stores/user'
 import { formatDate } from '@/utils/formatDate'
 
@@ -21,7 +22,14 @@ const { state, isError } = storeToRefs(useUserStore())
   </div>
   <div v-else class="card">
     <div class="flex items-center mb-4">
-      <Avatar :icon="'pi pi-user'" class="mr-4" size="xlarge" />
+      <Avatar
+        v-if="typeof state.data.avatar === 'string'"
+        :icon="'pi pi-user'"
+        class="mr-4"
+        size="xlarge"
+        :image="STORAGE_URL + state.data.avatar"
+      />
+      <Avatar v-else :icon="'pi pi-user'" class="mr-4" size="xlarge" />
       <div>
         <div class="text-xl font-semibold">{{ state.data.name }} {{ state.data.patronymic }} {{ state.data.surname }}</div>
         <div class="text-sm text-gray-500 mt-1">В команде <Tag>GeForce Exp</Tag></div>
