@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 import { tournamentsData } from '@/data'
 
@@ -10,8 +10,15 @@ import TournamentItem from './TournamentItem/TournamentItem.vue'
 
 const toast = useToast()
 const tournaments = reactive(tournamentsData)
-
 const filter = ref<string>('All')
+
+const filteredTournaments = computed(() => {
+  if (filter.value === 'All') {
+    return tournaments
+  }
+
+  return tournaments.filter((tournament) => tournament.game === filter.value)
+})
 
 const items = [
   {
@@ -82,7 +89,7 @@ const items = [
     <div class="flex justify-content-center" v-if="!tournaments.length">
       <Message :closable="false">Турниров нет</Message>
     </div>
-    <DataView v-else data-key="id" :value="tournaments">
+    <DataView v-else data-key="id" :value="filteredTournaments">
       <template #list="slotProps">
         <div class="grid grid-nogutter">
           <div v-for="(item, index) in slotProps.items" :key="item.id" class="col-12">

@@ -22,6 +22,17 @@ const categories = ref<GetCategoriesResponse[]>([])
 
 const { addToCart, isItemExists } = useCartStore()
 
+const filteredProducts = computed(() => {
+  if (filter.value === 'Все') {
+    return productsList.value
+  }
+
+  return productsList.value.filter((product) => {
+    const category = categories.value.find((cat) => cat.name === filter.value)
+    return category ? product.category_id === category.id : false
+  })
+})
+
 const {
   data: productsData,
   fetchData: fetchProducts,
@@ -83,7 +94,7 @@ watch(categories, async () => {
       {
         label: 'Все',
         command: () => {
-          filter.value = 'All'
+          filter.value = 'Все'
           toast.add({
             severity: 'success',
             summary: 'Все',
@@ -129,11 +140,11 @@ const handleAddToCart = async (id: number) => {
     <div class="flex justify-content-center">
       <ProgressSpinner v-if="isProductsLoading" />
       <Message severity="error" :closable="false" v-else-if="productsError">Ошибка</Message>
-      <Message v-else-if="!productsList.length" :closable="false">Продуктов нет</Message>
+      <Message v-else-if="!filteredProducts.length " :closable="false">Продуктов нет</Message>
     </div>
 
-    <div v-if="productsList.length">
-      <DataView :value="productsList" data-key="id" :layout="layout">
+    <div v-if="filteredProducts.length">
+      <DataView :value="filteredProducts" data-key="id" :layout="layout">
         <template #header>
           <div class="flex justify-content-end">
             <DataViewLayoutOptions v-model="layout" />
